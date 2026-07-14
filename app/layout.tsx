@@ -14,9 +14,13 @@ const plexSans = IBM_Plex_Sans({
   weight: ["400", "500"],
 });
 
-export const metadata: Metadata = {
+ export const metadata: Metadata = {
   title: "Andrea Robles",
   description: "Tecnología humanocéntrica, soberanía digital, transformación social",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function RootLayout({
