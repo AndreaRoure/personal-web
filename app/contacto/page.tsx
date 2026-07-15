@@ -5,8 +5,8 @@ export default function Contacto() {
       <h1 className="font-display text-3xl font-semibold mb-8">Hablemos</h1>
       <p className="text-lg">
         Puedes escribirme a{" "}
-        <a href="mailto:tuemail@ejemplo.com" className="text-accent underline">
-          tuemail@ejemplo.com
+        <a href="mailto:robleshca@gmail.com" className="text-accent underline">
+          robleshca@gmail.com
         </a>
       </p>
     </div>
