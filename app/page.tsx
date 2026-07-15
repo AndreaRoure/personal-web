@@ -1,29 +1,27 @@
-import NombreConFoto from "./NombreConFoto";
-
-const tools = [
-  {
-    nombre: "Comparador de Empleabilidad FP",
-    descripcion:
-      "Herramienta para explorar la empleabilidad real de los ciclos de FP con datos públicos.",
-    url: "https://ejemplo.com",
-  },
-];
+import PalabraConFoto from "./PalabraConFoto";
+import KickerRotativo from "./KickerRotativo";
 
 export default function Home() {
   return (
     <div>
+      <KickerRotativo />
+
       <h1 className="font-display text-5xl font-semibold leading-tight mb-10">
-        Trabajo en la intersección entre{" "}
-        <span className="text-accent">tecnología</span> y{" "}
-        <span className="text-accent">justicia social</span>.
+        Trabajo en la intersección entre la{" "}
+        <span className="text-accent">tecnología</span> y las{" "}
+        <span className="text-accent">personas</span>.
       </h1>
 
       <div className="space-y-5 text-lg leading-relaxed">
         <p>
-          Soy <NombreConFoto />. Empecé en Magisterio, seguí por marketing, y
-          terminé formándome en Big Data e IA — no porque cambiara de rumbo,
-          sino porque cada paso me acercaba a la misma pregunta: ¿cómo hacemos
-          que la tecnología sirva a las personas, y no al revés?
+          Soy{" "}
+          <PalabraConFoto src="/andrea.png" rotacion={-3}>
+            Andrea Robles
+          </PalabraConFoto>
+          . Empecé en Magisterio, seguí por marketing, y terminé formándome en
+          Big Data e IA — no porque cambiara de rumbo, sino porque cada paso me
+          acercaba a la misma pregunta: ¿cómo hacemos que la tecnología sirva a
+          las personas, y no al revés?
         </p>
         <p>
           Hoy dirijo la transformación digital de una organización social,
