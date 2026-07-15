@@ -51,16 +51,20 @@ export default function Home() {
       </div>
 
       <section className="mt-20 pt-10 border-t border-ink/10">
-        <h2 className="font-display text-2xl font-semibold mb-6">Tools</h2>
+        <h2 className="font-display text-2xl font-semibold mb-6">Proyectos</h2>
         <ul className="space-y-6">
-          {tools.map((tool) => (
-            <li key={tool.nombre}>
-              <a href={tool.url} target="_blank" rel="noopener noreferrer" className="font-display text-xl font-semibold hover:text-accent transition-colors">
-                {tool.nombre} ↗
-              </a>
-              <p className="text-muted mt-1">{tool.descripcion}</p>
-            </li>
-          ))}
+          <li>
+            <span className="font-display text-xl font-semibold">
+              Comparador de Empleabilidad FP
+            </span>
+            <span className="ml-3 text-xs uppercase tracking-wide text-muted border border-ink/20 rounded-full px-2 py-0.5">
+              En construcción
+            </span>
+            <p className="text-muted mt-1">
+              Herramienta para explorar la empleabilidad real de los ciclos de
+              FP con datos públicos.
+            </p>
+          </li>
         </ul>
       </section>
     </div>
