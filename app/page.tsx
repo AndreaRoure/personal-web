@@ -1,5 +1,6 @@
 import PalabraConFoto from "./PalabraConFoto";
 import KickerRotativo from "./KickerRotativo";
+import Marcador from "./Marcador";
 
 export default function Home() {
   return (
@@ -8,8 +9,8 @@ export default function Home() {
 
       <h1 className="font-display text-5xl font-semibold leading-tight mb-10">
         Trabajo en la intersección entre la{" "}
-        <span className="text-accent">tecnología</span> y las{" "}
-        <span className="text-accent">personas</span>.
+        <Marcador color="lima">tecnología</Marcador> y las{" "}
+        <Marcador color="cielo">personas</Marcador>.
       </h1>
 
       <div className="space-y-5 text-lg leading-relaxed">

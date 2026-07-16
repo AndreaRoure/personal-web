@@ -33,10 +33,10 @@ export default function RootLayout({
       <body className="bg-bg text-ink font-body min-h-screen">
         <header className="max-w-2xl mx-auto px-6 pt-10 flex justify-between items-baseline">
           <a href="/" className="font-display text-xl font-semibold">Andrea Robles</a>
-          <nav className="flex gap-6 text-sm">
-            <a href="/" className="text-muted hover:text-accent transition-colors">Sobre mí</a>
-            <a href="/blog" className="text-muted hover:text-accent transition-colors">Blog</a>
-            <a href="/contacto" className="text-muted hover:text-accent transition-colors">Contacto</a>
+          <nav className="flex gap-2 text-sm">
+            <a href="/" className="border border-ink/30 rounded-full px-4 py-1.5 hover:bg-accent/20 hover:border-ink transition-colors">Sobre mí</a>
+            <a href="/blog" className="border border-ink/30 rounded-full px-4 py-1.5 hover:bg-sky/30 hover:border-ink transition-colors">Blog</a>
+            <a href="/contacto" className="border border-ink/30 rounded-full px-4 py-1.5 hover:bg-accent/20 hover:border-ink transition-colors">Contacto</a>
           </nav>
         </header>
         <main className="max-w-2xl mx-auto px-6 py-14">

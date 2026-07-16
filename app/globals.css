@@ -2,10 +2,12 @@
 @config "../tailwind.config.ts";
 
 @theme {
-  --color-bg: #FAF9F5;
-  --color-ink: #171714;
-  --color-muted: #171714B3;
-  --color-accent: #2F4F3E;
+  --color-bg: #FFFFFF;
+  --color-ink: #1A1A1A;
+  --color-muted: #1A1A1AB3;
+  --color-accent: #7A9201;
+  --color-sky: #71C1D0;
+  --color-lima: #F7FFCC;
 
   --font-display: var(--font-mohave), sans-serif;
   --font-body: var(--font-plex-sans), system-ui, sans-serif;
