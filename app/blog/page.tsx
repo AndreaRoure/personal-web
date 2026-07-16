@@ -2,7 +2,6 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import Link from "next/link";
-import Marcador from "../Marcador";
 
 const postsDirectory = path.join(process.cwd(), "content/posts");
 
@@ -31,26 +30,36 @@ export default function Blog() {
 
   return (
     <div>
-      <h1 className="font-display text-4xl font-semibold mb-10">
-        Cosas que voy <Marcador color="lima">aprendiendo</Marcador>
-      </h1>
-      {posts.length === 0 && (
-        <p className="text-muted">Próximamente los primeros artículos.</p>
-      )}
-      <ul>
-        {posts.map((post) => (
-          <li key={post.slug} className="py-5 border-b border-ink/10">
-            <p className="text-sm text-muted mb-1">{post.date}</p>
-            <Link
-              href={`/blog/${post.slug}`}
-              className="font-display text-xl font-semibold hover:bg-sky/40 px-1 -mx-1 rounded-md transition-colors"
-            >
-              {post.title}
-            </Link>
-            <p className="text-muted text-sm mt-1">{post.description}</p>
-          </li>
-        ))}
-      </ul>
+      <section className="bg-dark text-crema">
+        <div className="max-w-5xl mx-auto px-6 pt-12 pb-14">
+          <h1 className="font-display text-5xl font-semibold">
+            Cosas que voy{" "}
+            <span className="marcador-animado marcador-lima">aprendiendo</span>
+          </h1>
+        </div>
+      </section>
+
+      <section className="bg-bg text-ink">
+        <div className="max-w-5xl mx-auto px-6 py-14">
+          {posts.length === 0 && (
+            <p className="text-muted">Próximamente los primeros artículos.</p>
+          )}
+          <ul className="max-w-2xl">
+            {posts.map((post) => (
+              <li key={post.slug} className="py-5 border-b border-ink/10">
+                <p className="text-sm text-muted mb-1">{post.date}</p>
+                <Link
+                  href={`/blog/${post.slug}`}
+                  className="font-display text-xl font-semibold hover:bg-sky/40 px-1 -mx-1 rounded-md transition-colors"
+                >
+                  {post.title}
+                </Link>
+                <p className="text-muted text-sm mt-1">{post.description}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
     </div>
   );
 }

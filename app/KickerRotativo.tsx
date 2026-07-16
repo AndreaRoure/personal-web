@@ -20,20 +20,16 @@ export default function KickerRotativo() {
     let timeout: ReturnType<typeof setTimeout>;
 
     if (!borrando && texto.length < palabra.length) {
-      // escribiendo
       timeout = setTimeout(() => {
         setTexto(palabra.slice(0, texto.length + 1));
       }, 55);
     } else if (!borrando && texto.length === palabra.length) {
-      // pausa con la palabra completa
       timeout = setTimeout(() => setBorrando(true), 2200);
     } else if (borrando && texto.length > 0) {
-      // borrando
       timeout = setTimeout(() => {
         setTexto(palabra.slice(0, texto.length - 1));
       }, 30);
     } else if (borrando && texto.length === 0) {
-      // pasar a la siguiente palabra
       setBorrando(false);
       setIndice((i) => (i + 1) % palabras.length);
     }
@@ -42,9 +38,9 @@ export default function KickerRotativo() {
   }, [texto, borrando, indice]);
 
   return (
-    <p className="text-sm text-muted mb-6 font-mono">
-      <span className="text-accent">&gt;</span> escribo sobre{" "}
-      <span className="text-ink font-medium">{texto}</span>
+    <p className="text-sm text-crema-muted mb-6 font-mono">
+      <span className="text-accent-dark">&gt;</span> escribo sobre{" "}
+      <span className="text-crema font-medium">{texto}</span>
       <span className="cursor-terminal" aria-hidden="true" />
     </p>
   );

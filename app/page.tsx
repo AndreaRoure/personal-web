@@ -1,6 +1,7 @@
 import PalabraConFoto from "./PalabraConFoto";
 import KickerRotativo from "./KickerRotativo";
 import Icono from "./Icono";
+import HojaRoble from "./HojaRoble";
 
 const proyectos = [
   {
@@ -14,100 +15,109 @@ const proyectos = [
 const estados: Record<string, { texto: string; clases: string }> = {
   construccion: {
     texto: "En construcción",
-    clases: "bg-sky/30 border-sky text-ink",
+    clases: "bg-sky/20 border-sky text-sky",
   },
   activo: {
     texto: "Activo",
-    clases: "bg-accent/25 border-accent text-ink",
+    clases: "bg-accent-dark/20 border-accent-dark text-accent-dark",
   },
   pausado: {
     texto: "En pausa",
-    clases: "bg-lima border-ink/20 text-muted",
+    clases: "bg-crema/10 border-crema/30 text-crema-muted",
   },
 };
 
 export default function Home() {
   return (
     <div>
-      <div className="animate-aparecer">
-        <KickerRotativo />
-      </div>
-
-      <h1
-        className="font-display text-6xl md:text-7xl font-semibold leading-[1.05] mb-10 max-w-5xl animate-aparecer"
-        style={{ animationDelay: "0.15s" }}
-      >
-        Trabajo en la intersección entre la{" "}
-        <span
-          className="marcador-animado marcador-cielo"
-          style={{ animationDelay: "0.6s" }}
-        >
-          tecnología
-        </span>{" "}
-        y las{" "}
-        <span
-          className="marcador-animado marcador-lima"
-          style={{ animationDelay: "1.1s" }}
-        >
-          personas
-        </span>
-        .
-      </h1>
-<a href="#proyectos" className="inline-flex items-center gap-2 text-sm text-muted hover:text-accent transition-colors mb-14 animate-aparecer" style={{ animationDelay: "0.45s" }}><span className="text-accent">↓</span> proyectos y más abajo</a>
-
-      <div className="animate-aparecer" style={{ animationDelay: "0.3s" }}>
-        <div className="space-y-5 text-lg leading-relaxed max-w-2xl">
-          <p>
-            Soy{" "}
-            <PalabraConFoto src="/andrea.png" rotacion={-3}>
-              Andrea Robles
-            </PalabraConFoto>
-            . Empecé en Magisterio, seguí por marketing, y terminé formándome
-            en Big Data e IA — no porque cambiara de rumbo, sino porque cada
-            paso me acercaba a la misma pregunta: ¿cómo hacemos que la
-            tecnología sirva a las personas, y no al revés?
-          </p>
-          <p>
-            Hoy dirijo la transformación digital de una organización social,
-            donde cada decisión técnica (qué herramienta usar{" "}
-            <Icono nombre="herramienta" />, qué datos recoger{" "}
-            <Icono nombre="datos" />, qué automatizar{" "}
-            <Icono nombre="automatizar" />) se mide con una vara distinta a la
-            de una empresa.
-          </p>
+      {/* BANDA 1: HERO DARK */}
+      <section className="bg-dark text-crema">
+        <div className="max-w-5xl mx-auto px-6 pt-24 pb-24">
+          <div className="animate-aparecer">
+            <KickerRotativo />
+          </div>
+          <h1
+            className="font-display text-7xl md:text-8xl font-semibold leading-[1.02] animate-aparecer"
+            style={{ animationDelay: "0.15s" }}
+          >
+            Trabajo en la intersección entre la{" "}
+            <span
+              className="marcador-animado marcador-cielo"
+              style={{ animationDelay: "0.6s" }}
+            >
+              tecnología
+            </span>{" "}
+            y las{" "}
+            <span
+              className="marcador-animado marcador-lima"
+              style={{ animationDelay: "1.1s" }}
+            >
+              personas
+            </span>
+            .
+          </h1>
+          <a href="#proyectos" className="inline-flex items-center gap-2 text-sm text-crema-muted hover:text-accent-dark transition-colors mt-10 animate-aparecer" style={{ animationDelay: "0.45s" }}><span className="text-accent-dark">↓</span> proyectos y más abajo</a>
         </div>
+      </section>
 
-        <blockquote className="border-l-2 border-accent pl-6 my-10 text-xl leading-relaxed text-ink/80 max-w-2xl">
-          Creo en la soberanía digital — que las organizaciones y las personas
-          controlen sus herramientas y sus datos, no al revés.
-        </blockquote>
-
-        <div className="space-y-5 text-lg leading-relaxed max-w-2xl">
-          <p>
-            Creo en la formación <Icono nombre="formacion" /> como palanca de
-            cambio real. Y creo que los modelos alternativos de vida y
-            organización (cooperativismo <Icono nombre="brote" />, espacios
-            democráticos) no son una utopía, son una forma práctica de hacer
-            las cosas de otra manera.
-          </p>
-          <p>
-            Este espacio es donde voy dejando por escrito lo que aprendo en el
-            camino.
-          </p>
+      {/* BANDA 2: SOBRE MÍ CLARA */}
+      <section className="bg-bg text-ink">
+        <div className="max-w-5xl mx-auto px-6 py-20">
+          <div className="space-y-5 text-lg leading-relaxed max-w-2xl animate-aparecer" style={{ animationDelay: "0.3s" }}>
+            <p>
+              Soy{" "}
+              <PalabraConFoto src="/andrea.png" rotacion={-3}>
+                Andrea Robles
+              </PalabraConFoto>
+              . Empecé en Magisterio, seguí por marketing, y terminé formándome
+              en Big Data e IA — no porque cambiara de rumbo, sino porque cada
+              paso me acercaba a la misma pregunta: ¿cómo hacemos que la
+              tecnología sirva a las personas, y no al revés?
+            </p>
+            <p>
+              Hoy dirijo la transformación digital de una organización social,
+              donde cada decisión técnica (qué herramienta usar{" "}
+              <Icono nombre="herramienta" />, qué datos recoger{" "}
+              <Icono nombre="datos" />, qué automatizar{" "}
+              <Icono nombre="automatizar" />) se mide con una vara distinta a
+              la de una empresa.
+            </p>
+            <p>
+              Creo en la formación <Icono nombre="formacion" /> como palanca de
+              cambio real. Y creo que los modelos alternativos de vida y
+              organización (cooperativismo <Icono nombre="brote" />, espacios
+              democráticos) no son una utopía, son una forma práctica de hacer
+              las cosas de otra manera.
+            </p>
+          </div>
         </div>
+      </section>
 
-        <section
-          id="proyectos"
-          className="mt-20 pt-10 border-t border-ink/10 scroll-mt-10"
-        >
+      {/* BANDA 3: CITA LIMA */}
+      <section className="bg-lima text-ink relative overflow-hidden">
+        <div className="max-w-5xl mx-auto px-6 py-20 relative">
+          <div className="absolute right-6 top-1/2 -translate-y-1/2 rotate-12 hidden md:block">
+            <HojaRoble tamano={220} color="#7A9201" opacidad={0.18} />
+          </div>
+          <blockquote className="font-display text-4xl md:text-5xl font-medium leading-tight max-w-4xl relative">
+            Creo en la <span className="text-accent">soberanía digital</span> —
+            que las organizaciones y las personas controlen sus herramientas y
+            sus datos, no al revés.
+          </blockquote>
+        </div>
+      </section>
+
+      {/* BANDA 4: PROYECTOS DARK */}
+      <section id="proyectos" className="bg-dark text-crema scroll-mt-10">
+        <div className="max-w-5xl mx-auto px-6 py-20">
           <h2 className="font-display text-3xl font-semibold mb-8">
             Proyectos
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl">
             {proyectos.map((p) => (
               <div
                 key={p.nombre}
-                className="border border-ink/15 rounded-xl p-6 hover:bg-sky/10 hover:border-ink hover:-translate-y-0.5 transition-all"
+                className="bg-dark-suave border border-crema/15 rounded-xl p-6 hover:border-accent-dark hover:-translate-y-0.5 transition-all"
               >
                 <p className="font-display text-xl font-semibold">
                   {p.nombre}
@@ -117,17 +127,17 @@ export default function Home() {
                 >
                   {estados[p.estado].texto}
                 </span>
-                <p className="text-muted text-sm mt-3 leading-relaxed">
+                <p className="text-crema-muted text-sm mt-3 leading-relaxed">
                   {p.descripcion}
                 </p>
               </div>
             ))}
-            <div className="border border-dashed border-ink/20 rounded-xl p-6 flex items-center justify-center text-muted text-sm min-h-[140px]">
+            <div className="border border-dashed border-crema/20 rounded-xl p-6 flex items-center justify-center text-crema-muted text-sm min-h-[140px]">
               próximo proyecto…
             </div>
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
     </div>
   );
 }

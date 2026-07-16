@@ -9,18 +9,20 @@
   --color-sky: #71C1D0;
   --color-lima: #F7FFCC;
 
+  --color-dark: #1C2410;
+  --color-dark-suave: #242E15;
+  --color-crema: #F2F5E4;
+  --color-crema-muted: #F2F5E499;
+  --color-accent-dark: #A8C63C;
+
   --font-display: var(--font-mohave), sans-serif;
   --font-body: var(--font-plex-sans), system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), monospace;
 }
 
-@keyframes flotar {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-14px) rotate(8deg); }
-}
-
-@keyframes pintar {
-  from { background-size: 0% 100%; }
-  to { background-size: 100% 100%; }
+@keyframes pintar-sub {
+  from { background-size: 0% 0.22em; }
+  to { background-size: 100% 0.22em; }
 }
 
 @keyframes aparecer {
@@ -28,10 +30,9 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-.animate-flotar {
-  animation-name: flotar;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
+@keyframes parpadeo {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
 }
 
 .animate-aparecer {
@@ -45,24 +46,33 @@
   animation: pintar-sub 0.7s ease-out both;
 }
 
-@keyframes pintar-sub {
-  from { background-size: 0% 0.22em; }
-  to { background-size: 100% 0.22em; }
-}
-
 .marcador-lima {
-  background-image: linear-gradient(#7A9201B3, #7A9201B3);
+  background-image: linear-gradient(#A8C63C, #A8C63C);
 }
 
 .marcador-cielo {
   background-image: linear-gradient(#71C1D0, #71C1D0);
 }
 
+.cursor-terminal {
+  display: inline-block;
+  width: 0.55em;
+  height: 1.1em;
+  background-color: #A8C63C;
+  margin-left: 3px;
+  vertical-align: text-bottom;
+  animation: parpadeo 1s step-start infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .animate-flotar, .animate-aparecer, .marcador-animado {
+  .animate-aparecer, .marcador-animado {
     animation: none;
   }
   .marcador-animado {
     background-size: 100% 0.22em;
+  }
+  .cursor-terminal {
+    animation: none;
+    opacity: 1;
   }
 }
