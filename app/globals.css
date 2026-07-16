@@ -40,21 +40,29 @@
 
 .marcador-animado {
   background-repeat: no-repeat;
-  background-position: left center;
-  animation: pintar 0.7s ease-out both;
+  background-position: left 88%;
+  background-size: 0% 0.22em;
+  animation: pintar-sub 0.7s ease-out both;
+}
+
+@keyframes pintar-sub {
+  from { background-size: 0% 0.22em; }
+  to { background-size: 100% 0.22em; }
 }
 
 .marcador-lima {
-  background-image: linear-gradient(#7A920140, #7A920140);
+  background-image: linear-gradient(#7A9201B3, #7A9201B3);
 }
 
 .marcador-cielo {
-  background-image: linear-gradient(#71C1D066, #71C1D066);
+  background-image: linear-gradient(#71C1D0, #71C1D0);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .animate-flotar, .animate-aparecer, .marcador-animado {
     animation: none;
-    background-size: 100% 100%;
+  }
+  .marcador-animado {
+    background-size: 100% 0.22em;
   }
 }

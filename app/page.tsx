@@ -2,28 +2,51 @@ import PalabraConFoto from "./PalabraConFoto";
 import KickerRotativo from "./KickerRotativo";
 import Icono from "./Icono";
 
+const proyectos = [
+  {
+    nombre: "Comparador de Empleabilidad FP",
+    descripcion:
+      "Herramienta para explorar la empleabilidad real de los ciclos de FP con datos públicos.",
+    estado: "construccion",
+  },
+];
+
+const estados: Record<string, { texto: string; clases: string }> = {
+  construccion: {
+    texto: "En construcción",
+    clases: "bg-sky/30 border-sky text-ink",
+  },
+  activo: {
+    texto: "Activo",
+    clases: "bg-accent/25 border-accent text-ink",
+  },
+  pausado: {
+    texto: "En pausa",
+    clases: "bg-lima border-ink/20 text-muted",
+  },
+};
+
 export default function Home() {
   return (
-    <div className="relative">
-
+    <div>
       <div className="animate-aparecer">
         <KickerRotativo />
       </div>
 
       <h1
-        className="font-display text-6xl font-semibold leading-tight mb-10 animate-aparecer"
+        className="font-display text-6xl md:text-8xl font-semibold leading-[1.05] mb-14 max-w-4xl animate-aparecer"
         style={{ animationDelay: "0.15s" }}
       >
         Trabajo en la intersección entre la{" "}
         <span
-          className="marcador-animado marcador-lima px-1.5 py-0.5 rounded-md"
+className="marcador-animado marcador-cielo"
           style={{ animationDelay: "0.6s" }}
         >
           tecnología
-        </span>{" "}
+        </span>{" "}          tecnología
         y las{" "}
         <span
-          className="marcador-animado marcador-cielo px-1.5 py-0.5 rounded-md"
+className="marcador-animado marcador-lima"
           style={{ animationDelay: "1.1s" }}
         >
           personas
@@ -32,7 +55,7 @@ export default function Home() {
       </h1>
 
       <div className="animate-aparecer" style={{ animationDelay: "0.3s" }}>
-        <div className="space-y-5 text-lg leading-relaxed">
+        <div className="space-y-5 text-lg leading-relaxed max-w-2xl">
           <p>
             Soy{" "}
             <PalabraConFoto src="/andrea.png" rotacion={-3}>
@@ -53,12 +76,12 @@ export default function Home() {
           </p>
         </div>
 
-        <blockquote className="border-l-2 border-accent pl-6 my-10 text-xl leading-relaxed text-ink/80">
+        <blockquote className="border-l-2 border-accent pl-6 my-10 text-xl leading-relaxed text-ink/80 max-w-2xl">
           Creo en la soberanía digital — que las organizaciones y las personas
           controlen sus herramientas y sus datos, no al revés.
         </blockquote>
 
-        <div className="space-y-5 text-lg leading-relaxed">
+        <div className="space-y-5 text-lg leading-relaxed max-w-2xl">
           <p>
             Creo en la formación <Icono nombre="formacion" /> como palanca de
             cambio real. Y creo que los modelos alternativos de vida y
@@ -73,23 +96,32 @@ export default function Home() {
         </div>
 
         <section className="mt-20 pt-10 border-t border-ink/10">
-          <h2 className="font-display text-2xl font-semibold mb-6">
+          <h2 className="font-display text-3xl font-semibold mb-8">
             Proyectos
           </h2>
-          <ul className="space-y-6">
-            <li>
-              <span className="font-display text-xl font-semibold">
-                Comparador de Empleabilidad FP
-              </span>
-              <span className="ml-3 text-xs uppercase tracking-wide text-muted border border-ink/20 rounded-full px-2 py-0.5">
-                EN CONSTRUCCIÓN
-              </span>
-              <p className="text-muted mt-1">
-                Herramienta para explorar la empleabilidad real de los ciclos
-                de FP con datos públicos.
-              </p>
-            </li>
-          </ul>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {proyectos.map((p) => (
+              <div
+                key={p.nombre}
+                className="border border-ink/15 rounded-xl p-6 hover:bg-sky/10 hover:border-ink hover:-translate-y-0.5 transition-all"
+              >
+                <p className="font-display text-xl font-semibold">
+                  {p.nombre}
+                </p>
+                <span
+                  className={`inline-block text-xs uppercase tracking-wide border rounded-full px-3 py-1 mt-3 ${estados[p.estado].clases}`}
+                >
+                  {estados[p.estado].texto}
+                </span>
+                <p className="text-muted text-sm mt-3 leading-relaxed">
+                  {p.descripcion}
+                </p>
+              </div>
+            ))}
+            <div className="border border-dashed border-ink/20 rounded-xl p-6 flex items-center justify-center text-muted text-sm min-h-[140px]">
+              próximo proyecto…
+            </div>
+          </div>
         </section>
       </div>
     </div>

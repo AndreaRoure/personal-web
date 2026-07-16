@@ -32,7 +32,7 @@ export default function RootLayout({
     <html lang="es" className={`${mohave.variable} ${plexSans.variable}`}>
       <body className="bg-bg text-ink font-body min-h-screen flex flex-col">
         <header className="w-full">
-          <div className="max-w-2xl mx-auto px-6 pt-10 flex justify-between items-center">
+          <div className="max-w-5xl mx-auto px-6 pt-10 flex justify-between items-center">
             <a href="/" className="font-display text-xl font-semibold">Andrea Robles</a>
             <nav className="flex gap-2 text-sm">
               <a href="/" className="border border-ink/30 rounded-full px-4 py-1.5 hover:bg-accent/20 hover:border-ink transition-colors">Sobre mí</a>
@@ -42,12 +42,12 @@ export default function RootLayout({
           </div>
         </header>
         <main className="w-full flex-1">
-          <div className="max-w-2xl mx-auto px-6 py-14">
+          <div className="max-w-5xl mx-auto px-6 py-14">
             {children}
           </div>
         </main>
         <footer className="w-full border-t border-ink/10 mt-16">
-          <div className="max-w-2xl mx-auto px-6 py-10">
+          <div className="max-w-5xl mx-auto px-6 py-10">
             <div className="flex flex-wrap justify-between items-baseline gap-4 text-sm">
               <p className="font-display font-semibold">Andrea Robles</p>
               <div className="flex gap-4">

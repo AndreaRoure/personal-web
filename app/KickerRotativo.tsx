@@ -12,29 +12,40 @@ const palabras = [
 
 export default function KickerRotativo() {
   const [indice, setIndice] = useState(0);
-  const [saliendo, setSaliendo] = useState(false);
+  const [texto, setTexto] = useState("");
+  const [borrando, setBorrando] = useState(false);
 
   useEffect(() => {
-    const intervalo = setInterval(() => {
-      setSaliendo(true);
-      setTimeout(() => {
-        setIndice((i) => (i + 1) % palabras.length);
-        setSaliendo(false);
-      }, 300);
-    }, 2600);
-    return () => clearInterval(intervalo);
-  }, []);
+    const palabra = palabras[indice];
+    let timeout: ReturnType<typeof setTimeout>;
+
+    if (!borrando && texto.length < palabra.length) {
+      // escribiendo
+      timeout = setTimeout(() => {
+        setTexto(palabra.slice(0, texto.length + 1));
+      }, 55);
+    } else if (!borrando && texto.length === palabra.length) {
+      // pausa con la palabra completa
+      timeout = setTimeout(() => setBorrando(true), 2200);
+    } else if (borrando && texto.length > 0) {
+      // borrando
+      timeout = setTimeout(() => {
+        setTexto(palabra.slice(0, texto.length - 1));
+      }, 30);
+    } else if (borrando && texto.length === 0) {
+      // pasar a la siguiente palabra
+      setBorrando(false);
+      setIndice((i) => (i + 1) % palabras.length);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [texto, borrando, indice]);
 
   return (
-    <p className="text-sm text-muted mb-6">
-      Escribo sobre{" "}
-      <span
-        className={`inline-block text-accent font-medium transition-all duration-300 ${
-          saliendo ? "opacity-0 -translate-y-1" : "opacity-100 translate-y-0"
-        }`}
-      >
-        {palabras[indice]}
-      </span>
+    <p className="text-sm text-muted mb-6 font-mono">
+      <span className="text-accent">&gt;</span> escribo sobre{" "}
+      <span className="text-ink font-medium">{texto}</span>
+      <span className="cursor-terminal" aria-hidden="true" />
     </p>
   );
 }
