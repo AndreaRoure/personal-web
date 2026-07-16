@@ -42,8 +42,17 @@ export default function RootLayout({
         <main className="max-w-2xl mx-auto px-6 py-14">
           {children}
         </main>
-        <footer className="max-w-2xl mx-auto px-6 py-6 text-sm text-muted">
-          © {new Date().getFullYear()} Andrea Robles
+       <footer className="max-w-2xl mx-auto px-6 py-10 mt-16 border-t border-ink/10">
+          <div className="flex flex-wrap justify-between items-baseline gap-4 text-sm">
+            <p className="font-display font-semibold">Andrea Robles</p>
+            <div className="flex gap-4">
+              <a href="https://www.linkedin.com/in/andrearoblescastro/" target="_blank" rel="noopener noreferrer" className="text-muted hover:bg-sky/40 px-1 rounded-md transition-colors">LinkedIn</a>
+              <a href="https://github.com/AndreaRoure" target="_blank" rel="noopener noreferrer" className="text-muted hover:bg-accent/20 px-1 rounded-md transition-colors">GitHub</a>
+            </div>
+          </div>
+          <p className="text-xs text-muted mt-4">
+            © {new Date().getFullYear()} · Hecha a mano con Next.js, código abierto y criterio propio.
+          </p>
         </footer>
       </body>
     </html>

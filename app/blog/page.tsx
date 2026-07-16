@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import Link from "next/link";
+import Marcador from "../Marcador";
 
 const postsDirectory = path.join(process.cwd(), "content/posts");
 
@@ -30,9 +31,8 @@ export default function Blog() {
 
   return (
     <div>
-      <p className="text-sm text-muted mb-2">Blog</p>
-      <h1 className="font-display text-3xl font-semibold mb-10">
-        Últimas entradas
+      <h1 className="font-display text-4xl font-semibold mb-10">
+        Cosas que voy <Marcador color="lima">aprendiendo</Marcador>
       </h1>
       {posts.length === 0 && (
         <p className="text-muted">Próximamente los primeros artículos.</p>
@@ -43,11 +43,11 @@ export default function Blog() {
             <p className="text-sm text-muted mb-1">{post.date}</p>
             <Link
               href={`/blog/${post.slug}`}
-              className="font-display text-xl font-semibold hover:text-accent transition-colors block mb-1"
+              className="font-display text-xl font-semibold hover:bg-sky/40 px-1 -mx-1 rounded-md transition-colors"
             >
               {post.title}
             </Link>
-            <p className="text-muted text-sm">{post.description}</p>
+            <p className="text-muted text-sm mt-1">{post.description}</p>
           </li>
         ))}
       </ul>

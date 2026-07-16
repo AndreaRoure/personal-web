@@ -1,6 +1,7 @@
 import PalabraConFoto from "./PalabraConFoto";
 import KickerRotativo from "./KickerRotativo";
 import Marcador from "./Marcador";
+import Icono from "./Icono";
 
 export default function Home() {
   return (
@@ -26,8 +27,11 @@ export default function Home() {
         </p>
         <p>
           Hoy dirijo la transformación digital de una organización social,
-          donde cada decisión técnica (qué herramienta usar, qué datos recoger,
-          qué automatizar) se mide con una vara distinta a la de una empresa.
+          donde cada decisión técnica (qué herramienta usar{" "}
+          <Icono nombre="herramienta" />, qué datos recoger{" "}
+          <Icono nombre="datos" />, qué automatizar{" "}
+          <Icono nombre="automatizar" />) se mide con una vara distinta a la de
+          una empresa.
         </p>
       </div>
 
@@ -38,8 +42,9 @@ export default function Home() {
 
       <div className="space-y-5 text-lg leading-relaxed">
         <p>
-          Creo en la formación como palanca de cambio real. Y creo que los
-          modelos alternativos de vida y organización (cooperativismo, espacios
+          Creo en la formación <Icono nombre="formacion" /> como palanca de
+          cambio real. Y creo que los modelos alternativos de vida y
+          organización (cooperativismo <Icono nombre="brote" />, espacios
           democráticos) no son una utopía, son una forma práctica de hacer las
           cosas de otra manera.
         </p>
@@ -57,7 +62,7 @@ export default function Home() {
               Comparador de Empleabilidad FP
             </span>
             <span className="ml-3 text-xs uppercase tracking-wide text-muted border border-ink/20 rounded-full px-2 py-0.5">
-              En construcción
+              EN CONSTRUCCIÓN
             </span>
             <p className="text-muted mt-1">
               Herramienta para explorar la empleabilidad real de los ciclos de
