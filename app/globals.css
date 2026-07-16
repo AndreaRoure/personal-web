@@ -3,12 +3,58 @@
 
 @theme {
   --color-bg: #FFFFFF;
-  --color-ink: #1A1A1A;
-  --color-muted: #1A1A1AB3;
+  --color-ink: #2B3300;
+  --color-muted: #2B3300B3;
   --color-accent: #7A9201;
   --color-sky: #71C1D0;
   --color-lima: #F7FFCC;
 
   --font-display: var(--font-mohave), sans-serif;
   --font-body: var(--font-plex-sans), system-ui, sans-serif;
+}
+
+@keyframes flotar {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-14px) rotate(8deg); }
+}
+
+@keyframes pintar {
+  from { background-size: 0% 100%; }
+  to { background-size: 100% 100%; }
+}
+
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-flotar {
+  animation-name: flotar;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.animate-aparecer {
+  animation: aparecer 0.6s ease-out both;
+}
+
+.marcador-animado {
+  background-repeat: no-repeat;
+  background-position: left center;
+  animation: pintar 0.7s ease-out both;
+}
+
+.marcador-lima {
+  background-image: linear-gradient(#7A920140, #7A920140);
+}
+
+.marcador-cielo {
+  background-image: linear-gradient(#71C1D066, #71C1D066);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-flotar, .animate-aparecer, .marcador-animado {
+    animation: none;
+    background-size: 100% 100%;
+  }
 }
