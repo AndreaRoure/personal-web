@@ -34,25 +34,26 @@ export default function Home() {
       </div>
 
       <h1
-        className="font-display text-6xl md:text-8xl font-semibold leading-[1.05] mb-14 max-w-4xl animate-aparecer"
+        className="font-display text-6xl md:text-7xl font-semibold leading-[1.05] mb-10 max-w-5xl animate-aparecer"
         style={{ animationDelay: "0.15s" }}
       >
         Trabajo en la intersección entre la{" "}
         <span
-className="marcador-animado marcador-cielo"
+          className="marcador-animado marcador-cielo"
           style={{ animationDelay: "0.6s" }}
         >
           tecnología
-        </span>{" "}          tecnología
+        </span>{" "}
         y las{" "}
         <span
-className="marcador-animado marcador-lima"
+          className="marcador-animado marcador-lima"
           style={{ animationDelay: "1.1s" }}
         >
           personas
         </span>
         .
       </h1>
+<a href="#proyectos" className="inline-flex items-center gap-2 text-sm text-muted hover:text-accent transition-colors mb-14 animate-aparecer" style={{ animationDelay: "0.45s" }}><span className="text-accent">↓</span> proyectos y más abajo</a>
 
       <div className="animate-aparecer" style={{ animationDelay: "0.3s" }}>
         <div className="space-y-5 text-lg leading-relaxed max-w-2xl">
@@ -95,7 +96,10 @@ className="marcador-animado marcador-lima"
           </p>
         </div>
 
-        <section className="mt-20 pt-10 border-t border-ink/10">
+        <section
+          id="proyectos"
+          className="mt-20 pt-10 border-t border-ink/10 scroll-mt-10"
+        >
           <h2 className="font-display text-3xl font-semibold mb-8">
             Proyectos
           </h2>
