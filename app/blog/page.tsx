@@ -5,13 +5,18 @@ import Link from "next/link";
 
 const postsDirectory = path.join(process.cwd(), "content/posts");
 
+function calcularMinutos(texto: string) {
+  const palabras = texto.trim().split(/\s+/).length;
+  return Math.max(1, Math.round(palabras / 200));
+}
+
 function getPosts() {
   const files = fs.readdirSync(postsDirectory);
 
   const posts = files.map((filename) => {
     const filePath = path.join(postsDirectory, filename);
     const fileContent = fs.readFileSync(filePath, "utf8");
-    const { data } = matter(fileContent);
+    const { data, content } = matter(fileContent);
     const slug = filename.replace(".mdx", "");
 
     return {
@@ -19,6 +24,8 @@ function getPosts() {
       title: data.title,
       date: data.date,
       description: data.description,
+      tags: (data.tags as string[]) ?? [],
+      minutos: calcularMinutos(content),
     };
   });
 
@@ -31,11 +38,14 @@ export default function Blog() {
   return (
     <div>
       <section className="bg-dark text-crema">
-        <div className="max-w-5xl mx-auto px-6 pt-12 pb-14">
-          <h1 className="font-display text-5xl font-semibold">
-            Cosas que voy{" "}
-            <span className="marcador-animado marcador-lima">aprendiendo</span>
-          </h1>
+        <div className="max-w-5xl mx-auto px-6 pt-14 pb-16">
+          <h1 className="font-display text-5xl md:text-6xl font-semibold">
+            Lo que voy{" "}
+<span className="marcador-animado marcador-cielo">aprendiendo</span>          </h1>
+          <p className="text-crema-muted mt-4 max-w-xl">
+            Notas de campo sobre tecnología, soberanía digital y organizaciones
+            sociales — escritas mientras aprendo, no después.
+          </p>
         </div>
       </section>
 
@@ -44,17 +54,33 @@ export default function Blog() {
           {posts.length === 0 && (
             <p className="text-muted">Próximamente los primeros artículos.</p>
           )}
-          <ul className="max-w-2xl">
+          <ul className="max-w-3xl">
             {posts.map((post) => (
-              <li key={post.slug} className="py-5 border-b border-ink/10">
-                <p className="text-sm text-muted mb-1">{post.date}</p>
+              <li key={post.slug}>
                 <Link
                   href={`/blog/${post.slug}`}
-                  className="font-display text-xl font-semibold hover:bg-sky/40 px-1 -mx-1 rounded-md transition-colors"
+                  className="group block py-7 border-b border-ink/10 hover:bg-lima/60 px-4 -mx-4 rounded-xl transition-colors"
                 >
-                  {post.title}
+                  <p className="font-mono text-xs text-muted mb-2">
+                    {post.date} · {post.minutos} min de lectura
+                  </p>
+                  <h2 className="font-display text-2xl font-semibold group-hover:text-accent transition-colors">
+                    {post.title}
+                  </h2>
+                  <p className="text-muted mt-2 max-w-xl">{post.description}</p>
+                  {post.tags.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      {post.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="text-xs border border-ink/20 rounded-full px-3 py-0.5 text-muted"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </Link>
-                <p className="text-muted text-sm mt-1">{post.description}</p>
               </li>
             ))}
           </ul>
