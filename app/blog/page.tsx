@@ -40,11 +40,11 @@ export default function Blog() {
       <section className="bg-dark text-crema">
         <div className="max-w-5xl mx-auto px-6 pt-14 pb-16">
           <h1 className="font-display text-5xl md:text-6xl font-semibold">
-            Lo que voy{" "}
-<span className="marcador-animado marcador-cielo">aprendiendo</span>          </h1>
+            Lo que te{" "}
+<span className="marcador-animado marcador-cielo">comparto</span>          </h1>
           <p className="text-crema-muted mt-4 max-w-xl">
-            Notas de campo sobre tecnología, soberanía digital y organizaciones
-            sociales — escritas mientras aprendo, no después.
+            Noticias y notas de campo sobre tecnología, soberanía digital y organizaciones
+            sociales.
           </p>
         </div>
       </section>
