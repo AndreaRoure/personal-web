@@ -97,15 +97,7 @@ export default function Home() {
               </div>
 
               <aside className="font-mono text-sm space-y-6 md:border-l md:border-ink/10 md:pl-8 self-start">
-                <div>
-                  <p className="text-xs uppercase tracking-widest text-muted mb-1">
-                    Ahora mismo
-                  </p>
-                  <p>
-                    Dirección de transformación digital en una organización
-                    social
-                  </p>
-                </div>
+          
                 <div>
                   <p className="text-xs uppercase tracking-widest text-muted mb-1">
                     Base
@@ -126,8 +118,8 @@ export default function Home() {
                     Stack
                   </p>
                   <p>
-                    <span className="text-accent">Next.js</span> · Power BI ·
-                    Python · IA aplicada
+                    <span className="text-accent">Next.js</span> · Supabase · Node.js · Vercel · Claude Codex · Figma· TailwindCSS · Notion · Obsidian · GitHub· Visual StudioCode
+                    Python · N8N
                   </p>
                 </div>
               </aside>
