@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Mohave, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import HojaRoble from "./HojaRoble";
+import MenuMovil from "./MenuMovil";
 
 const mohave = Mohave({
   subsets: ["latin"],
@@ -39,13 +40,14 @@ export default function RootLayout({
     <html lang="es" className={`${mohave.variable} ${plexSans.variable} ${plexMono.variable}`}>
       <body className="bg-bg text-ink font-body min-h-screen flex flex-col">
         <header className="w-full bg-dark text-crema">
-          <div className="max-w-5xl mx-auto px-6 pt-9 pb-2 flex justify-between items-center">
-            <a href="/" className="font-display text-xl font-semibold">Andrea Robles</a>
-            <nav className="flex gap-2 text-sm">
-              <a href="/" className="border border-crema/20 rounded-full px-4 py-1.5 hover:bg-accent-dark/20 hover:border-accent-dark transition-colors">Sobre mí</a>
-              <a href="/blog" className="border border-crema/20 rounded-full px-4 py-1.5 hover:bg-sky/20 hover:border-sky transition-colors">Blog</a>
-              <a href="/contacto" className="border border-crema/20 rounded-full px-4 py-1.5 hover:bg-accent-dark/20 hover:border-accent-dark transition-colors">Contacto</a>
+         <div className="max-w-5xl mx-auto px-6 pt-6 md:pt-9 pb-2 flex justify-between items-center">
+            <a href="/" className="font-display text-xl font-semibold whitespace-nowrap">Andrea Robles</a>
+            <nav className="hidden md:flex gap-2 text-sm">
+              <a href="/" className="whitespace-nowrap border border-crema/20 rounded-full px-4 py-1.5 hover:bg-accent-dark/20 hover:border-accent-dark transition-colors">Sobre mí</a>
+              <a href="/blog" className="whitespace-nowrap border border-crema/20 rounded-full px-4 py-1.5 hover:bg-sky/20 hover:border-sky transition-colors">Blog</a>
+              <a href="/contacto" className="whitespace-nowrap border border-crema/20 rounded-full px-4 py-1.5 hover:bg-accent-dark/20 hover:border-accent-dark transition-colors">Contacto</a>
             </nav>
+            <MenuMovil />
           </div>
         </header>
         <main className="w-full flex-1">{children}</main>

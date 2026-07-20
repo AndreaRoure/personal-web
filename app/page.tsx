@@ -38,7 +38,7 @@ export default function Home() {
             <KickerRotativo />
           </div>
           <h1
-            className="font-display text-7xl md:text-8xl font-semibold leading-[1.02] animate-aparecer"
+            className="font-display text-xl md:text-8xl font-semibold leading-[1.02] animate-aparecer"
             style={{ animationDelay: "0.15s" }}
           >
             Trabajo en la intersección entre la{" "}

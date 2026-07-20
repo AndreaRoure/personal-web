@@ -25,7 +25,7 @@ export default function PalabraConFoto({
       </span>
       {visible && (
         <span
-          className="absolute left-1/2 -translate-x-1/2 bottom-full mb-3 z-10 block w-36 h-36 rounded-lg overflow-hidden shadow-xl pointer-events-none"
+          className="absolute left-1/2 bottom-full mb-3 z-10 hidden md:block w-36 h-36 rounded-lg overflow-hidden shadow-xl pointer-events-none"
           style={{ transform: `translateX(-50%) rotate(${rotacion}deg)` }}
         >
           <Image src={src} alt="" fill className="object-cover" />
