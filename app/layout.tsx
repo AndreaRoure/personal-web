@@ -3,6 +3,7 @@ import { Mohave, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import HojaRoble from "./HojaRoble";
 import MenuMovil from "./MenuMovil";
+import { FaLinkedinIn, FaGithub } from "react-icons/fa6";
 
 const mohave = Mohave({
   subsets: ["latin"],
@@ -23,11 +24,30 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Andrea Robles",
-  description: "Tecnología humanocéntrica, soberanía digital, transformación social",
+  metadataBase: new URL("https://personal-web-self-phi.vercel.app"),
+  title: {
+    default: "Andrea Robles — Tecnología humanocéntrica",
+    template: "%s · Andrea Robles",
+  },
+  description:
+    "Trabajo en la intersección entre la tecnología y las personas: soberanía digital, transformación de organizaciones sociales y formación.",
   robots: {
     index: false,
     follow: false,
+  },
+  openGraph: {
+    title: "Andrea Robles — Tecnología humanocéntrica",
+    description:
+      "Trabajo en la intersección entre la tecnología y las personas: soberanía digital, transformación de organizaciones sociales y formación.",
+    type: "website",
+    locale: "es_ES",
+    siteName: "Andrea Robles",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Andrea Robles — Tecnología humanocéntrica",
+    description:
+      "Tecnología al servicio de las personas: soberanía digital, transformación social y formación.",
   },
 };
 
@@ -52,17 +72,17 @@ export default function RootLayout({
         </header>
         <main className="w-full flex-1">{children}</main>
         <footer className="w-full bg-dark text-crema-muted border-t border-crema/10">
-          <div className="max-w-5xl mx-auto px-6 py-8 flex flex-wrap justify-between items-baseline gap-4 text-sm">
-          <p className="flex items-center gap-2">
+          <div className="max-w-5xl mx-auto px-6 py-8 flex flex-wrap justify-between items-center gap-4 text-sm">
+            <p className="flex items-center gap-2">
               <HojaRoble tamano={18} color="#A8C63C" />
               <span>
                 <span className="font-display font-semibold text-crema">Andrea Robles</span>
                 {" "}· Este espacio es donde voy dejando por escrito lo que aprendo en el camino.
               </span>
             </p>
-            <div className="flex gap-4">
-              <a href="hhttps://www.linkedin.com/in/andrearoblescastro/" target="_blank" rel="noopener noreferrer" className="hover:text-sky transition-colors">LinkedIn</a>
-              <a href="https://github.com/AndreaRoure" target="_blank" rel="noopener noreferrer" className="hover:text-accent-dark transition-colors">GitHub</a>
+            <div className="flex gap-3">
+              <a href="https://www.linkedin.com/in/TU-USUARIO" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="flex items-center justify-center w-9 h-9 rounded-md border border-crema/20 hover:bg-sky/20 hover:border-sky transition-colors"><FaLinkedinIn size={16} /></a>
+              <a href="https://github.com/AndreaRoure" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="flex items-center justify-center w-9 h-9 rounded-md border border-crema/20 hover:bg-accent-dark/20 hover:border-accent-dark transition-colors"><FaGithub size={16} /></a>
             </div>
           </div>
         </footer>
