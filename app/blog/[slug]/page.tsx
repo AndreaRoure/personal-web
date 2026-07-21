@@ -27,6 +27,9 @@ export default async function Post({
     <div>
       <section className="bg-dark text-crema">
         <div className="max-w-5xl mx-auto px-6 pt-14 pb-16">
+          <a href="/blog" className="inline-block font-mono text-xs uppercase tracking-[0.2em] text-accent-dark mb-6 hover:text-crema transition-colors">
+            ← Blog
+          </a>
           <p className="font-mono text-xs text-crema-muted mb-4">
             {data.date} · {minutos} min de lectura
           </p>
