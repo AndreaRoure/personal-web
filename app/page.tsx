@@ -4,6 +4,7 @@ import Icono from "./Icono";
 import HojaRoble from "./HojaRoble";
 import Revelar from "./Revelar";
 
+
 const proyectos = [
   {
     nombre: "Comparador de Empleabilidad FP",
@@ -33,12 +34,12 @@ export default function Home() {
     <div>
       {/* BANDA 1: HERO DARK */}
       <section className="bg-dark text-crema">
-        <div className="max-w-5xl mx-auto px-6 pt-24 pb-24">
+        <div className="max-w-5xl mx-auto px-6 pt-12 pb-12 md:pt-24 md:pb-24">
           <div className="animate-aparecer">
             <KickerRotativo />
           </div>
           <h1
-            className="font-display text-xl md:text-8xl font-semibold leading-[1.02] animate-aparecer"
+            className="font-display text-5xl md:text-8xl font-semibold leading-[1.05] animate-aparecer"
             style={{ animationDelay: "0.15s" }}
           >
             Trabajo en la intersección entre la{" "}
@@ -61,30 +62,32 @@ export default function Home() {
         </div>
       </section>
 
-      {/* BANDA 2: SOBRE MÍ CLARA, DOS COLUMNAS */}
+      {/* BANDA 2: SOBRE MÍ CLARA */}
       <section className="bg-bg text-ink">
-        <div className="max-w-5xl mx-auto px-6 py-20">
+        <div className="max-w-5xl mx-auto px-6 py-12 md:py-20">
           <Revelar>
+            <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-8">
+              Sobre mí
+            </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
               <div className="md:col-span-2 space-y-5 text-lg leading-relaxed">
                 <p>
                   Soy{" "}
-                  <PalabraConFoto src="/andrea.png" rotacion={-3}>
+                 <PalabraConFoto src="/andrea.png" rotacion={-3}>
                     Andrea Robles
                   </PalabraConFoto>
-                  . Empecé en Magisterio, seguí por marketing, y terminé
-                  formándome en Big Data e IA — no porque cambiara de rumbo,
-                  sino porque cada paso me acercaba a la misma pregunta: ¿cómo
-                  hacemos que la tecnología sirva a las personas, y no al
-                  revés?
+                  . Empecé en Magisterio, seguí por marketing, y terminé formándome en
+                  Big Data e IA — no porque cambiara de rumbo, sino porque
+                  cada paso me acercaba a la misma pregunta: ¿cómo hacemos que
+                  la tecnología sirva a las personas, y no al revés?
                 </p>
                 <p>
                   Hoy dirijo la transformación digital de una organización
                   social, donde cada decisión técnica (qué herramienta usar{" "}
                   <Icono nombre="herramienta" />, qué datos recoger{" "}
                   <Icono nombre="datos" />, qué automatizar{" "}
-                  <Icono nombre="automatizar" />) se mide con una vara distinta
-                  a la de una empresa.
+                  <Icono nombre="automatizar" />) se mide con una vara
+                  distinta a la de una empresa.
                 </p>
                 <p>
                   Creo en la formación <Icono nombre="formacion" /> como
@@ -97,7 +100,15 @@ export default function Home() {
               </div>
 
               <aside className="font-mono text-sm space-y-6 md:border-l md:border-ink/10 md:pl-8 self-start">
-          
+                <div>
+                  <p className="text-xs uppercase tracking-widest text-muted mb-1">
+                    Ahora mismo
+                  </p>
+                  <p>
+                    Dirección de transformación digital en una organización
+                    social
+                  </p>
+                </div>
                 <div>
                   <p className="text-xs uppercase tracking-widest text-muted mb-1">
                     Base
@@ -118,8 +129,8 @@ export default function Home() {
                     Stack
                   </p>
                   <p>
-                    <span className="text-accent">Next.js</span> · Supabase · Node.js · Vercel · Claude Codex · Figma· TailwindCSS · Notion · Obsidian · GitHub· Visual StudioCode
-                    Python · N8N
+                    <span className="text-accent">Next.js</span> · Power BI ·
+                    Python · IA aplicada
                   </p>
                 </div>
               </aside>
@@ -130,11 +141,14 @@ export default function Home() {
 
       {/* BANDA 3: CITA LIMA */}
       <section className="bg-lima text-ink relative overflow-hidden">
-        <div className="max-w-5xl mx-auto px-6 py-20 relative">
+        <div className="max-w-5xl mx-auto px-6 py-12 md:py-20 relative">
           <div className="absolute right-6 top-1/2 -translate-y-1/2 rotate-12 hidden md:block">
             <HojaRoble tamano={220} color="#7A9201" opacidad={0.18} />
           </div>
           <Revelar>
+            <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-8">
+              Lo que creo
+            </p>
             <blockquote className="font-display text-4xl md:text-5xl font-medium leading-tight max-w-4xl relative">
               Creo en la <span className="text-accent">soberanía digital</span>{" "}
               — que las organizaciones y las personas controlen sus
@@ -146,10 +160,13 @@ export default function Home() {
 
       {/* BANDA 4: PROYECTOS DARK */}
       <section id="proyectos" className="bg-dark text-crema scroll-mt-10">
-        <div className="max-w-5xl mx-auto px-6 py-20">
+        <div className="max-w-5xl mx-auto px-6 py-12 md:py-20">
           <Revelar>
-            <h2 className="font-display text-3xl font-semibold mb-8">
+            <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent-dark mb-3">
               Proyectos
+            </p>
+            <h2 className="font-display text-3xl font-semibold mb-8">
+              Cosas que construyo
             </h2>
           </Revelar>
           <Revelar retraso={0.15}>
@@ -157,7 +174,7 @@ export default function Home() {
               {proyectos.map((p) => (
                 <div
                   key={p.nombre}
-                  className="bg-dark-suave border border-crema/15 rounded-xl p-6 hover:border-accent-dark hover:-translate-y-0.5 transition-all"
+                  className="bg-dark-suave border-2 border-crema/40 rounded-lg p-6 shadow-[5px_5px_0_rgba(168,198,60,0.35)] hover:shadow-[7px_7px_0_rgba(168,198,60,0.5)] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
                 >
                   <p className="font-display text-xl font-semibold">
                     {p.nombre}
@@ -172,7 +189,7 @@ export default function Home() {
                   </p>
                 </div>
               ))}
-              <div className="border border-dashed border-crema/20 rounded-xl p-6 flex items-center justify-center text-crema-muted text-sm min-h-[140px]">
+              <div className="border border-dashed border-crema/20 rounded-lg p-6 flex items-center justify-center text-crema-muted text-sm min-h-[140px]">
                 próximo proyecto…
               </div>
             </div>
