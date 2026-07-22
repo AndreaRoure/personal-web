@@ -17,24 +17,27 @@ const proyectos = [
 const estados: Record<string, { texto: string; clases: string }> = {
   construccion: {
     texto: "En construcción",
-    clases: "bg-sky/20 border-sky text-sky",
+    clases: "bg-sky text-ink",
   },
   activo: {
     texto: "Activo",
-    clases: "bg-accent-dark/20 border-accent-dark text-accent-dark",
+    clases: "bg-accent text-crema",
   },
   pausado: {
     texto: "En pausa",
-    clases: "bg-crema/10 border-crema/30 text-crema-muted",
+    clases: "bg-ink/10 text-ink",
   },
 };
+
 
 export default function Home() {
   return (
     <div>
       {/* BANDA 1: HERO DARK */}
-      <section className="bg-dark text-crema">
-        <div className="max-w-5xl mx-auto px-6 pt-12 pb-12 md:pt-24 md:pb-24">
+{/* BANDA 1: HERO DARK */}
+      <section className="bg-dark text-crema relative overflow-hidden">
+        <div className="max-w-5xl mx-auto px-6 pt-12 pb-12 md:pt-24 md:pb-24 relative z-10 pointer-events-none">
+
           <div className="animate-aparecer">
             <KickerRotativo />
           </div>
@@ -169,27 +172,27 @@ export default function Home() {
               Cosas que construyo
             </h2>
           </Revelar>
-          <Revelar retraso={0.15}>
+         <Revelar retraso={0.15}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl">
               {proyectos.map((p) => (
                 <div
                   key={p.nombre}
-                  className="bg-dark-suave border-2 border-crema/40 rounded-lg p-6 shadow-[5px_5px_0_rgba(168,198,60,0.35)] hover:shadow-[7px_7px_0_rgba(168,198,60,0.5)] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
+                  className="bg-lima text-ink border-2 border-ink rounded-lg p-6 shadow-[6px_6px_0_#A8C63C] hover:shadow-[9px_9px_0_#A8C63C] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
                 >
                   <p className="font-display text-xl font-semibold">
                     {p.nombre}
                   </p>
                   <span
-                    className={`inline-block text-xs uppercase tracking-wide border rounded-full px-3 py-1 mt-3 ${estados[p.estado].clases}`}
+                    className={`inline-block text-xs uppercase tracking-wide border-2 border-ink rounded-full px-3 py-1 mt-3 ${estados[p.estado].clases}`}
                   >
                     {estados[p.estado].texto}
                   </span>
-                  <p className="text-crema-muted text-sm mt-3 leading-relaxed">
+                  <p className="text-ink/70 text-sm mt-3 leading-relaxed">
                     {p.descripcion}
                   </p>
                 </div>
               ))}
-              <div className="border border-dashed border-crema/20 rounded-lg p-6 flex items-center justify-center text-crema-muted text-sm min-h-[140px]">
+              <div className="border-2 border-dashed border-crema/30 rounded-lg p-6 flex items-center justify-center text-crema-muted text-sm min-h-[140px]">
                 próximo proyecto…
               </div>
             </div>

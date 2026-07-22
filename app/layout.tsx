@@ -58,8 +58,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" className={`${mohave.variable} ${plexSans.variable} ${plexMono.variable}`}>
-      <body className="bg-bg text-ink font-body min-h-screen flex flex-col">
-        <header className="w-full bg-dark text-crema">
+      <body className="bg-bg text-ink font-body min-h-screen flex flex-col"> 
+    
+        <header className="w-full bg-dark text-crema relative z-10">
          <div className="max-w-5xl mx-auto px-6 pt-6 md:pt-9 pb-2 flex justify-between items-center">
             <a href="/" className="font-display text-xl font-semibold whitespace-nowrap">Andrea Robles</a>
             <nav className="hidden md:flex gap-2 text-sm">
@@ -70,8 +71,8 @@ export default function RootLayout({
             <MenuMovil />
           </div>
         </header>
-        <main className="w-full flex-1">{children}</main>
-        <footer className="w-full bg-dark text-crema-muted border-t border-crema/10">
+        <main className="w-full flex-1 relative z-10">{children}</main>
+        <footer className="w-full bg-dark text-crema-muted border-t border-crema/10 relative z-10">
           <div className="max-w-5xl mx-auto px-6 py-8 flex flex-wrap justify-between items-center gap-4 text-sm">
             <p className="flex items-center gap-2">
               <HojaRoble tamano={18} color="#A8C63C" />
