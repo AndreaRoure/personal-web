@@ -25,12 +25,12 @@ export default async function Post({
 
   return (
     <div>
-      <section className="bg-dark text-crema">
+      <section className="w-full bg-white text-ink border-b border-[#1A1A17]">
         <div className="max-w-5xl mx-auto px-6 pt-14 pb-16">
-          <a href="/blog" className="inline-block font-mono text-xs uppercase tracking-[0.2em] text-accent-dark mb-6 hover:text-crema transition-colors">
+          <a href="/blog" className="inline-block font-mono text-xs uppercase tracking-[0.2em] text-accent mb-6 hover:text-ink transition-colors">
             ← Blog
           </a>
-          <p className="font-mono text-xs text-crema-muted mb-4">
+          <p className="font-mono text-xs text-muted mb-4">
             {data.date} · {minutos} min de lectura
           </p>
           <h1 className="font-display text-4xl md:text-6xl font-semibold max-w-4xl leading-tight">
@@ -41,7 +41,7 @@ export default async function Post({
               {tags.map((tag) => (
                 <span
                   key={tag}
-                  className="text-xs border border-crema/25 rounded-full px-3 py-1 text-crema-muted"
+                  className="text-xs border border-ink/20 rounded-full px-3 py-1 text-muted"
                 >
                   {tag}
                 </span>
@@ -51,7 +51,7 @@ export default async function Post({
         </div>
       </section>
 
-      <section className="bg-bg text-ink">
+      <section className="w-full bg-[#FAFAF7] text-ink">
         <div className="max-w-5xl mx-auto px-6 py-14">
           <article className="prose prose-lg max-w-2xl prose-headings:font-display prose-headings:font-semibold prose-a:text-accent prose-a:decoration-2 prose-blockquote:border-accent prose-strong:text-ink">
             <MDXRemote source={content} />

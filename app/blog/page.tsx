@@ -38,23 +38,23 @@ export default function Blog() {
 
   return (
     <div>
-      <section className="bg-dark text-crema">
+      <section className="w-full bg-white text-ink border-b border-[#1A1A17]">
        <div className="max-w-5xl mx-auto px-6 pt-14 pb-16">
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent-dark mb-4">
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-4">
             Blog
           </p>
           <h1 className="font-display text-5xl md:text-6xl font-semibold">
             Lo que te{" "}
             <span className="marcador-animado marcador-cielo">comparto</span>
           </h1>
-          <p className="text-crema-muted mt-4 max-w-xl">
+          <p className="text-muted mt-4 max-w-xl">
             Noticias y notas de campo sobre tecnología, soberanía digital y
             organizaciones sociales.
           </p>
         </div>
       </section>
 
-      <section className="bg-bg text-ink">
+      <section className="w-full bg-[#FAFAF7] text-ink">
         <div className="max-w-5xl mx-auto px-6 py-14">
           {posts.length === 0 && (
             <p className="text-muted">Próximamente los primeros artículos.</p>

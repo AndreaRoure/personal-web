@@ -19,22 +19,22 @@ export default function MenuMovil() {
         aria-label={abierto ? "Cerrar menú" : "Abrir menú"}
         className="flex flex-col justify-center items-center w-10 h-10 gap-1.5"
       >
-        <span className={`block w-6 h-0.5 bg-crema transition-transform ${abierto ? "rotate-45 translate-y-2" : ""}`} />
-        <span className={`block w-6 h-0.5 bg-crema transition-opacity ${abierto ? "opacity-0" : ""}`} />
-        <span className={`block w-6 h-0.5 bg-crema transition-transform ${abierto ? "-rotate-45 -translate-y-2" : ""}`} />
+        <span className={`block w-6 h-0.5 bg-ink transition-transform ${abierto ? "rotate-45 translate-y-2" : ""}`} />
+        <span className={`block w-6 h-0.5 bg-ink transition-opacity ${abierto ? "opacity-0" : ""}`} />
+        <span className={`block w-6 h-0.5 bg-ink transition-transform ${abierto ? "-rotate-45 -translate-y-2" : ""}`} />
       </button>
 
       {abierto && (
-        <div className="fixed inset-0 top-[72px] bg-dark z-50 px-6 pt-10">
-          <nav className="flex flex-col gap-6">
+        <div className="fixed left-0 right-0 top-[72px] bottom-0 bg-white z-50 px-6 pt-10 overflow-y-auto">
+          <nav className="flex flex-col gap-8">
             {enlaces.map((enlace, i) => (
-              <a key={enlace.href} href={enlace.href} onClick={() => setAbierto(false)} className="font-display text-4xl font-semibold text-crema hover:text-accent-dark transition-colors animate-aparecer" style={{ animationDelay: `${i * 0.08}s` }}>
+              <a key={enlace.href} href={enlace.href} onClick={() => setAbierto(false)} className="font-display text-4xl font-semibold text-ink hover:text-accent transition-colors animate-aparecer" style={{ animationDelay: `${i * 0.08}s` }}>
                 {enlace.texto}
               </a>
             ))}
           </nav>
           <div className="mt-12">
-            <HojaRoble tamano={24} color="#A8C63C" opacidad={0.7} />
+            <HojaRoble tamano={24} color="#7A9201" opacidad={0.7} />
           </div>
         </div>
       )}

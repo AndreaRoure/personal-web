@@ -33,9 +33,8 @@ const estados: Record<string, { texto: string; clases: string }> = {
 export default function Home() {
   return (
     <div>
-      {/* BANDA 1: HERO DARK */}
-{/* BANDA 1: HERO DARK */}
-      <section className="bg-dark text-crema relative overflow-hidden">
+      {/* BANDA 1: HERO */}
+      <section className="w-full bg-white text-ink relative overflow-hidden border-b border-[#1A1A17]">
         <div className="max-w-5xl mx-auto px-6 pt-12 pb-12 md:pt-24 md:pb-24 relative z-10 pointer-events-none">
 
           <div className="animate-aparecer">
@@ -61,12 +60,12 @@ export default function Home() {
             </span>
             .
           </h1>
-          <a href="#proyectos" className="inline-flex items-center gap-2 text-sm text-crema-muted hover:text-accent-dark transition-colors mt-10 animate-aparecer" style={{ animationDelay: "0.45s" }}><span className="text-accent-dark">↓</span> proyectos y más abajo</a>
+          <a href="#proyectos" className="inline-flex items-center gap-2 text-sm text-muted hover:text-accent transition-colors mt-10 animate-aparecer" style={{ animationDelay: "0.45s" }}><span className="text-accent">↓</span> proyectos y más abajo</a>
         </div>
       </section>
 
-      {/* BANDA 2: SOBRE MÍ CLARA */}
-      <section className="bg-bg text-ink">
+      {/* BANDA 2: SOBRE MÍ */}
+      <section className="w-full bg-[#FAFAF7] text-ink border-b border-[#1A1A17]">
         <div className="max-w-5xl mx-auto px-6 py-12 md:py-20">
           <Revelar>
             <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-8">
@@ -143,7 +142,7 @@ export default function Home() {
       </section>
 
       {/* BANDA 3: CITA LIMA */}
-      <section className="bg-lima text-ink relative overflow-hidden">
+      <section className="bg-lima text-ink relative overflow-hidden border-b border-[#1A1A17] w-full">
         <div className="max-w-5xl mx-auto px-6 py-12 md:py-20 relative">
           <div className="absolute right-6 top-1/2 -translate-y-1/2 rotate-12 hidden md:block">
             <HojaRoble tamano={220} color="#7A9201" opacidad={0.18} />
@@ -161,11 +160,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* BANDA 4: PROYECTOS DARK */}
-      <section id="proyectos" className="bg-dark text-crema scroll-mt-10">
+      {/* BANDA 4: PROYECTOS */}
+      <section id="proyectos" className="w-full bg-white text-ink scroll-mt-10">
         <div className="max-w-5xl mx-auto px-6 py-12 md:py-20">
           <Revelar>
-            <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent-dark mb-3">
+            <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-3">
               Proyectos
             </p>
             <h2 className="font-display text-3xl font-semibold mb-8">
@@ -177,7 +176,7 @@ export default function Home() {
               {proyectos.map((p) => (
                 <div
                   key={p.nombre}
-                  className="bg-lima text-ink border-2 border-ink rounded-lg p-6 shadow-[6px_6px_0_#A8C63C] hover:shadow-[9px_9px_0_#A8C63C] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
+                  className="bg-lima text-ink border-2 border-ink rounded-lg p-6 shadow-[6px_6px_0_#1A1A17] hover:shadow-[9px_9px_0_#1A1A17] hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
                 >
                   <p className="font-display text-xl font-semibold">
                     {p.nombre}
@@ -192,7 +191,7 @@ export default function Home() {
                   </p>
                 </div>
               ))}
-              <div className="border-2 border-dashed border-crema/30 rounded-lg p-6 flex items-center justify-center text-crema-muted text-sm min-h-[140px]">
+              <div className="border-2 border-dashed border-ink/20 rounded-lg p-6 flex items-center justify-center text-muted text-sm min-h-[140px]">
                 próximo proyecto…
               </div>
             </div>
