@@ -64,6 +64,15 @@
   animation: parpadeo 1s step-start infinite;
 }
 
+@media (min-width: 768px) {
+  main {
+    margin-left: 180px !important;
+  }
+  footer {
+    margin-left: 180px !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-aparecer, .marcador-animado {
     animation: none;
