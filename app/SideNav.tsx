@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export default function SideNav() {
   return (
-    <nav className="hidden md:block md:fixed md:left-0 md:top-0 md:h-screen md:w-[180px] md:bg-white md:text-ink md:flex md:flex-col md:justify-between md:px-6 md:py-12 md:z-50 md:border-r md:border-[#1A1A17]">
+    <nav className="fixed left-0 top-0 h-screen w-[180px] bg-white text-ink flex flex-col justify-between px-6 py-12 z-50 border-r border-[#1A1A17] max-md:hidden">
       {/* Arriba */}
       <div className="space-y-12">
         {/* Nombre/Logo */}
