@@ -78,26 +78,17 @@ export default function Home() {
                  <PalabraConFoto src="/andrea.png" rotacion={-3}>
                     Andrea Robles
                   </PalabraConFoto>
-                  . Empecé en Magisterio, seguí por marketing, y terminé formándome en
-                  Big Data e IA — no porque cambiara de rumbo, sino porque
-                  cada paso me acercaba a la misma pregunta: ¿cómo hacemos que
-                  la tecnología sirva a las personas, y no al revés?
+                  . Llevo 8 años especializándome en tecnología y datos aplicados a proyectos de desarrollo social. 
+                  Empecé en Magisterio, seguí por marketing, y he continuado formándome en Big Data e IA —
+                  no porque cambiara de rumbo, sino porque cada paso me acercaba a la misma pregunta: ¿en qué tipo de sociedad quiero vivir y qué papel tengo?
                 </p>
                 <p>
-                  Hoy dirijo la transformación digital de una organización
-                  social, donde cada decisión técnica (qué herramienta usar{" "}
-                  <Icono nombre="herramienta" />, qué datos recoger{" "}
-                  <Icono nombre="datos" />, qué automatizar{" "}
-                  <Icono nombre="automatizar" />) se mide con una vara
-                  distinta a la de una empresa.
+                Desarrollo proyectos con impacto social real: pongo las herramientas —datos, automatización, digitalización— al servicio de espacios de decisión colectiva, para que los equipos y las comunidades con las que trabajo puedan decidir mejor, no solo trabajar más rápido y a más escala.
                 </p>
                 <p>
-                  Creo en la formación <Icono nombre="formacion" /> como
-                  palanca de cambio real. Y creo que los modelos alternativos
-                  de vida y organización (cooperativismo{" "}
-                  <Icono nombre="brote" />, espacios democráticos) no son una
-                  utopía, son una forma práctica de hacer las cosas de otra
-                  manera.
+                 Creo en la soberanía digital y en la formación como palanca de cambio,
+                para que las organizaciones y las personas controlen sus herramientas y sus datos, no al revés.
+           
                 </p>
               </div>
 
@@ -123,16 +114,15 @@ export default function Home() {
                   </p>
                   <p>
                     Soberanía digital · Formación · Datos con criterio ·
-                    Modelos alternativos
-                  </p>
+                    Modelos alternativos · Tecnología para la transformación social                  </p>
                 </div>
                 <div>
                   <p className="text-xs uppercase tracking-widest text-muted mb-1">
                     Stack
                   </p>
                   <p>
-                    <span className="text-accent">Next.js</span> · Power BI ·
-                    Python · IA aplicada
+                    <span className="text-accent">Next.js</span> · N8N ·
+                    Python · IA aplicada · Supabase · Postgres 
                   </p>
                 </div>
               </aside>
@@ -152,8 +142,8 @@ export default function Home() {
               Lo que creo
             </p>
             <blockquote className="font-display text-4xl md:text-5xl font-medium leading-tight max-w-4xl relative">
-              Creo en la <span className="text-accent">soberanía digital</span>{" "}
-              — que las organizaciones y las personas controlen sus
+              Creo en la <span className="text-accent">formación </span>{" "} y la <span className="text-accent"> soberanía digital</span>{" "}
+            , para que las organizaciones y las personas controlen sus
               herramientas y sus datos, no al revés.
             </blockquote>
           </Revelar>
