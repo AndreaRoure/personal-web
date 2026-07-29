@@ -54,34 +54,39 @@ export default function Blog() {
         </div>
       </section>
 
-      <section className="w-full bg-[#FAFAF7] text-ink">
+      <section className="w-full bg-white text-ink">
         <div className="max-w-5xl mx-auto px-6 py-14">
           {posts.length === 0 && (
             <p className="text-muted">Próximamente los primeros artículos.</p>
           )}
           <ul className="max-w-3xl">
             {posts.map((post, indice) => (
-              <li key={post.slug}>
+              <li key={post.slug} className="border-b border-ink/10 last:border-b-0">
                 <Revelar retraso={indice * 0.08}>
                   <Link
                     href={`/blog/${post.slug}`}
-                    className="group block py-7 border-b border-ink/10 hover:bg-lima/60 px-4 -mx-4 rounded-xl transition-colors"
+                    className="group block py-8 hover:opacity-60 transition-opacity"
                   >
-                    <p className="font-mono text-xs text-muted mb-2">
-                      {post.date} · {post.minutos} min de lectura
-                    </p>
-                    <h2 className="font-display text-2xl font-semibold group-hover:text-accent transition-colors">
+                    <div className="flex justify-between items-start gap-4 mb-3">
+                      <p className="font-mono text-xs text-muted font-medium">
+                        {post.date}
+                      </p>
+                      <span className="text-xs text-muted bg-white border border-ink/10 px-2.5 py-1 rounded-md whitespace-nowrap">
+                        {post.minutos} min
+                      </span>
+                    </div>
+                    <h2 className="font-display text-xl font-semibold leading-snug mb-3 group-hover:text-accent transition-colors">
                       {post.title}
                     </h2>
-                    <p className="text-muted mt-2 max-w-xl">
+                    <p className="text-sm text-muted leading-relaxed max-w-2xl mb-4">
                       {post.description}
                     </p>
                     {post.tags.length > 0 && (
-                      <div className="flex flex-wrap gap-2 mt-3">
+                      <div className="flex flex-wrap gap-1.5">
                         {post.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="text-xs border border-ink/20 rounded-full px-3 py-0.5 text-muted"
+                            className="text-xs text-muted border border-ink/15 px-2.5 py-1 rounded-md hover:border-ink/30 transition-colors"
                           >
                             {tag}
                           </span>
