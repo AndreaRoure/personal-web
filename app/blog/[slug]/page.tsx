@@ -62,6 +62,21 @@ export default async function Post({
           >
             <span className="text-accent">←</span> Volver al blog
           </Link>
+
+          <div className="mt-16 pt-12 border-t border-ink/10">
+            <p className="text-sm text-muted mb-4">
+              Si este contenido te fue útil, considera apoyar mi trabajo:
+            </p>
+            <a
+              href="https://ko-fi.com/andrearoblescastro"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 border border-accent text-accent rounded-md hover:bg-accent hover:text-white transition-colors text-sm font-medium"
+            >
+              <span>☕</span>
+              Apoyar en Ko-fi
+            </a>
+          </div>
         </div>
       </section>
     </div>
