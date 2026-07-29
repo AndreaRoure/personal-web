@@ -3,7 +3,6 @@ import path from "path";
 import matter from "gray-matter";
 import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import MermaidDiagram from "@/app/MermaidDiagram";
 
 const postsDirectory = path.join(process.cwd(), "content/posts");
 
@@ -55,7 +54,7 @@ export default async function Post({
       <section className="w-full bg-[#FAFAF7] text-ink">
         <div className="max-w-5xl mx-auto px-6 py-14">
           <article className="prose prose-lg max-w-2xl prose-headings:font-display prose-headings:font-semibold prose-a:text-accent prose-a:decoration-2 prose-blockquote:border-accent prose-strong:text-ink prose-code:text-accent prose-pre:bg-ink/5">
-            <MDXRemote source={content} components={{ MermaidDiagram }} />
+            <MDXRemote source={content} />
           </article>
           <Link
             href="/blog"

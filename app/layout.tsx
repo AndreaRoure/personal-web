@@ -4,6 +4,7 @@ import "./globals.css";
 import HojaRoble from "./HojaRoble";
 import MenuMovil from "./MenuMovil";
 import SideNav from "./SideNav";
+import MermaidLoader from "./MermaidLoader";
 import { FaLinkedinIn, FaGithub } from "react-icons/fa6";
 
 const mohave = Mohave({
@@ -60,6 +61,7 @@ export default function RootLayout({
   return (
     <html lang="es" className={`${mohave.variable} ${plexSans.variable} ${plexMono.variable}`}>
       <body className="bg-bg text-ink font-body min-h-screen flex flex-col overflow-x-hidden">
+        <MermaidLoader />
         <SideNav />
 
         <header className="w-full bg-white text-ink relative z-20 md:hidden border-b border-[#1A1A17]">
