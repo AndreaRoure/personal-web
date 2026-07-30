@@ -5,6 +5,7 @@ import HojaRoble from "./HojaRoble";
 
 const enlaces = [
   { href: "/", texto: "Sobre mí" },
+  { href: "/#proyectos", texto: "Proyectos" },
   { href: "/blog", texto: "Blog" },
   { href: "/contacto", texto: "Contacto" },
 ];
