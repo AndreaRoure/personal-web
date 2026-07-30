@@ -4,9 +4,9 @@ import Link from 'next/link';
 
 export default function SideNav() {
   return (
-    <nav className="fixed left-0 top-0 h-screen w-[180px] bg-white text-ink flex flex-col justify-between px-6 py-12 z-50 border-r border-[#1A1A17] max-md:hidden">
+    <nav className="fixed left-0 top-0 h-screen w-[180px] bg-white text-ink flex flex-col justify-between px-6 py-10 z-50 border-r border-[#1A1A17] max-md:hidden">
       {/* Arriba */}
-      <div className="space-y-12">
+      <div className="space-y-6">
         {/* Nombre/Logo */}
         <Link
           href="/"
@@ -16,22 +16,22 @@ export default function SideNav() {
         </Link>
 
         {/* Enlaces principales */}
-        <div className="flex flex-col items-start space-y-6 text-sm">
+        <div className="flex flex-col items-start space-y-1.5 text-sm">
           <Link
             href="/"
-            className="inline-block border-b-2 border-transparent hover:border-[#1A1A17] pb-1 transition-colors"
+            className="inline-block border-b-2 border-transparent hover:border-[#1A1A17] pb-0.5 transition-colors"
           >
             Sobre mí
           </Link>
           <Link
             href="/#proyectos"
-            className="inline-block border-b-2 border-transparent hover:border-[#1A1A17] pb-1 transition-colors"
+            className="inline-block border-b-2 border-transparent hover:border-[#1A1A17] pb-0.5 transition-colors"
           >
             Proyectos
           </Link>
           <Link
             href="/blog"
-            className="inline-block border-b-2 border-transparent hover:border-[#1A1A17] pb-1 transition-colors"
+            className="inline-block border-b-2 border-transparent hover:border-[#1A1A17] pb-0.5 transition-colors"
           >
             Blog
           </Link>
