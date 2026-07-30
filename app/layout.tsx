@@ -68,8 +68,8 @@ export default function RootLayout({
             <MenuMovil />
           </div>
         </header>
-        <main className="w-full flex-1 relative z-10">{children}</main>
-        <footer className="w-full bg-white text-ink border-t border-[#1A1A17] relative z-10">
+        <main className="w-full flex-1 relative z-10 md:ml-[180px]">{children}</main>
+        <footer className="w-full bg-white text-ink border-t border-[#1A1A17] relative z-10 md:ml-[180px]">
           <div className="max-w-5xl mx-auto px-6 py-8 flex flex-wrap justify-between items-center gap-4 text-sm">
             <p className="flex items-center gap-2">
               <HojaRoble tamano={18} color="#7A9201" />
