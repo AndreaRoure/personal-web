@@ -26,7 +26,7 @@ export default function MenuMovil() {
       </button>
 
       {abierto && (
-        <div className="fixed left-0 right-0 top-[72px] bottom-0 bg-white z-50 px-6 pt-10 overflow-y-auto">
+        <div className="fixed left-0 right-0 top-[73px] bottom-0 bg-white z-50 px-6 pt-10 overflow-y-auto">
           <nav className="flex flex-col gap-8">
             {enlaces.map((enlace, i) => (
               <a key={enlace.href} href={enlace.href} onClick={() => setAbierto(false)} className="font-display text-4xl font-semibold text-ink hover:text-accent transition-colors animate-aparecer" style={{ animationDelay: `${i * 0.08}s` }}>

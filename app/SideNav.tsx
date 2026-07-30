@@ -10,13 +10,13 @@ export default function SideNav() {
         {/* Nombre/Logo */}
         <Link
           href="/"
-          className="block font-display text-lg font-semibold hover:text-accent transition-colors"
+          className="block font-display text-[19px] font-semibold hover:text-accent transition-colors"
         >
           Andrea Robles
         </Link>
 
         {/* Enlaces principales */}
-        <div className="flex flex-col items-start space-y-1.5 text-sm">
+        <div className="flex flex-col items-start space-y-1.5 text-[15px]">
           <Link
             href="/"
             className="inline-block border-b-2 border-transparent hover:border-[#1A1A17] pb-0.5 transition-colors"
@@ -41,7 +41,7 @@ export default function SideNav() {
       {/* Abajo - CTA Contacto */}
       <Link
         href="/contacto"
-        className="inline-block border border-[#1A1A17] rounded-full px-4 py-2 text-sm text-ink hover:bg-accent hover:border-accent hover:text-white transition-colors text-center font-medium"
+        className="inline-block border border-[#1A1A17] rounded-full px-4 py-2 text-[15px] text-ink hover:bg-accent hover:border-accent hover:text-white transition-colors text-center font-medium"
       >
         Contacto
       </Link>

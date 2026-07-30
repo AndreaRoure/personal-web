@@ -59,10 +59,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" className={`${mohave.variable} ${plexSans.variable} ${plexMono.variable}`}>
-      <body className="bg-bg text-ink font-body min-h-screen flex flex-col overflow-x-hidden">
+      <body className="bg-bg text-ink font-body min-h-screen flex flex-col">
         <SideNav />
 
-        <header className="w-full bg-white text-ink relative z-20 md:hidden border-b border-[#1A1A17]">
+        <header className="w-full bg-white text-ink sticky top-0 z-20 md:hidden border-b border-[#1A1A17]">
          <div className="max-w-5xl mx-auto px-6 pt-6 pb-2 flex justify-between items-center">
             <a href="/" className="font-display text-xl font-semibold whitespace-nowrap">Andrea Robles</a>
             <MenuMovil />
