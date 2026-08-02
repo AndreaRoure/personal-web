@@ -38,13 +38,13 @@ export default function SideNav() {
         </div>
       </div>
 
-      {/* Abajo - CTA Contacto, abre el cliente de correo del usuario */}
-      <a
-        href="mailto:robleshca@gmail.com"
+      {/* Abajo - CTA Contacto */}
+      <Link
+        href="/#contacto"
         className="inline-block border border-[#1A1A17] rounded-full px-4 py-2 text-[15px] text-ink hover:bg-accent hover:border-accent hover:text-white transition-colors text-center font-medium"
       >
         Contacto
-      </a>
+      </Link>
     </nav>
   );
 }

@@ -3,6 +3,7 @@ import PalabraConFoto from "./PalabraConFoto";
 import KickerRotativo from "./KickerRotativo";
 import HojaRoble from "./HojaRoble";
 import Revelar from "./Revelar";
+import CopiarEmail from "./CopiarEmail";
 import { getPosts } from "./posts";
 
 
@@ -194,7 +195,10 @@ export default function Home() {
       </section>
 
       {/* BANDA 5: BLOG */}
-      <section id="blog" className="w-full bg-[#FAFAF7] text-ink scroll-mt-10">
+      <section
+        id="blog"
+        className="w-full bg-[#FAFAF7] text-ink border-b border-[#1A1A17] scroll-mt-10"
+      >
         <div className="max-w-5xl mx-auto px-6 py-12 md:py-20">
           <Revelar>
             <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-3">
@@ -253,6 +257,25 @@ export default function Home() {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      {/* BANDA 6: CONTACTO */}
+      <section id="contacto" className="w-full bg-white text-ink scroll-mt-10">
+        <div className="max-w-5xl mx-auto px-6 py-12 md:py-20">
+          <Revelar>
+            <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-3">
+              Contacto
+            </p>
+            <h2 className="font-display text-3xl font-semibold mb-4">
+              <span className="marcador-animado marcador-cielo">Hablemos</span>
+            </h2>
+            <p className="text-muted mb-8 max-w-xl">
+              Escríbeme si quieres proponerme un proyecto, si te interesa una
+              formación, o si quieres comentar algo de lo que escribo.
+            </p>
+            <CopiarEmail email="robleshca@gmail.com" />
+          </Revelar>
         </div>
       </section>
     </div>

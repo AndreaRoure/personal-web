@@ -7,7 +7,7 @@ const enlaces = [
   { href: "/#sobre-mi", texto: "Sobre mí" },
   { href: "/#proyectos", texto: "Proyectos" },
   { href: "/#blog", texto: "Blog" },
-  { href: "mailto:robleshca@gmail.com", texto: "Contacto" },
+  { href: "/#contacto", texto: "Contacto" },
 ];
 
 export default function MenuMovil() {
