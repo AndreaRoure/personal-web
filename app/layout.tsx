@@ -58,8 +58,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es" className={`${mohave.variable} ${plexSans.variable} ${plexMono.variable}`}>
+    <html
+      lang="es"
+      suppressHydrationWarning
+      className={`${mohave.variable} ${plexSans.variable} ${plexMono.variable}`}
+    >
       <body className="bg-bg text-ink font-body min-h-screen flex flex-col">
+        {/* Aplica el tema guardado antes de pintar, para que no parpadee */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){try{var t=localStorage.getItem('tema');if(t)document.documentElement.dataset.tema=t}catch(e){}})()",
+          }}
+        />
         <SideNav />
 
         <header className="w-full bg-white text-ink sticky top-0 z-20 md:hidden border-b border-[#1A1A17]">
@@ -72,7 +83,7 @@ export default function RootLayout({
         <footer className="bg-white text-ink border-t border-[#1A1A17] relative z-10 md:ml-[180px]">
           <div className="max-w-5xl mx-auto px-6 py-8 flex flex-wrap justify-between items-center gap-4 text-sm">
             <p className="flex items-center gap-2">
-              <HojaRoble tamano={18} color="#7A9201" />
+              <HojaRoble tamano={18} />
               <span>
                 © 2026 Andrea Robles. Todos los derechos reservados.
               </span>
