@@ -224,7 +224,8 @@ export default function Home() {
                 <Revelar retraso={indice * 0.08}>
                   <Link
                     href={`/blog/${post.slug}`}
-                    className="group block py-8 hover:opacity-60 transition-opacity"
+                    style={{ borderLeftColor: post.color }}
+                    className="group block py-8 pl-5 border-l-4 hover:opacity-60 transition-opacity"
                   >
                     <div className="flex justify-between items-start gap-4 mb-3">
                       <p className="font-mono text-xs text-muted font-medium">
