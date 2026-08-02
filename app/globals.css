@@ -1,31 +1,12 @@
 @import "tailwindcss";
 @config "../tailwind.config.ts";
 
-/* Capa de temas: los dos colores que cambian. El resto de la paleta no se toca. */
-:root,
-[data-tema="roble"] {
-  --tema-accent: #7A9201;
-  --tema-sky: #71C1D0;
-}
-[data-tema="coral"] {
-  --tema-accent: #C2492D;
-  --tema-sky: #E9B79F;
-}
-[data-tema="cielo"] {
-  --tema-accent: #2A7F94;
-  --tema-sky: #A8C63C;
-}
-[data-tema="tinta"] {
-  --tema-accent: #3F4A14;
-  --tema-sky: #BFC4A8;
-}
-
 @theme {
   --color-bg: #FFFFFF;
   --color-ink: #2B3300;
   --color-muted: #2B3300B3;
-  --color-accent: var(--tema-accent);
-  --color-sky: var(--tema-sky);
+  --color-accent: #7A9201;
+  --color-sky: #71C1D0;
   --color-lima: #F7FFCC;
 
   --color-dark: #1C2410;
@@ -66,18 +47,18 @@
 }
 
 .marcador-lima {
-  background-image: linear-gradient(var(--tema-accent), var(--tema-accent));
+  background-image: linear-gradient(#7A9201, #7A9201);
 }
 
 .marcador-cielo {
-  background-image: linear-gradient(var(--tema-sky), var(--tema-sky));
+  background-image: linear-gradient(#71C1D0, #71C1D0);
 }
 
 .cursor-terminal {
   display: inline-block;
   width: 0.55em;
   height: 1.1em;
-  background-color: var(--tema-accent);
+  background-color: #7A9201;
   margin-left: 3px;
   vertical-align: text-bottom;
   animation: parpadeo 1s step-start infinite;

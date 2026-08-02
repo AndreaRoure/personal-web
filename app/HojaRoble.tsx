@@ -1,6 +1,6 @@
 export default function HojaRoble({
   tamano = 64,
-  color = "var(--tema-accent)",
+  color = "#7A9201",
   opacidad = 1,
 }: {
   tamano?: number;

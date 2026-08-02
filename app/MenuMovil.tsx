@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import HojaRoble from "./HojaRoble";
-import SelectorTema from "./SelectorTema";
 
 const enlaces = [
   { href: "/#sobre-mi", texto: "Sobre mí" },
@@ -36,10 +35,7 @@ export default function MenuMovil() {
             ))}
           </nav>
           <div className="mt-12">
-            <SelectorTema />
-          </div>
-          <div className="mt-10">
-            <HojaRoble tamano={24} opacidad={0.7} />
+            <HojaRoble tamano={24} color="#7A9201" opacidad={0.7} />
           </div>
         </div>
       )}

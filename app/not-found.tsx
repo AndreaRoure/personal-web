@@ -31,7 +31,7 @@ export default function NotFound() {
           </Link>
         </div>
         <div className="mt-16 opacity-40">
-          <HojaRoble tamano={48} />
+          <HojaRoble tamano={48} color="#7A9201" />
         </div>
       </div>
     </section>

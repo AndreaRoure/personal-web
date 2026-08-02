@@ -139,7 +139,7 @@ export default function Home() {
       <section className="bg-lima text-ink relative overflow-hidden border-b border-[#1A1A17] w-full">
         <div className="max-w-5xl mx-auto px-6 py-12 md:py-20 relative">
           <div className="absolute -right-12 top-1/2 -translate-y-1/2 rotate-12 hidden xl:block">
-            <HojaRoble tamano={220} opacidad={0.18} />
+            <HojaRoble tamano={220} color="#7A9201" opacidad={0.18} />
           </div>
           <Revelar>
             <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-8">
