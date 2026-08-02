@@ -224,7 +224,12 @@ export default function Home() {
                 <Revelar retraso={indice * 0.08}>
                   <Link
                     href={`/blog/${post.slug}`}
-                    style={{ borderLeftColor: post.color }}
+                    style={
+                      {
+                        borderLeftColor: post.color,
+                        "--cat": post.color,
+                      } as React.CSSProperties
+                    }
                     className="group block py-8 pl-5 border-l-4 hover:opacity-60 transition-opacity"
                   >
                     <div className="flex justify-between items-start gap-4 mb-3">
@@ -235,7 +240,7 @@ export default function Home() {
                         {post.minutos} min
                       </span>
                     </div>
-                    <h3 className="font-display text-xl font-semibold leading-snug mb-3 group-hover:text-accent transition-colors">
+                    <h3 className="font-display text-xl font-semibold leading-snug mb-3 group-hover:text-[var(--cat)] transition-colors">
                       {post.title}
                     </h3>
                     <p className="text-sm text-muted leading-relaxed max-w-2xl mb-4">
