@@ -1,8 +1,9 @@
+import Link from "next/link";
 import PalabraConFoto from "./PalabraConFoto";
 import KickerRotativo from "./KickerRotativo";
-import Icono from "./Icono";
 import HojaRoble from "./HojaRoble";
 import Revelar from "./Revelar";
+import { getPosts } from "./posts";
 
 
 const proyectos = [
@@ -31,6 +32,8 @@ const estados: Record<string, { texto: string; clases: string }> = {
 
 
 export default function Home() {
+  const posts = getPosts();
+
   return (
     <div>
       {/* BANDA 1: HERO */}
@@ -65,7 +68,7 @@ export default function Home() {
       </section>
 
       {/* BANDA 2: SOBRE MÍ */}
-      <section className="w-full bg-[#FAFAF7] text-ink border-b border-[#1A1A17]">
+      <section id="sobre-mi" className="w-full bg-[#FAFAF7] text-ink border-b border-[#1A1A17] scroll-mt-10">
         <div className="max-w-5xl mx-auto px-6 py-12 md:py-20">
           <Revelar>
             <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-8">
@@ -152,7 +155,7 @@ export default function Home() {
       </section>
 
       {/* BANDA 4: PROYECTOS */}
-      <section id="proyectos" className="w-full bg-white text-ink scroll-mt-10">
+      <section id="proyectos" className="w-full bg-white text-ink border-b border-[#1A1A17] scroll-mt-10">
         <div className="max-w-5xl mx-auto px-6 py-12 md:py-20">
           <Revelar>
             <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-3">
@@ -187,6 +190,69 @@ export default function Home() {
               </div>
             </div>
           </Revelar>
+        </div>
+      </section>
+
+      {/* BANDA 5: BLOG */}
+      <section id="blog" className="w-full bg-[#FAFAF7] text-ink scroll-mt-10">
+        <div className="max-w-5xl mx-auto px-6 py-12 md:py-20">
+          <Revelar>
+            <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-3">
+              Blog
+            </p>
+            <h2 className="font-display text-3xl font-semibold mb-2">
+              Lo que te comparto
+            </h2>
+            <p className="text-muted mb-8 max-w-xl">
+              Noticias y notas de campo sobre tecnología, soberanía digital y
+              organizaciones sociales.
+            </p>
+          </Revelar>
+          {posts.length === 0 && (
+            <p className="text-muted">Próximamente los primeros artículos.</p>
+          )}
+          <ul className="max-w-3xl">
+            {posts.map((post, indice) => (
+              <li
+                key={post.slug}
+                className="border-b border-ink/10 last:border-b-0"
+              >
+                <Revelar retraso={indice * 0.08}>
+                  <Link
+                    href={`/blog/${post.slug}`}
+                    className="group block py-8 hover:opacity-60 transition-opacity"
+                  >
+                    <div className="flex justify-between items-start gap-4 mb-3">
+                      <p className="font-mono text-xs text-muted font-medium">
+                        {post.date}
+                      </p>
+                      <span className="text-xs text-muted bg-white border border-ink/10 px-2.5 py-1 rounded-md whitespace-nowrap">
+                        {post.minutos} min
+                      </span>
+                    </div>
+                    <h3 className="font-display text-xl font-semibold leading-snug mb-3 group-hover:text-accent transition-colors">
+                      {post.title}
+                    </h3>
+                    <p className="text-sm text-muted leading-relaxed max-w-2xl mb-4">
+                      {post.description}
+                    </p>
+                    {post.tags.length > 0 && (
+                      <div className="flex flex-wrap gap-1.5">
+                        {post.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="text-xs text-muted border border-ink/15 px-2.5 py-1 rounded-md hover:border-ink/30 transition-colors"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </Link>
+                </Revelar>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
     </div>

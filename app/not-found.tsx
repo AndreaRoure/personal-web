@@ -24,7 +24,7 @@ export default function NotFound() {
             ← Volver al inicio
           </Link>
           <Link
-            href="/blog"
+            href="/#blog"
             className="text-muted hover:text-accent transition-colors"
           >
             o pásate por el blog

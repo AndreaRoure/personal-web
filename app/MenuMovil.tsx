@@ -4,10 +4,10 @@ import { useState } from "react";
 import HojaRoble from "./HojaRoble";
 
 const enlaces = [
-  { href: "/", texto: "Sobre mí" },
+  { href: "/#sobre-mi", texto: "Sobre mí" },
   { href: "/#proyectos", texto: "Proyectos" },
-  { href: "/blog", texto: "Blog" },
-  { href: "/contacto", texto: "Contacto" },
+  { href: "/#blog", texto: "Blog" },
+  { href: "mailto:robleshca@gmail.com", texto: "Contacto" },
 ];
 
 export default function MenuMovil() {

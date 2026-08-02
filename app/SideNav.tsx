@@ -18,7 +18,7 @@ export default function SideNav() {
         {/* Enlaces principales */}
         <div className="flex flex-col items-start space-y-3 text-[15px]">
           <Link
-            href="/"
+            href="/#sobre-mi"
             className="inline-block border-b-2 border-transparent hover:border-[#1A1A17] pb-0.5 transition-colors"
           >
             Sobre mí
@@ -30,7 +30,7 @@ export default function SideNav() {
             Proyectos
           </Link>
           <Link
-            href="/blog"
+            href="/#blog"
             className="inline-block border-b-2 border-transparent hover:border-[#1A1A17] pb-0.5 transition-colors"
           >
             Blog
@@ -38,13 +38,13 @@ export default function SideNav() {
         </div>
       </div>
 
-      {/* Abajo - CTA Contacto */}
-      <Link
-        href="/contacto"
+      {/* Abajo - CTA Contacto, abre el cliente de correo del usuario */}
+      <a
+        href="mailto:robleshca@gmail.com"
         className="inline-block border border-[#1A1A17] rounded-full px-4 py-2 text-[15px] text-ink hover:bg-accent hover:border-accent hover:text-white transition-colors text-center font-medium"
       >
         Contacto
-      </Link>
+      </a>
     </nav>
   );
 }

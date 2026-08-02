@@ -27,7 +27,7 @@ export default async function Post({
     <div>
       <section className="w-full bg-white text-ink border-b border-[#1A1A17]">
         <div className="max-w-5xl mx-auto px-6 pt-14 pb-16">
-          <a href="/blog" className="inline-block font-mono text-xs uppercase tracking-[0.2em] text-accent mb-6 hover:text-ink transition-colors">
+          <a href="/#blog" className="inline-block font-mono text-xs uppercase tracking-[0.2em] text-accent mb-6 hover:text-ink transition-colors">
             ← Blog
           </a>
           <p className="font-mono text-xs text-muted mb-4">
@@ -57,7 +57,7 @@ export default async function Post({
             <MDXRemote source={content} />
           </article>
           <Link
-            href="/blog"
+            href="/#blog"
             className="inline-flex items-center gap-2 mt-14 text-sm text-muted hover:text-accent transition-colors"
           >
             <span className="text-accent">←</span> Volver al blog
