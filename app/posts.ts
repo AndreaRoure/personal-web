@@ -28,7 +28,7 @@ export function getPosts() {
       date: data.date as string,
       description: data.description as string,
       tags,
-      // Se puede fijar con "categoria" en el frontmatter; si no, manda la primera etiqueta.
+      imagen: (data.imagen as string) ?? null,
       categoria: (data.categoria as string) ?? tags[0] ?? "general",
       minutos: calcularMinutos(content),
     };

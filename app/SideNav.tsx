@@ -24,27 +24,21 @@ export default function SideNav() {
             Sobre mí
           </Link>
           <Link
-            href="/#proyectos"
+            href="/#archivo"
             className="inline-block border-b-2 border-transparent hover:border-[#1A1A17] pb-0.5 transition-colors"
           >
-            Proyectos
+            Archivo
           </Link>
           <Link
-            href="/#blog"
+            href="/#contacto"
             className="inline-block border-b-2 border-transparent hover:border-[#1A1A17] pb-0.5 transition-colors"
           >
-            Blog
+            Contacto
           </Link>
         </div>
       </div>
 
-      {/* Abajo - CTA Contacto */}
-      <Link
-        href="/#contacto"
-        className="inline-block border border-[#1A1A17] rounded-full px-4 py-2 text-[15px] text-ink hover:bg-accent hover:border-accent hover:text-white transition-colors text-center font-medium"
-      >
-        Contacto
-      </Link>
+      <div />
     </nav>
   );
 }
