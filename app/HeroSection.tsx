@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
-import KickerRotativo from "./KickerRotativo";
 
 type Phase = "idle" | "running" | "dead" | "won";
 
@@ -309,11 +308,6 @@ export default function HeroSection() {
 
       {/* Overlay HTML — encima del canvas */}
       <div className="absolute inset-0 pointer-events-none">
-
-        {/* KickerRotativo — arriba izquierda */}
-        <div className="absolute top-5 left-6 md:left-10">
-          <KickerRotativo />
-        </div>
 
         {/* Título — zona superior, grande */}
         <div className="absolute top-[10vh] left-6 md:left-10 right-6 md:right-10">

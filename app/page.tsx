@@ -60,7 +60,7 @@ export default function Home() {
             <div className="px-8 md:px-14 py-12 md:py-20 space-y-8">
               <div>
                 <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-2">Quién soy</p>
-                <h2 className="font-display text-6xl md:text-8xl font-bold leading-none">Sobre mí</h2>
+                <h2 className="font-display text-5xl md:text-6xl font-bold leading-none">Sobre mí</h2>
               </div>
               <div className="space-y-5 text-lg leading-relaxed">
                 <p>
