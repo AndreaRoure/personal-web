@@ -22,7 +22,9 @@ const COLORS = {
 
 function Card({ item }: { item: ArchivoItem }) {
   const c = COLORS[item.color];
-  const cls = item.span === 2 ? "col-span-2" : "";
+  // A partir de sm ocupa dos columnas; en movil la rejilla es de una sola,
+  // y un col-span-2 ahi crearia una segunda columna implicita y desbordaria.
+  const cls = item.span === 2 ? "sm:col-span-2" : "";
   const hasImg = !!item.imagen;
 
   const inner = (
@@ -81,7 +83,7 @@ function Card({ item }: { item: ArchivoItem }) {
 export default function ArchivoGrid({ items }: { items: ArchivoItem[] }) {
   return (
     <div
-      className="grid grid-cols-2 md:grid-cols-3 w-full"
+      className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 w-full"
       style={{ background: "#D0D0CC", gap: "2px" }}
     >
       {items.map((item) => (

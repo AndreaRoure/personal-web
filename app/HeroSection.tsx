@@ -278,18 +278,17 @@ export default function HeroSection() {
     const onKey   = (e: KeyboardEvent) => {
       if (e.code === "Space" || e.code === "ArrowUp") { e.preventDefault(); interact(); }
     };
-    const onTouch = (e: TouchEvent) => { e.preventDefault(); interact(); };
 
     window.addEventListener("keydown", onKey);
+    // Solo "click": en tactil ya se dispara al tocar, y a diferencia de
+    // touchstart con preventDefault no bloquea el scroll con el dedo.
     canvas.addEventListener("click", interact);
-    canvas.addEventListener("touchstart", onTouch, { passive: false });
 
     return () => {
       cancelAnimationFrame(state.current.frameId);
       window.removeEventListener("keydown", onKey);
       window.removeEventListener("resize", resize);
       canvas.removeEventListener("click", interact);
-      canvas.removeEventListener("touchstart", onTouch);
     };
   }, [interact]);
 
