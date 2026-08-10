@@ -39,7 +39,7 @@ function Card({ item }: { item: ArchivoItem }) {
             src={item.imagen!}
             alt={item.titulo}
             fill
-            className="object-cover grayscale"
+            className="object-cover"
           />
         </div>
       )}
