@@ -4,39 +4,34 @@ import Revelar from "./Revelar";
 import CopiarEmail from "./CopiarEmail";
 import HeroSection from "./HeroSection";
 import FotoAnalisis from "./FotoAnalisis";
-import ArchivoGrid, { ArchivoItem } from "./ArchivoGrid";
+import ArchivoTabs, { CategoriaId, ItemArchivo } from "./ArchivoTabs";
 import { getPosts } from "./posts";
 
-const PROYECTOS: ArchivoItem[] = [
+const PROYECTOS: ItemArchivo[] = [
   {
-    tipo: "Proyecto",
+    categoria: "side",
     titulo: "Comparador de Empleabilidad FP",
-    descripcion: "Herramienta para explorar la empleabilidad real de los ciclos de FP con datos públicos.",
+    subtexto: "Herramienta para explorar la empleabilidad real de los ciclos de FP con datos públicos.",
     fecha: "2025",
     href: "#",
     externo: false,
-    color: "rojo",
-    span: 2,
     estado: "En construcción",
   },
 ];
 
-const ARTICLE_COLORS: ArchivoItem["color"][] = ["gris", "gris", "gris", "gris", "gris"];
-
-
 export default function Home() {
   const posts = getPosts();
 
-  const archivoItems: ArchivoItem[] = [
+  const archivoItems: ItemArchivo[] = [
     ...PROYECTOS,
-    ...posts.map((post, i) => ({
-      tipo: "Artículo" as const,
+    ...posts.map((post) => ({
+      // La categoria viene del frontmatter; si faltara, cae en articulos.
+      categoria: (post.categoria as CategoriaId) ?? "articulos",
       titulo: post.title,
-      descripcion: post.description,
+      subtexto: post.description,
       fecha: post.date,
       href: `/blog/${post.slug}`,
       externo: false,
-      color: ARTICLE_COLORS[i % ARTICLE_COLORS.length],
       imagen: post.imagen,
     })),
   ];
@@ -97,19 +92,20 @@ export default function Home() {
 
       {/* BANDA 4: ARCHIVO */}
       <section id="archivo" className="w-full text-ink border-b border-[#1A1A17] scroll-mt-10" style={{ background: "#EAEAE6" }}>
-        <div className="px-6 md:px-8 pt-12 md:pt-20 pb-4">
+        <div className="px-4 sm:px-6 md:px-8 pt-12 md:pt-20 pb-5">
           <Revelar>
             <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-2">
               Proyectos y escritura
             </p>
-            <h2 className="font-display text-6xl md:text-8xl font-bold leading-none">
+            <h2 className="font-display text-5xl sm:text-6xl md:text-8xl font-bold leading-none">
               Archivo
             </h2>
           </Revelar>
         </div>
         <Revelar retraso={0.1}>
-          <ArchivoGrid items={archivoItems} />
+          <ArchivoTabs items={archivoItems} />
         </Revelar>
+        <div className="h-12 md:h-20" />
       </section>
 
       {/* BANDA 6: CONTACTO */}
