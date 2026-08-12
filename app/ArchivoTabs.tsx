@@ -6,6 +6,7 @@ import Image from "next/image";
 import HojaRoble from "./HojaRoble";
 
 export type CategoriaId = "casos" | "articulos" | "side";
+export type FiltroId = CategoriaId | "todo";
 
 /** Cada categoria define su par de duotono. Todos comparten la luz lima
  *  para que las tarjetas se lean como una familia y no como tres estilos. */
@@ -18,6 +19,15 @@ export const CATEGORIAS: {
   { id: "casos",     etiqueta: "Casos de uso",  sombra: "#DC4632", luz: "#F7FFCC" },
   { id: "articulos", etiqueta: "Artículos",     sombra: "#7A9201", luz: "#F7FFCC" },
   { id: "side",      etiqueta: "Side projects", sombra: "#2B3300", luz: "#F7FFCC" },
+];
+
+/** "Todo" no es una categoria: no tiñe ninguna imagen, solo filtra. Por eso
+ *  usa el negro estructural de los bordes y no uno de los tres colores. */
+const TODO = { id: "todo" as const, etiqueta: "Todo", sombra: "#1A1A17", luz: "#F7FFCC" };
+
+const PESTANAS: { id: FiltroId; etiqueta: string; sombra: string; luz: string }[] = [
+  TODO,
+  ...CATEGORIAS,
 ];
 
 export interface ItemArchivo {
@@ -131,9 +141,10 @@ function Tarjeta({ item }: { item: ItemArchivo }) {
 }
 
 export default function ArchivoTabs({ items }: { items: ItemArchivo[] }) {
-  const [activa, setActiva] = useState<CategoriaId>(CATEGORIAS[0].id);
-  const visibles = items.filter((i) => i.categoria === activa);
-  const activaDef = CATEGORIAS.find((c) => c.id === activa)!;
+  const [activa, setActiva] = useState<FiltroId>("todo");
+  const visibles =
+    activa === "todo" ? items : items.filter((i) => i.categoria === activa);
+  const activaDef = PESTANAS.find((c) => c.id === activa)!;
 
   return (
     <div className="px-4 sm:px-6 md:px-8">
@@ -145,9 +156,12 @@ export default function ArchivoTabs({ items }: { items: ItemArchivo[] }) {
         aria-label="Categorías del archivo"
         className="flex items-end gap-1 overflow-x-auto pt-1"
       >
-        {CATEGORIAS.map((c) => {
+        {PESTANAS.map((c) => {
           const esActiva = c.id === activa;
-          const cuantos = items.filter((i) => i.categoria === c.id).length;
+          const cuantos =
+            c.id === "todo"
+              ? items.length
+              : items.filter((i) => i.categoria === c.id).length;
           return (
             <button
               key={c.id}
@@ -156,8 +170,8 @@ export default function ArchivoTabs({ items }: { items: ItemArchivo[] }) {
               onClick={() => setActiva(c.id)}
               style={esActiva ? { backgroundColor: c.sombra, color: c.luz } : undefined}
               className={`relative flex-shrink-0 whitespace-nowrap rounded-t-lg border-2 border-b-0 border-[#1A1A17]
-                font-mono text-[11px] sm:text-[13px] font-bold uppercase tracking-[0.04em] sm:tracking-[0.08em]
-                px-2.5 sm:px-4 transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink
+                font-mono text-[10px] sm:text-[13px] font-bold uppercase tracking-normal sm:tracking-[0.08em]
+                px-2 sm:px-4 transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink
                 ${esActiva
                   ? "z-10 -mb-0.5 pt-2.5 pb-3"
                   : "bg-[#DEDED9] text-ink/60 pt-2 pb-2.5 hover:bg-[#E7E7E2]"}`}
@@ -174,7 +188,9 @@ export default function ArchivoTabs({ items }: { items: ItemArchivo[] }) {
       <div className="border-2 border-[#1A1A17] bg-[#F2F5E4] rounded-b-lg rounded-tr-lg p-4 sm:p-6">
         {visibles.length === 0 ? (
           <p className="font-mono text-sm text-muted py-8 text-center">
-            Todavía no hay nada en {activaDef.etiqueta.toLowerCase()}.
+            {activa === "todo"
+              ? "El archivo está vacío por ahora."
+              : `Todavía no hay nada en ${activaDef.etiqueta.toLowerCase()}.`}
           </p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
