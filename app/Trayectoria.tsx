@@ -23,7 +23,7 @@ const ANTERIOR = [
     org: "Culinary Institute of Barcelona",
     periodo: "2021",
     descripcion:
-      "Estrategia digital completa — SEO, SEM, Social Ads, analítica — coordinando equipos internos y externos.",
+      "Estrategia digital completa — Dirección y creación de contenidos, SEO, SEM, Social Ads, analítica.",
   },
   {
     puesto: "Digital Marketing Manager",

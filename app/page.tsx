@@ -61,11 +61,18 @@ export default function Home() {
               <div className="space-y-5 text-lg leading-relaxed">
                 <p>
                   Soy Andrea Robles. Llevo 8 años especializándome en tecnología y datos aplicados a proyectos de desarrollo social.
-                  Empecé en Magisterio, seguí por marketing, y he continuado formándome en Big Data e IA —
-                  no porque cambiara de rumbo, sino porque cada paso me acercaba a la misma pregunta: ¿en qué tipo de sociedad quiero vivir y qué papel tengo?
+                  Soy graduada en Magisterio por la Universidad de León, seguí formándome en estudios de postgrado en Marketing
+                  e e-commerce por INESDI (Barcelona) y más tarde realicé un Máster en Inteligencia Artificial y Big Data en
+                  Digitech (Barcelona), pero sobre todo la mayor parte de mi aprendizaje es a través de proyectos reales que me
+                  ayudan a aprender cosas nuevas cada día.
                 </p>
                 <p>
-                  Desarrollo proyectos con impacto social real: pongo las herramientas —datos, automatización, digitalización— al servicio de espacios de decisión colectiva, para que los equipos y las comunidades con las que trabajo puedan decidir mejor, no solo trabajar más rápido y a más escala.
+                  Me interesa la intersección entre las personas y la tecnología, entre lo analógico y lo digital, y cómo poder
+                  utilizar las herramientas que tenemos a nuestro alcance para construir una mejor sociedad.
+                </p>
+                <p>
+                  Desarrollo proyectos con impacto social real: implemento herramientas, datos, automatización y digitalización
+                  de procesos en entornos que buscan la mejora colectiva.
                 </p>
               </div>
 
