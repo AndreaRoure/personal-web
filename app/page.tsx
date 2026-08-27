@@ -34,6 +34,7 @@ export default function Home() {
       href: `/blog/${post.slug}`,
       externo: false,
       imagen: post.imagen,
+      tags: post.tags,
     })),
   ];
 

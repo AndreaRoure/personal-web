@@ -3,23 +3,14 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import HojaRoble from "./HojaRoble";
 
-export type CategoriaId = "casos" | "articulos" | "side";
+
+import { CATEGORIAS, categoriaDe, type CategoriaId } from "./categorias";
+import PortadaTipografica from "./PortadaTipografica";
+export type { CategoriaId } from "./categorias";
+export { CATEGORIAS } from "./categorias";
+
 export type FiltroId = CategoriaId | "todo";
-
-/** Cada categoria define su par de duotono. Todos comparten la luz lima
- *  para que las tarjetas se lean como una familia y no como tres estilos. */
-export const CATEGORIAS: {
-  id: CategoriaId;
-  etiqueta: string;
-  sombra: string;
-  luz: string;
-}[] = [
-  { id: "casos",     etiqueta: "Casos de uso",  sombra: "#DC4632", luz: "#F7FFCC" },
-  { id: "articulos", etiqueta: "Artículos",     sombra: "#7A9201", luz: "#F7FFCC" },
-  { id: "side",      etiqueta: "Side projects", sombra: "#2B3300", luz: "#F7FFCC" },
-];
 
 /** "Todo" no es una categoria: no tiñe ninguna imagen, solo filtra. Por eso
  *  usa el negro estructural de los bordes y no uno de los tres colores. */
@@ -39,6 +30,7 @@ export interface ItemArchivo {
   externo?: boolean;
   imagen?: string | null;
   estado?: string;
+  tags?: string[];
 }
 
 const aTabla = (hex: string) => {
@@ -75,7 +67,7 @@ function FiltrosDuotono() {
 }
 
 function Tarjeta({ item }: { item: ItemArchivo }) {
-  const cat = CATEGORIAS.find((c) => c.id === item.categoria)!;
+  const cat = categoriaDe(item.categoria);
 
   const contenido = (
     <article className="group flex flex-col h-full bg-white border-2 border-[#1A1A17] overflow-hidden transition-transform duration-200 hover:-translate-y-1">
@@ -94,9 +86,15 @@ function Tarjeta({ item }: { item: ItemArchivo }) {
             style={{ filter: `url(#duo-${item.categoria})` }}
           />
         ) : (
-          // Sin imagen: bloque del color de la categoria con la hoja de marca
-          <div className="absolute inset-0 flex items-center justify-center">
-            <HojaRoble tamano={72} color={cat.luz} opacidad={0.5} />
+          // Sin imagen: portada generada a partir del propio articulo
+          <div className="absolute inset-0">
+            <PortadaTipografica
+              titulo={item.titulo}
+              categoria={item.categoria}
+              fecha={item.fecha}
+              tags={item.tags}
+              compacta
+            />
           </div>
         )}
       </div>

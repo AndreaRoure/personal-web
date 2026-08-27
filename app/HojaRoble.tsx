@@ -3,7 +3,9 @@ export default function HojaRoble({
   color = "#7A9201",
   opacidad = 1,
 }: {
-  tamano?: number;
+  // Admite tambien porcentajes, para que la hoja escale con su contenedor
+  // cuando se usa de marca de agua.
+  tamano?: number | string;
   color?: string;
   opacidad?: number;
 }) {

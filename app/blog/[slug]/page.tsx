@@ -3,7 +3,11 @@ import path from "path";
 import matter from "gray-matter";
 import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import Image from "next/image";
 import CompartirPost from "../../CompartirPost";
+import FiltrosDuotono from "../../FiltrosDuotono";
+import HojaRoble from "../../HojaRoble";
+import { categoriaDe } from "../../categorias";
 
 const postsDirectory = path.join(process.cwd(), "content/posts");
 
@@ -23,32 +27,75 @@ export default async function Post({
   const { content, data } = matter(fileContent);
   const tags = (data.tags as string[]) ?? [];
   const minutos = calcularMinutos(content);
+  const cat = categoriaDe(data.categoria as string | undefined);
 
   return (
     <div>
-      <section className="w-full bg-white text-ink border-b border-[#1A1A17]">
-        <div className="max-w-5xl mx-auto px-6 pt-14 pb-16">
-          <a href="/#archivo" className="inline-block font-mono text-xs uppercase tracking-[0.2em] text-accent mb-6 hover:text-ink transition-colors">
+      {/* Cabecera: mismo tratamiento tipografico que la portada de la tarjeta.
+          Si el articulo tiene imagen, va de fondo con el duotono de su
+          categoria y un velo del mismo color, que si no el titulo en lima no
+          se lee sobre las zonas claras del duotono. */}
+      <section
+        className="relative w-full border-b-2 border-[#1A1A17] overflow-hidden"
+        style={{ backgroundColor: cat.sombra, color: cat.luz }}
+      >
+        <FiltrosDuotono />
+
+        {data.imagen && (
+          <>
+            <Image
+              src={data.imagen as string}
+              alt=""
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover"
+              style={{ filter: `url(#duo-${cat.id})` }}
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-0"
+              style={{ backgroundColor: cat.sombra, opacity: 0.72 }}
+            />
+          </>
+        )}
+
+        <div className="relative max-w-5xl mx-auto px-6 pt-12 pb-14 md:pt-16 md:pb-20">
+          <a
+            href="/#archivo"
+            className="inline-block font-mono text-xs uppercase tracking-[0.2em] mb-8 hover:opacity-100 transition-opacity"
+            style={{ opacity: 0.75 }}
+          >
             ← Archivo
           </a>
-          <p className="font-mono text-xs text-muted mb-4">
-            {data.date} · {minutos} min de lectura
+          <p className="font-mono text-xs uppercase tracking-[0.16em] mb-4" style={{ opacity: 0.75 }}>
+            {cat.etiqueta} · {data.date} · {minutos} min de lectura
           </p>
-          <h1 className="font-display text-4xl md:text-6xl font-semibold max-w-4xl leading-tight">
+          <h1 className="font-display text-4xl md:text-6xl font-bold max-w-4xl leading-[1.02] text-balance">
             {data.title}
           </h1>
           {tags.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-5">
+            <div className="flex flex-wrap gap-2 mt-6">
               {tags.map((tag) => (
                 <span
                   key={tag}
-                  className="text-xs border border-ink/20 rounded-full px-3 py-1 text-muted"
+                  className="font-mono text-[11px] uppercase tracking-[0.12em] border rounded-full px-3 py-1"
+                  style={{ borderColor: "currentColor", opacity: 0.7 }}
                 >
                   {tag}
                 </span>
               ))}
             </div>
           )}
+        </div>
+
+        {/* La hoja asomando por la esquina, como en la portada */}
+        <div
+          aria-hidden="true"
+          className="absolute right-[-2%] bottom-[-14%] w-[22%] max-w-[220px] hidden sm:block"
+          style={{ opacity: 0.14, color: cat.luz }}
+        >
+          <HojaRoble tamano="100%" color="currentColor" />
         </div>
       </section>
 
