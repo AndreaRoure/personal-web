@@ -34,10 +34,31 @@ const ANTERIOR = [
   },
 ];
 
-function Etiqueta({ children }: { children: React.ReactNode }) {
+/** Punto verde con anillo que late, como los indicadores de "en activo". */
+function PuntoActivo() {
+  return (
+    <span
+      className="relative inline-flex h-2 w-2 ml-2.5 align-middle"
+      role="img"
+      aria-label="En activo"
+    >
+      <span className="absolute inset-0 rounded-full bg-accent animate-latido" />
+      <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
+    </span>
+  );
+}
+
+function Etiqueta({
+  children,
+  activo = false,
+}: {
+  children: React.ReactNode;
+  activo?: boolean;
+}) {
   return (
     <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-3">
       {children}
+      {activo && <PuntoActivo />}
     </p>
   );
 }
@@ -56,7 +77,7 @@ export default function Trayectoria() {
 
       {/* Actualmente — en caja, para que destaque sobre el resto */}
       <div>
-        <Etiqueta>Actualmente</Etiqueta>
+        <Etiqueta activo>Actualmente</Etiqueta>
         <div className="bg-white border-2 border-[#1A1A17] p-5 sm:p-6">
           <h3 className="font-display text-xl sm:text-2xl font-bold leading-tight">
             {ACTUAL.puesto}
