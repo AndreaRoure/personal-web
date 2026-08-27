@@ -4,6 +4,7 @@ import Revelar from "./Revelar";
 import CopiarEmail from "./CopiarEmail";
 import HeroSection from "./HeroSection";
 import FotoAnalisis from "./FotoAnalisis";
+import Trayectoria from "./Trayectoria";
 import ArchivoTabs, { CategoriaId, ItemArchivo } from "./ArchivoTabs";
 import { getPosts } from "./posts";
 
@@ -68,22 +69,18 @@ export default function Home() {
                 </p>
               </div>
 
-              <aside className="font-mono text-sm space-y-6 border-t border-ink/10 pt-6">
-                <div>
-                  <p className="text-xs uppercase tracking-widest text-muted mb-1">Ahora mismo</p>
-                  <p>Dirección de transformación digital en una organización social</p>
-                </div>
-                <div>
-                  <p className="text-xs uppercase tracking-widest text-muted mb-1">Base</p>
-                  <p>Barcelona · pueblo</p>
-                </div>
-                <div>
-                  <p className="text-xs uppercase tracking-widest text-muted mb-1">Stack</p>
-                  <p>
-                    <span className="text-accent">Next.js</span> · N8N · Python · IA aplicada · Supabase
-                  </p>
-                </div>
-              </aside>
+              <div className="border-t-2 border-ink/10 pt-8">
+                <Trayectoria />
+              </div>
+
+              <div className="border-t-2 border-ink/10 pt-6">
+                <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-3">
+                  Stack
+                </p>
+                <p className="font-mono text-sm">
+                  <span className="text-accent">Next.js</span> · N8N · Python · IA aplicada · Supabase
+                </p>
+              </div>
             </div>
 
           </div>
