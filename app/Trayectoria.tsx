@@ -1,4 +1,5 @@
 import DuracionDesde from "./DuracionDesde";
+import IconoVela from "./IconoVela";
 
 const ACTUAL = {
   puesto: "Directora de Transformación Digital",
@@ -47,7 +48,10 @@ export default function Trayectoria() {
       {/* Ubicación */}
       <div>
         <Etiqueta>Ubicación</Etiqueta>
-        <p className="text-lg">Barcelona</p>
+        <p className="text-lg flex items-center gap-2">
+          Barcelona
+          <IconoVela />
+        </p>
       </div>
 
       {/* Actualmente — en caja, para que destaque sobre el resto */}
