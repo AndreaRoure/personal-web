@@ -1,27 +1,37 @@
+import Image from "next/image";
 import HojaRoble from "./HojaRoble";
 import { categoriaDe } from "./categorias";
 
 /** Portada generada a partir de lo que ya se escribe en el frontmatter.
  *  No hay que buscar ni diseñar imagen: el titulo ocupa la portada sobre el
- *  color de su categoria. Se usa en la tarjeta del archivo y como cabecera
- *  del articulo, con el mismo diseño en los dos sitios.
+ *  color de su categoria.
+ *
+ *  Si el articulo trae imagen, esta va de fondo con el duotono de su
+ *  categoria y un velo del mismo color, y el titulo se mantiene encima. Asi
+ *  las dos variantes se leen igual y el titulo no queda suelto debajo.
  *
  *  Los tamaños van en cqw para que la misma pieza sirva a 300px de ancho en
- *  una tarjeta y a pantalla completa en la cabecera. */
+ *  una tarjeta y a pantalla completa. */
 export default function PortadaTipografica({
   titulo,
   categoria,
   fecha,
   tags = [],
+  imagen,
   compacta = false,
+  comoTitulo = false,
 }: {
   titulo: string;
   categoria?: string;
   fecha?: string;
   tags?: string[];
+  imagen?: string | null;
   compacta?: boolean;
+  comoTitulo?: boolean;
 }) {
   const cat = categoriaDe(categoria);
+  const hayPie = Boolean(fecha) || tags.length > 0;
+  const Titulo = comoTitulo ? "h3" : "p";
 
   return (
     <div
@@ -36,34 +46,58 @@ export default function PortadaTipografica({
         containerType: "inline-size",
       }}
     >
+      {imagen && (
+        <>
+          <Image
+            src={imagen}
+            alt=""
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover"
+            style={{ filter: `url(#duo-${cat.id})` }}
+          />
+          {/* Sin este velo el titulo en lima no se lee sobre las zonas
+              claras del duotono. */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0"
+            style={{ backgroundColor: cat.sombra, opacity: 0.72 }}
+          />
+        </>
+      )}
+
       <p
-        className="font-mono uppercase"
+        className="relative font-mono uppercase"
         style={{ fontSize: "3.2cqw", letterSpacing: "0.16em", opacity: 0.75 }}
       >
         &gt; {cat.etiqueta.toLowerCase()}
       </p>
 
-      <p
-        className="font-display font-bold"
+      <Titulo
+        className="relative font-display font-bold"
         style={{
-          fontSize: compacta ? "9cqw" : "7.4cqw",
-          lineHeight: 0.98,
-          maxWidth: "90%",
+          fontSize: compacta ? "7.6cqw" : "7.4cqw",
+          lineHeight: 1,
+          maxWidth: "92%",
           textWrap: "balance",
         }}
       >
         {titulo}
-      </p>
+      </Titulo>
 
-      <div
-        className="font-mono uppercase flex justify-between gap-4"
-        style={{ fontSize: "3cqw", letterSpacing: "0.14em", opacity: 0.75 }}
-      >
-        <span>{fecha}</span>
-        {tags.length > 0 && (
-          <span className="text-right">{tags.slice(0, 3).join(" · ")}</span>
-        )}
-      </div>
+      {hayPie ? (
+        <div
+          className="relative font-mono uppercase flex justify-between gap-4"
+          style={{ fontSize: "3cqw", letterSpacing: "0.14em", opacity: 0.75 }}
+        >
+          <span>{fecha}</span>
+          {tags.length > 0 && (
+            <span className="text-right">{tags.slice(0, 3).join(" · ")}</span>
+          )}
+        </div>
+      ) : (
+        <span aria-hidden="true" />
+      )}
 
       {/* La hoja como marca de agua, asomando por la esquina */}
       <div

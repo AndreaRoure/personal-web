@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 
 
 import { CATEGORIAS, categoriaDe, type CategoriaId } from "./categorias";
@@ -71,51 +70,34 @@ function Tarjeta({ item }: { item: ItemArchivo }) {
 
   const contenido = (
     <article className="group flex flex-col h-full bg-white border-2 border-[#1A1A17] overflow-hidden transition-transform duration-200 hover:-translate-y-1">
-      {/* Imagen con el duotono de su categoria */}
-      <div
-        className="relative w-full aspect-[16/10] border-b-2 border-[#1A1A17] overflow-hidden"
-        style={{ backgroundColor: cat.sombra }}
-      >
-        {item.imagen ? (
-          <Image
-            src={item.imagen}
-            alt=""
-            fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-cover"
-            style={{ filter: `url(#duo-${item.categoria})` }}
-          />
-        ) : (
-          // Sin imagen: portada generada a partir del propio articulo
-          <div className="absolute inset-0">
-            <PortadaTipografica
-              titulo={item.titulo}
-              categoria={item.categoria}
-              fecha={item.fecha}
-              tags={item.tags}
-              compacta
-            />
-          </div>
-        )}
+      {/* Portada: titulo tipografico, con la imagen detras si el articulo
+          trae una. Con o sin imagen es la misma pieza, asi el titulo no se
+          repite mas abajo. */}
+      <div className="relative w-full aspect-[16/10] border-b-2 border-[#1A1A17] overflow-hidden">
+        <PortadaTipografica
+          titulo={item.titulo}
+          categoria={item.categoria}
+          fecha={item.fecha}
+          tags={item.tags}
+          imagen={item.imagen}
+          compacta
+        />
       </div>
 
-      {/* Titulo y subtexto */}
+      {/* Solo el estado y la descripcion: el titulo ya vive en la portada */}
       <div className="flex flex-col flex-1 gap-2 p-4 sm:p-5">
-        <p
-          className="font-mono text-[10px] font-bold uppercase tracking-[0.18em]"
-          style={{ color: cat.sombra }}
-        >
-          {cat.etiqueta}
-          {item.estado ? ` · ${item.estado}` : ""}
-        </p>
-        <h3 className="font-display text-lg sm:text-xl font-bold leading-tight text-ink">
-          {item.titulo}
-        </h3>
+        {item.estado && (
+          <p
+            className="font-mono text-[10px] font-bold uppercase tracking-[0.18em]"
+            style={{ color: cat.sombra }}
+          >
+            {item.estado}
+          </p>
+        )}
         <p className="text-sm text-muted leading-relaxed line-clamp-3">
           {item.subtexto}
         </p>
-        <div className="flex justify-between items-end mt-auto pt-3">
-          <span className="font-mono text-xs text-muted">{item.fecha}</span>
+        <div className="flex justify-end items-end mt-auto pt-3">
           <span
             className="font-bold text-lg transition-transform group-hover:translate-x-1"
             style={{ color: cat.sombra }}
