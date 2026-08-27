@@ -3,6 +3,7 @@ import path from "path";
 import matter from "gray-matter";
 import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import CompartirPost from "../../CompartirPost";
 
 const postsDirectory = path.join(process.cwd(), "content/posts");
 
@@ -27,8 +28,8 @@ export default async function Post({
     <div>
       <section className="w-full bg-white text-ink border-b border-[#1A1A17]">
         <div className="max-w-5xl mx-auto px-6 pt-14 pb-16">
-          <a href="/#blog" className="inline-block font-mono text-xs uppercase tracking-[0.2em] text-accent mb-6 hover:text-ink transition-colors">
-            ← Blog
+          <a href="/#archivo" className="inline-block font-mono text-xs uppercase tracking-[0.2em] text-accent mb-6 hover:text-ink transition-colors">
+            ← Archivo
           </a>
           <p className="font-mono text-xs text-muted mb-4">
             {data.date} · {minutos} min de lectura
@@ -57,25 +58,29 @@ export default async function Post({
             <MDXRemote source={content} />
           </article>
           <Link
-            href="/#blog"
+            href="/#archivo"
             className="inline-flex items-center gap-2 mt-14 text-sm text-muted hover:text-accent transition-colors"
           >
-            <span className="text-accent">←</span> Volver al blog
+            <span className="text-accent">←</span> Volver al archivo
           </Link>
 
           <div className="mt-16 pt-12 border-t border-ink/10">
             <p className="text-sm text-muted mb-4">
-              Si este contenido te fue útil, considera apoyar mi trabajo:
+              Si este contenido te fue útil, compártelo o apoya mi trabajo:
             </p>
-            <a
-              href="https://ko-fi.com/andrearoblescastro"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 border border-accent text-accent rounded-md hover:bg-accent hover:text-white transition-colors text-sm font-medium"
-            >
-              <span>☕</span>
-              Apoyar en Ko-fi
-            </a>
+            <div className="flex flex-wrap items-center gap-2">
+              <a
+                href="https://ko-fi.com/andrearoblescastro"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 border border-accent text-accent rounded-md hover:bg-accent hover:text-white transition-colors text-sm font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              >
+                <span aria-hidden="true">☕</span>
+                Apoyar en Ko-fi
+              </a>
+              <span className="w-px self-stretch bg-ink/15 mx-1" aria-hidden="true" />
+              <CompartirPost titulo={data.title as string} />
+            </div>
           </div>
         </div>
       </section>

@@ -24,10 +24,10 @@ export default function NotFound() {
             ← Volver al inicio
           </Link>
           <Link
-            href="/#blog"
+            href="/#archivo"
             className="text-muted hover:text-accent transition-colors"
           >
-            o pásate por el blog
+            o pásate por el archivo
           </Link>
         </div>
         <div className="mt-16 opacity-40">
