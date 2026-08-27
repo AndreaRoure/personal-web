@@ -60,9 +60,9 @@ export default function TopNav() {
       <Image
         src="/andrea-cara.png"
         alt=""
-        width={26}
-        height={26}
-        className="rounded-full"
+        width={30}
+        height={30}
+        className="rounded-full grayscale"
       />
     ),
     Archivo: <IconoCarpetas />,
