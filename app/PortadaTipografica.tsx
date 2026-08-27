@@ -90,9 +90,12 @@ export default function PortadaTipografica({
           className="relative font-mono uppercase flex justify-between gap-4"
           style={{ fontSize: "3cqw", letterSpacing: "0.14em", opacity: 0.75 }}
         >
-          <span>{fecha}</span>
+          {/* La fecha nunca se parte: sin flex-shrink-0 el flex la comprimía
+              por debajo de su ancho de contenido y "2026-07-29" se rompía a
+              media palabra. Las etiquetas sí pueden ocupar dos líneas. */}
+          <span className="flex-shrink-0 whitespace-nowrap">{fecha}</span>
           {tags.length > 0 && (
-            <span className="text-right">{tags.slice(0, 3).join(" · ")}</span>
+            <span className="flex-1 min-w-0 text-right">{tags.slice(0, 3).join(" · ")}</span>
           )}
         </div>
       ) : (
