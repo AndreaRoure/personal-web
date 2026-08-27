@@ -1,47 +1,17 @@
+import { getTranslations } from "next-intl/server";
 import DuracionDesde from "./DuracionDesde";
 import IconoVela from "./IconoVela";
 
-const ACTUAL = {
-  puesto: "Directora de Transformación Digital",
-  org: "Fundación Exit",
-  desde: { anio: 2026, mes: 3 },
-  periodo: "marzo 2026 — hoy",
-  descripcion:
-    "Dirijo la estrategia tecnológica de una organización social de impacto. Lidero iniciativas de digitalización, integración de datos e IA para hacer los procesos más eficientes y escalables.",
-};
-
-const ANTERIOR = [
-  {
-    puesto: "Responsable de IT & Producto",
-    org: "Fundación Exit",
-    periodo: "2022 — 2026",
-    descripcion:
-      "Definí el roadmap tecnológico, integré herramientas y coordiné equipos técnicos y proveedores. Del diagnóstico al despliegue.",
-  },
-  {
-    puesto: "Digital Marketing & Social Media Manager",
-    org: "Culinary Institute of Barcelona",
-    periodo: "2021",
-    descripcion:
-      "Estrategia digital completa — Dirección y creación de contenidos, SEO, SEM, Social Ads, analítica.",
-  },
-  {
-    puesto: "Digital Marketing Manager",
-    org: "Amalgama Agencia",
-    periodo: "2019",
-    descripcion:
-      "Proyectos digitales para clientes de sectores variados. Comunicación multicanal con automatización de marketing y coordinación con desarrollo y diseño.",
-  },
-];
+// El mes de inicio del puesto actual es el unico dato que no sale de los
+// mensajes: hace falta como numero para que DuracionDesde calcule el tiempo
+// transcurrido. El resto (puesto, org, periodo, descripcion) esta en
+// messages/{locale}.json bajo "trayectoria".
+const DESDE_ACTUAL = { anio: 2026, mes: 3 };
 
 /** Punto verde con anillo que late, como los indicadores de "en activo". */
-function PuntoActivo() {
+function PuntoActivo({ etiqueta }: { etiqueta: string }) {
   return (
-    <span
-      className="relative inline-flex h-2 w-2 ml-2.5 align-middle"
-      role="img"
-      aria-label="En activo"
-    >
+    <span className="relative inline-flex h-2 w-2 ml-2.5 align-middle" role="img" aria-label={etiqueta}>
       <span className="absolute inset-0 rounded-full bg-accent animate-latido" />
       <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
     </span>
@@ -50,54 +20,69 @@ function PuntoActivo() {
 
 function Etiqueta({
   children,
-  activo = false,
+  puntoActivo,
 }: {
   children: React.ReactNode;
-  activo?: boolean;
+  puntoActivo?: string;
 }) {
   return (
     <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-3">
       {children}
-      {activo && <PuntoActivo />}
+      {puntoActivo && <PuntoActivo etiqueta={puntoActivo} />}
     </p>
   );
 }
 
-export default function Trayectoria() {
+export default async function Trayectoria() {
+  const t = await getTranslations("trayectoria");
+
+  const actual = {
+    puesto: t("actual.puesto"),
+    org: t("actual.org"),
+    periodo: t("actual.periodo"),
+    descripcion: t("actual.descripcion"),
+  };
+  const anterior = (["puesto1", "puesto2", "puesto3"] as const).map((clave) => ({
+    puesto: t(`${clave}.puesto`),
+    org: t(`${clave}.org`),
+    periodo: t(`${clave}.periodo`),
+    descripcion: t(`${clave}.descripcion`),
+  }));
+
   return (
     <div className="space-y-10">
       {/* Ubicación */}
       <div>
-        <Etiqueta>Ubicación</Etiqueta>
+        <Etiqueta>{t("ubicacion")}</Etiqueta>
         <p className="text-lg flex items-center gap-2">
-          Barcelona
+          {t("ciudad")}
           <IconoVela />
         </p>
       </div>
 
       {/* Actualmente — en caja, para que destaque sobre el resto */}
       <div>
-        <Etiqueta activo>Actualmente</Etiqueta>
+        <Etiqueta puntoActivo={t("enActivo")}>{t("actualmente")}</Etiqueta>
         <div className="bg-white border-2 border-[#1A1A17] p-5 sm:p-6">
           <h3 className="font-display text-xl sm:text-2xl font-bold leading-tight">
-            {ACTUAL.puesto}
+            {actual.puesto}
           </h3>
           <p className="font-mono text-xs sm:text-sm text-muted mt-2">
-            {ACTUAL.org} · {ACTUAL.periodo}
+            {actual.org} · {actual.periodo}
             <span className="text-accent">
               {" · "}
-              <DuracionDesde anio={ACTUAL.desde.anio} mes={ACTUAL.desde.mes} />
+              <DuracionDesde anio={DESDE_ACTUAL.anio} mes={DESDE_ACTUAL.mes} />
             </span>
           </p>
-          <p className="mt-4 leading-relaxed">{ACTUAL.descripcion}</p>
+          <p className="mt-4 leading-relaxed">{actual.descripcion}</p>
         </div>
       </div>
 
       {/* Anterior */}
       <div>
-        <Etiqueta>Anterior</Etiqueta>
+        <Etiqueta>{t("anterior")}</Etiqueta>
         <ol className="space-y-0">
-          {ANTERIOR.map((r) => (
+          {anterior.map((r) => (
             <li
               key={r.puesto + r.periodo}
               className="border-t-2 border-ink/10 py-5 first:border-t-0 first:pt-0"

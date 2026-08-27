@@ -81,7 +81,20 @@ const INK   = "#2B3300";
 const ACCENT = "#7A9201";
 const MUTED  = "#2B3300AA";
 
-export default function HeroSection() {
+export interface TextosHero {
+  titularPre: string;
+  titularFuerte: string;
+  titularPost: string;
+  scroll: string;
+  pistaJuego: string;
+  marcador: string;
+  ganasteTitulo: string;
+  ganasteSubtitulo: string;
+  perdisteTitulo: string;
+  perdisteSubtitulo: string;
+}
+
+export default function HeroSection({ textos }: { textos: TextosHero }) {
   const canvasRef    = useRef<HTMLCanvasElement>(null);
   const sectionRef   = useRef<HTMLElement>(null);
   const progressRef  = useRef<HTMLSpanElement>(null);
@@ -184,11 +197,11 @@ export default function HeroSection() {
         const groundLine = H * GROUND_RATIO;
 
         if (g.phase === "won") {
-          drawEnd(assets.current!.catWon, "Tu curiosidad salvó al gato", "[ espacio · tap → jugar de nuevo ]");
+          drawEnd(assets.current!.catWon, textos.ganasteTitulo, textos.ganasteSubtitulo);
           return;
         }
         if (g.phase === "dead") {
-          drawEnd(assets.current!.catDead, "Te falta curiosidad para salvar al gato", "[ espacio · tap → intentarlo de nuevo ]");
+          drawEnd(assets.current!.catDead, textos.perdisteTitulo, textos.perdisteSubtitulo);
           return;
         }
 
@@ -224,7 +237,7 @@ export default function HeroSection() {
           ctx.fillStyle = MUTED;
           ctx.font = `12px ${mono}`;
           ctx.textAlign = "left";
-          ctx.fillText("espacio · tap → salvar al gato", CAT_X + CAT_W + 16, groundLine - 24);
+          ctx.fillText(textos.pistaJuego, CAT_X + CAT_W + 16, groundLine - 24);
           return;
         }
 
@@ -247,7 +260,7 @@ export default function HeroSection() {
         ctx.fillStyle = MUTED;
         ctx.font = `11px ${mono}`;
         ctx.textAlign = "right";
-        ctx.fillText(`curiosidad × ${g.score}`, W - 16, 20);
+        ctx.fillText(`${textos.marcador} ${g.score}`, W - 16, 20);
 
         // Obstáculos
         const interval = Math.max(80, 155 - g.score / 7);
@@ -290,7 +303,11 @@ export default function HeroSection() {
       window.removeEventListener("resize", resize);
       canvas.removeEventListener("click", interact);
     };
-  }, [interact]);
+    // "textos" viene de las traducciones del servidor y no cambia durante la
+    // vida del componente (el idioma solo cambia navegando a otra URL), asi
+    // que incluirlo en las dependencias no reinicia el juego en marcha.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [interact, textos]);
 
   return (
     <section
@@ -317,10 +334,10 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
-            La curiosidad{" "}
+            {textos.titularPre}{" "}
             <span className="relative inline-block whitespace-nowrap">
-              salvó
-              {/* Barra de progreso bajo "salvó" — se llena mientras el gato corre */}
+              {textos.titularFuerte}
+              {/* Barra de progreso bajo la palabra — se llena mientras el gato corre */}
               <span
                 ref={progressRef}
                 className="absolute left-0 bottom-[0.04em] w-full"
@@ -332,7 +349,7 @@ export default function HeroSection() {
                 }}
               />
             </span>{" "}
-            al gato.
+            {textos.titularPost}
           </motion.h1>
         </div>
 
@@ -344,7 +361,7 @@ export default function HeroSection() {
           animate={{ opacity: 1 }}
           transition={{ delay: 1 }}
         >
-          ↓ scroll
+          ↓ {textos.scroll}
         </motion.a>
 
       </div>

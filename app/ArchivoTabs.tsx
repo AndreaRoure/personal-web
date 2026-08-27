@@ -2,23 +2,15 @@
 
 import { useState } from "react";
 import Link from "next/link";
-
-
+import { useTranslations } from "next-intl";
 import { CATEGORIAS, categoriaDe, type CategoriaId } from "./categorias";
 import PortadaTipografica from "./PortadaTipografica";
+import FiltrosDuotono from "./FiltrosDuotono";
+
 export type { CategoriaId } from "./categorias";
 export { CATEGORIAS } from "./categorias";
 
 export type FiltroId = CategoriaId | "todo";
-
-/** "Todo" no es una categoria: no tiñe ninguna imagen, solo filtra. Por eso
- *  usa el negro estructural de los bordes y no uno de los tres colores. */
-const TODO = { id: "todo" as const, etiqueta: "Todo", sombra: "#1A1A17", luz: "#F7FFCC" };
-
-const PESTANAS: { id: FiltroId; etiqueta: string; sombra: string; luz: string }[] = [
-  TODO,
-  ...CATEGORIAS,
-];
 
 export interface ItemArchivo {
   categoria: CategoriaId;
@@ -28,44 +20,16 @@ export interface ItemArchivo {
   href: string;
   externo?: boolean;
   imagen?: string | null;
-  estado?: string;
+  // Antes era un string libre ("En construcción"); con dos idiomas eso
+  // habria que traducirlo desde fuera. Como solo se usa para este caso,
+  // pasa a booleano y el texto sale de las traducciones de aqui dentro.
+  enConstruccion?: boolean;
   tags?: string[];
 }
 
-const aTabla = (hex: string) => {
-  const n = hex.replace("#", "").match(/../g)!.map((h) => parseInt(h, 16) / 255);
-  return n;
-};
-
-/** Filtros SVG de duotono, uno por categoria. Se declaran una sola vez y
- *  evitan tener que pregenerar una imagen por color. */
-function FiltrosDuotono() {
-  return (
-    <svg width="0" height="0" aria-hidden="true" className="absolute">
-      <defs>
-        {CATEGORIAS.map((c) => {
-          const s = aTabla(c.sombra);
-          const l = aTabla(c.luz);
-          return (
-            <filter key={c.id} id={`duo-${c.id}`} colorInterpolationFilters="sRGB">
-              <feColorMatrix
-                type="matrix"
-                values="0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0 0 0 1 0"
-              />
-              <feComponentTransfer>
-                <feFuncR type="table" tableValues={`${s[0]} ${l[0]}`} />
-                <feFuncG type="table" tableValues={`${s[1]} ${l[1]}`} />
-                <feFuncB type="table" tableValues={`${s[2]} ${l[2]}`} />
-              </feComponentTransfer>
-            </filter>
-          );
-        })}
-      </defs>
-    </svg>
-  );
-}
-
 function Tarjeta({ item }: { item: ItemArchivo }) {
+  const tCat = useTranslations("categorias");
+  const tArchivo = useTranslations("archivo");
   const cat = categoriaDe(item.categoria);
 
   const contenido = (
@@ -77,6 +41,7 @@ function Tarjeta({ item }: { item: ItemArchivo }) {
         <PortadaTipografica
           titulo={item.titulo}
           categoria={item.categoria}
+          categoriaLabel={tCat(item.categoria)}
           fecha={item.fecha}
           tags={item.tags}
           imagen={item.imagen}
@@ -86,12 +51,12 @@ function Tarjeta({ item }: { item: ItemArchivo }) {
 
       {/* Solo el estado y la descripcion: el titulo ya vive en la portada */}
       <div className="flex flex-col flex-1 gap-2 p-4 sm:p-5">
-        {item.estado && (
+        {item.enConstruccion && (
           <p
             className="font-mono text-[10px] font-bold uppercase tracking-[0.18em]"
             style={{ color: cat.sombra }}
           >
-            {item.estado}
+            {tArchivo("enConstruccion")}
           </p>
         )}
         <p className="text-sm text-muted leading-relaxed line-clamp-3">
@@ -121,10 +86,19 @@ function Tarjeta({ item }: { item: ItemArchivo }) {
 }
 
 export default function ArchivoTabs({ items }: { items: ItemArchivo[] }) {
+  const tCat = useTranslations("categorias");
+  const tArchivo = useTranslations("archivo");
   const [activa, setActiva] = useState<FiltroId>("todo");
   const visibles =
     activa === "todo" ? items : items.filter((i) => i.categoria === activa);
-  const activaDef = PESTANAS.find((c) => c.id === activa)!;
+
+  // "Todo" no es una categoria: no tiñe ninguna imagen, solo filtra. Por eso
+  // usa el negro estructural de los bordes y no uno de los tres colores.
+  const pestanas: { id: FiltroId; etiqueta: string; sombra: string; luz: string }[] = [
+    { id: "todo", etiqueta: tArchivo("todo"), sombra: "#1A1A17", luz: "#F7FFCC" },
+    ...CATEGORIAS.map((c) => ({ ...c, etiqueta: tCat(c.id) })),
+  ];
+  const etiquetaActiva = pestanas.find((c) => c.id === activa)!.etiqueta;
 
   return (
     <div className="px-4 sm:px-6 md:px-8">
@@ -133,10 +107,10 @@ export default function ArchivoTabs({ items }: { items: ItemArchivo[] }) {
       {/* Pestañas de carpeta */}
       <div
         role="tablist"
-        aria-label="Categorías del archivo"
+        aria-label={tArchivo("categoriasAriaLabel")}
         className="flex items-end gap-1 overflow-x-auto pt-1"
       >
-        {PESTANAS.map((c) => {
+        {pestanas.map((c) => {
           const esActiva = c.id === activa;
           const cuantos =
             c.id === "todo"
@@ -169,8 +143,8 @@ export default function ArchivoTabs({ items }: { items: ItemArchivo[] }) {
         {visibles.length === 0 ? (
           <p className="font-mono text-sm text-muted py-8 text-center">
             {activa === "todo"
-              ? "El archivo está vacío por ahora."
-              : `Todavía no hay nada en ${activaDef.etiqueta.toLowerCase()}.`}
+              ? tArchivo("vacioTodo")
+              : tArchivo("vacioCategoria", { categoria: etiquetaActiva.toLowerCase() })}
           </p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">

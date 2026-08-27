@@ -1,8 +1,10 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 
 export default function CopiarEmail({ email }: { email: string }) {
+  const t = useTranslations("contacto");
   const [copiado, setCopiado] = useState(false);
   const [fallo, setFallo] = useState(false);
   const refEmail = useRef<HTMLAnchorElement>(null);
@@ -45,16 +47,12 @@ export default function CopiarEmail({ email }: { email: string }) {
         onClick={copiar}
         className="font-mono text-xs uppercase tracking-[0.14em] border border-ink/20 rounded-full px-4 py-2 text-muted hover:border-accent hover:text-accent transition-colors"
       >
-        {copiado ? "copiado" : "copiar"}
+        {copiado ? t("copiado") : t("copiar")}
       </button>
       <span role="status" aria-live="polite" className="sr-only">
-        {copiado ? "Email copiado al portapapeles" : ""}
+        {copiado ? t("emailCopiado") : ""}
       </span>
-      {fallo && (
-        <span className="text-sm text-muted">
-          Te lo he seleccionado para que lo copies.
-        </span>
-      )}
+      {fallo && <span className="text-sm text-muted">{t("seleccionado")}</span>}
     </div>
   );
 }

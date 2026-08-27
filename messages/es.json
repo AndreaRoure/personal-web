@@ -1,0 +1,139 @@
+{
+  "nav": {
+    "brand": "Andrea Robles",
+    "sobreMi": "Sobre mí",
+    "archivo": "Archivo",
+    "contacto": "Contacto",
+    "abrirMenu": "Abrir menú",
+    "cerrarMenu": "Cerrar menú",
+    "cambiarIdioma": "English",
+    "idiomaActual": "Idioma: Español"
+  },
+  "hero": {
+    "titularPre": "La curiosidad",
+    "titularFuerte": "salvó",
+    "titularPost": "al gato.",
+    "scroll": "scroll",
+    "pistaJuego": "espacio · tap → salvar al gato",
+    "marcador": "curiosidad ×",
+    "ganasteTitulo": "Tu curiosidad salvó al gato",
+    "ganasteSubtitulo": "[ espacio · tap → jugar de nuevo ]",
+    "perdisteTitulo": "Te falta curiosidad para salvar al gato",
+    "perdisteSubtitulo": "[ espacio · tap → intentarlo de nuevo ]"
+  },
+  "sobreMi": {
+    "kicker": "Quién soy",
+    "titulo": "Sobre mí",
+    "p1": "Soy Andrea Robles. Llevo 8 años especializándome en tecnología y datos aplicados a proyectos de desarrollo social. Soy graduada en Magisterio por la Universidad de León, seguí formándome en estudios de postgrado en Marketing e e-commerce por INESDI (Barcelona) y más tarde realicé un Máster en Inteligencia Artificial y Big Data en Digitech (Barcelona), pero sobre todo la mayor parte de mi aprendizaje es a través de proyectos reales que me ayudan a aprender cosas nuevas cada día.",
+    "p2": "Me interesa la intersección entre las personas y la tecnología, entre lo analógico y lo digital, y cómo poder utilizar las herramientas que tenemos a nuestro alcance para construir una mejor sociedad.",
+    "p3": "Desarrollo proyectos con impacto social real: implemento herramientas, datos, automatización y digitalización de procesos en entornos que buscan la mejora colectiva.",
+    "stackLabel": "Stack",
+    "fotoAlt": {
+      "curiosidad": "Curiosidad: 100%",
+      "naturaleza": "Naturaleza: 80%",
+      "analogica": "Analógica: 94%",
+      "observadora": "Observadora: 88%",
+      "musica": "Música: 100%",
+      "urbana": "Urbana: 50%",
+      "encorsetable": "Encorsetable: 3%",
+      "tech": "Tech: 90%"
+    }
+  },
+  "trayectoria": {
+    "ubicacion": "Ubicación",
+    "ciudad": "Barcelona",
+    "actualmente": "Actualmente",
+    "enActivo": "En activo",
+    "anterior": "Anterior",
+    "actual": {
+      "puesto": "Directora de Transformación Digital",
+      "org": "Fundación Exit",
+      "periodo": "marzo 2026 — hoy",
+      "descripcion": "Dirijo la estrategia tecnológica de una organización social de impacto. Lidero iniciativas de digitalización, integración de datos e IA para hacer los procesos más eficientes y escalables."
+    },
+    "puesto1": {
+      "puesto": "Responsable de IT & Producto",
+      "org": "Fundación Exit",
+      "periodo": "2022 — 2026",
+      "descripcion": "Definí el roadmap tecnológico, integré herramientas y coordiné equipos técnicos y proveedores. Del diagnóstico al despliegue."
+    },
+    "puesto2": {
+      "puesto": "Digital Marketing & Social Media Manager",
+      "org": "Culinary Institute of Barcelona",
+      "periodo": "2021",
+      "descripcion": "Estrategia digital completa — Dirección y creación de contenidos, SEO, SEM, Social Ads, analítica."
+    },
+    "puesto3": {
+      "puesto": "Digital Marketing Manager",
+      "org": "Amalgama Agencia",
+      "periodo": "2019",
+      "descripcion": "Proyectos digitales para clientes de sectores variados. Comunicación multicanal con automatización de marketing y coordinación con desarrollo y diseño."
+    }
+  },
+  "duracion": {
+    "recienEmpezado": "recién empezado",
+    "unMes": "1 mes",
+    "nMeses": "{n} meses",
+    "unAnio": "1 año",
+    "nAnios": "{n} años",
+    "anioYMeses": "{anios} y {meses}"
+  },
+  "proyectos": {
+    "comparadorFP": {
+      "titulo": "Comparador de Empleabilidad FP",
+      "subtexto": "Herramienta para explorar la empleabilidad real de los ciclos de FP con datos públicos."
+    }
+  },
+  "categorias": {
+    "casos": "Casos de uso",
+    "articulos": "Artículos",
+    "side": "Side projects"
+  },
+  "archivo": {
+    "kicker": "Proyectos y escritura",
+    "titulo": "Archivo",
+    "todo": "Todo",
+    "vacioTodo": "El archivo está vacío por ahora.",
+    "vacioCategoria": "Todavía no hay nada en {categoria}.",
+    "enConstruccion": "En construcción",
+    "categoriasAriaLabel": "Categorías del archivo"
+  },
+  "contacto": {
+    "kicker": "Escríbeme",
+    "titulo": "Contacto",
+    "texto": "Escríbeme si quieres proponerme un proyecto, si te interesa una formación, o si quieres comentar algo de lo que escribo.",
+    "copiar": "copiar",
+    "copiado": "copiado",
+    "emailCopiado": "Email copiado al portapapeles",
+    "seleccionado": "Te lo he seleccionado para que lo copies."
+  },
+  "articulo": {
+    "volverArchivo": "← Archivo",
+    "minutosLectura": "{n} min de lectura",
+    "volverAlArchivo": "Volver al archivo",
+    "compartirTexto": "Si este contenido te fue útil, compártelo o apoya mi trabajo:",
+    "apoyarKofi": "Apoyar en Ko-fi",
+    "compartirEn": "Compartir en {red}",
+    "copiado": "Copiado",
+    "copiarEnlace": "Copiar enlace",
+    "enlaceCopiado": "Enlace copiado al portapapeles",
+    "leerEnOtroIdioma": "Read this article in English"
+  },
+  "notFound": {
+    "eyebrow": "Error 404 · ruta no encontrada",
+    "titularPre": "Esta página se fue a",
+    "titularFuerte": "caminar",
+    "subtitulo": "O nunca existió, o la moví, o tecleaste algo raro. Pasa hasta en las mejores webs hechas a mano.",
+    "volverInicio": "← Volver al inicio",
+    "verArchivo": "Ver el archivo",
+    "escribirme": "Escribirme"
+  },
+  "footer": {
+    "copyright": "© 2026 Andrea Robles. Todos los derechos reservados."
+  },
+  "og": {
+    "siteTitular": "Trabajo en la intersección entre la tecnología y las personas.",
+    "siteSubtitulo": "Soberanía digital · Transformación social · Formación",
+    "sitePrefijo": "andrea robles"
+  }
+}

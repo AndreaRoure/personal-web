@@ -1,0 +1,139 @@
+{
+  "nav": {
+    "brand": "Andrea Robles",
+    "sobreMi": "About me",
+    "archivo": "Archive",
+    "contacto": "Contact",
+    "abrirMenu": "Open menu",
+    "cerrarMenu": "Close menu",
+    "cambiarIdioma": "Español",
+    "idiomaActual": "Language: English"
+  },
+  "hero": {
+    "titularPre": "Curiosity",
+    "titularFuerte": "saved",
+    "titularPost": "the cat.",
+    "scroll": "scroll",
+    "pistaJuego": "space · tap → save the cat",
+    "marcador": "curiosity ×",
+    "ganasteTitulo": "Your curiosity saved the cat",
+    "ganasteSubtitulo": "[ space · tap → play again ]",
+    "perdisteTitulo": "You need more curiosity to save the cat",
+    "perdisteSubtitulo": "[ space · tap → try again ]"
+  },
+  "sobreMi": {
+    "kicker": "Who I am",
+    "titulo": "About me",
+    "p1": "I'm Andrea Robles. I've spent 8 years specialising in technology and data applied to social development projects. I hold a teaching degree from the University of León, went on to postgraduate studies in Marketing and e-commerce at INESDI (Barcelona), and later completed a Master's in Artificial Intelligence and Big Data at Digitech (Barcelona) — but most of what I know I've learned from real projects that push me to learn something new every day.",
+    "p2": "I'm interested in the intersection between people and technology, between the analogue and the digital, and in how we can use the tools within our reach to build a better society.",
+    "p3": "I build projects with real social impact: I put tools, data, automation and process digitisation to work in environments that seek collective improvement.",
+    "stackLabel": "Stack",
+    "fotoAlt": {
+      "curiosidad": "Curiosity: 100%",
+      "naturaleza": "Nature: 80%",
+      "analogica": "Analogue: 94%",
+      "observadora": "Observant: 88%",
+      "musica": "Music: 100%",
+      "urbana": "Urban: 50%",
+      "encorsetable": "Conventional: 3%",
+      "tech": "Tech: 90%"
+    }
+  },
+  "trayectoria": {
+    "ubicacion": "Location",
+    "ciudad": "Barcelona",
+    "actualmente": "Currently",
+    "enActivo": "Active now",
+    "anterior": "Previously",
+    "actual": {
+      "puesto": "Digital Transformation Director",
+      "org": "Fundación Exit",
+      "periodo": "March 2026 — present",
+      "descripcion": "I lead the technology strategy of a social impact organisation, driving digitisation, data integration and AI initiatives to make processes more efficient and scalable."
+    },
+    "puesto1": {
+      "puesto": "Head of IT & Product",
+      "org": "Fundación Exit",
+      "periodo": "2022 — 2026",
+      "descripcion": "Defined the technology roadmap, integrated tools and coordinated technical teams and vendors. From diagnosis to rollout."
+    },
+    "puesto2": {
+      "puesto": "Digital Marketing & Social Media Manager",
+      "org": "Culinary Institute of Barcelona",
+      "periodo": "2021",
+      "descripcion": "Full digital strategy — content direction and creation, SEO, SEM, social ads, analytics."
+    },
+    "puesto3": {
+      "puesto": "Digital Marketing Manager",
+      "org": "Amalgama Agencia",
+      "periodo": "2019",
+      "descripcion": "Digital projects for clients across a range of sectors. Multichannel communication with marketing automation, coordinating with development and design."
+    }
+  },
+  "duracion": {
+    "recienEmpezado": "just started",
+    "unMes": "1 month",
+    "nMeses": "{n} months",
+    "unAnio": "1 year",
+    "nAnios": "{n} years",
+    "anioYMeses": "{anios} and {meses}"
+  },
+  "proyectos": {
+    "comparadorFP": {
+      "titulo": "FP Employability Comparator",
+      "subtexto": "A tool to explore the real employability of vocational training programmes using public data."
+    }
+  },
+  "categorias": {
+    "casos": "Use cases",
+    "articulos": "Articles",
+    "side": "Side projects"
+  },
+  "archivo": {
+    "kicker": "Projects and writing",
+    "titulo": "Archive",
+    "todo": "All",
+    "vacioTodo": "The archive is empty for now.",
+    "vacioCategoria": "There's nothing in {categoria} yet.",
+    "enConstruccion": "In progress",
+    "categoriasAriaLabel": "Archive categories"
+  },
+  "contacto": {
+    "kicker": "Get in touch",
+    "titulo": "Contact",
+    "texto": "Write to me if you'd like to propose a project, if you're interested in training, or if you want to talk about something I've written.",
+    "copiar": "copy",
+    "copiado": "copied",
+    "emailCopiado": "Email copied to clipboard",
+    "seleccionado": "I've selected it so you can copy it."
+  },
+  "articulo": {
+    "volverArchivo": "← Archive",
+    "minutosLectura": "{n} min read",
+    "volverAlArchivo": "Back to the archive",
+    "compartirTexto": "If you found this useful, share it or support my work:",
+    "apoyarKofi": "Support me on Ko-fi",
+    "compartirEn": "Share on {red}",
+    "copiado": "Copied",
+    "copiarEnlace": "Copy link",
+    "enlaceCopiado": "Link copied to clipboard",
+    "leerEnOtroIdioma": "Leer este artículo en español"
+  },
+  "notFound": {
+    "eyebrow": "Error 404 · page not found",
+    "titularPre": "This page went for a",
+    "titularFuerte": "walk",
+    "subtitulo": "Either it never existed, I moved it, or you typed something odd. Happens even on the best handmade websites.",
+    "volverInicio": "← Back home",
+    "verArchivo": "View the archive",
+    "escribirme": "Write to me"
+  },
+  "footer": {
+    "copyright": "© 2026 Andrea Robles. All rights reserved."
+  },
+  "og": {
+    "siteTitular": "I work at the intersection between technology and people.",
+    "siteSubtitulo": "Digital sovereignty · Social transformation · Training",
+    "sitePrefijo": "andrea robles"
+  }
+}

@@ -11,10 +11,15 @@ import { categoriaDe } from "./categorias";
  *  las dos variantes se leen igual y el titulo no queda suelto debajo.
  *
  *  Los tamaños van en cqw para que la misma pieza sirva a 300px de ancho en
- *  una tarjeta y a pantalla completa. */
+ *  una tarjeta y a pantalla completa.
+ *
+ *  La etiqueta de categoria se recibe ya traducida: este componente lo usan
+ *  tanto piezas cliente como de servidor, y asi no depende de como cada una
+ *  resuelve las traducciones. */
 export default function PortadaTipografica({
   titulo,
   categoria,
+  categoriaLabel,
   fecha,
   tags = [],
   imagen,
@@ -23,6 +28,7 @@ export default function PortadaTipografica({
 }: {
   titulo: string;
   categoria?: string;
+  categoriaLabel: string;
   fecha?: string;
   tags?: string[];
   imagen?: string | null;
@@ -70,7 +76,7 @@ export default function PortadaTipografica({
         className="relative font-mono uppercase"
         style={{ fontSize: "3.2cqw", letterSpacing: "0.16em", opacity: 0.75 }}
       >
-        &gt; {cat.etiqueta.toLowerCase()}
+        &gt; {categoriaLabel.toLowerCase()}
       </p>
 
       <Titulo

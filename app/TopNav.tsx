@@ -1,19 +1,15 @@
 'use client';
 import { useState } from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
+import { useLocale, useTranslations } from 'next-intl';
+import { Link } from '../i18n/navigation';
 import HojaRoble from './HojaRoble';
 import { IconoCarpetas, IconoSobreAlado } from './IconosNav';
 
-const ENLACES = [
-  { href: '/#sobre-mi', texto: 'Sobre mí' },
-  { href: '/#archivo', texto: 'Archivo' },
-  { href: '/#contacto', texto: 'Contacto' },
-];
-
-// "last-of-type" apunta al ultimo <a>, que es Contacto. Con "last" caeria en el
-// boton de la hamburguesa, que sigue siendo el ultimo hijo aunque este oculto.
-// Ademas gana en especificidad a "border-r-2"; un "border-r-0" suelto empataria.
+// "last-of-type" apunta al ultimo <a>, que ahora es el selector de idioma.
+// Con "last" caeria en el boton de la hamburguesa, que sigue siendo el
+// ultimo hijo aunque este oculto. Ademas gana en especificidad a
+// "border-r-2"; un "border-r-0" suelto empataria.
 const CELDA =
   'group flex items-center border-r-2 last-of-type:border-r-0 border-[#1A1A17] px-3 sm:px-5 py-3 sm:py-4 ' +
   'transition-colors duration-150 hover:bg-lima ' +
@@ -53,21 +49,16 @@ function Pila({
 }
 
 export default function TopNav() {
+  const t = useTranslations('nav');
+  const locale = useLocale();
+  const otroLocale = locale === 'es' ? 'en' : 'es';
   const [abierto, setAbierto] = useState(false);
 
-  const iconos: Record<string, React.ReactNode> = {
-    'Sobre mí': (
-      <Image
-        src="/andrea-cara.png"
-        alt=""
-        width={30}
-        height={30}
-        className="rounded-full grayscale"
-      />
-    ),
-    Archivo: <IconoCarpetas />,
-    Contacto: <IconoSobreAlado />,
-  };
+  const ENLACES = [
+    { href: '/#sobre-mi', texto: t('sobreMi'), icono: <Image src="/andrea-cara.png" alt="" width={30} height={30} className="rounded-full grayscale" /> },
+    { href: '/#archivo', texto: t('archivo'), icono: <IconoCarpetas /> },
+    { href: '/#contacto', texto: t('contacto'), icono: <IconoSobreAlado /> },
+  ];
 
   return (
     <header className="w-full bg-white text-ink sticky top-0 z-50 border-b-2 border-[#1A1A17]">
@@ -79,9 +70,9 @@ export default function TopNav() {
           className={`${CELDA} flex-[1.4] font-display text-[17px] sm:text-[19px] md:text-[21px] font-bold`}
         >
           {/* En movil no hay hover, asi que la marca se queda en texto */}
-          <span className="md:hidden whitespace-nowrap">Andrea Robles</span>
+          <span className="md:hidden whitespace-nowrap">{t('brand')}</span>
           <span className="hidden md:block">
-            <Pila texto="Andrea Robles" icono={<HojaRoble tamano={24} />} />
+            <Pila texto={t('brand')} icono={<HojaRoble tamano={24} />} />
           </span>
         </Link>
 
@@ -92,19 +83,35 @@ export default function TopNav() {
             href={e.href}
             className={`${CELDA} hidden md:flex flex-1 text-[14px] md:text-[16px] font-bold`}
           >
-            <Pila texto={e.texto} icono={iconos[e.texto]} />
+            <Pila texto={e.texto} icono={e.icono} />
           </Link>
         ))}
 
+        {/* Selector de idioma: siempre lleva a la portada del otro idioma.
+            No intenta adivinar la traduccion de la pagina actual (por
+            ejemplo un articulo con slug distinto en cada idioma); esa
+            traduccion, cuando existe, se ofrece desde la propia pagina
+            del articulo. */}
+        <Link
+          href="/"
+          locale={otroLocale}
+          onClick={() => setAbierto(false)}
+          aria-label={t('idiomaActual')}
+          className={`${CELDA} hidden md:flex text-[13px] md:text-[14px] font-bold font-mono uppercase tracking-[0.06em]`}
+        >
+          {t('cambiarIdioma')}
+        </Link>
+
         {/* Hamburguesa: solo movil, en su propia celda.
-            Sin bordes propios: el divisor lo pone el borde derecho de la marca,
-            si no quedarian 4px de linea entre las dos celdas. */}
+            Sin bordes propios: el divisor lo pone el borde derecho de la
+            ultima celda visible en movil (la marca), si no quedarian 4px de
+            linea entre dos celdas seguidas. */}
         <button
           type="button"
           onClick={() => setAbierto((v) => !v)}
           aria-expanded={abierto}
           aria-controls="menu-movil"
-          aria-label={abierto ? 'Cerrar menú' : 'Abrir menú'}
+          aria-label={abierto ? t('cerrarMenu') : t('abrirMenu')}
           className={`${CELDA} md:hidden w-16 justify-center border-r-0 gap-[5px] flex-col`}
         >
           <span
@@ -145,6 +152,16 @@ export default function TopNav() {
               {e.texto}
             </Link>
           ))}
+          <Link
+            href="/"
+            locale={otroLocale}
+            onClick={() => setAbierto(false)}
+            className="block px-4 py-4 border-t-2 border-[#1A1A17] font-bold text-[16px] font-mono uppercase tracking-[0.06em]
+              transition-colors duration-150 hover:bg-lima
+              focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ink"
+          >
+            {t('cambiarIdioma')}
+          </Link>
         </div>
       )}
     </header>

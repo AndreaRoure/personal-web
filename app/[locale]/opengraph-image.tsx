@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
+import { getTranslations } from "next-intl/server";
 
 export const runtime = "edge";
-export const alt = "Andrea Robles — Tecnología humanocéntrica";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -17,7 +17,13 @@ const HOJA: [number, number, number, number][] = [
   [5, 11, 6, 1], [7, 12, 2, 1], [7, 13, 2, 2],
 ];
 
-export default async function Image() {
+export default async function Image({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "og" });
   const px = 26;
 
   return new ImageResponse(
@@ -37,7 +43,7 @@ export default async function Image() {
         }}
       >
         <div style={{ display: "flex", fontSize: 26, fontFamily: "monospace", color: ACCENT }}>
-          &gt; andrea robles
+          &gt; {t("sitePrefijo")}
         </div>
 
         <div
@@ -50,7 +56,7 @@ export default async function Image() {
             maxWidth: 940,
           }}
         >
-          Trabajo en la intersección entre la tecnología y las personas.
+          {t("siteTitular")}
         </div>
 
         <div
@@ -62,7 +68,7 @@ export default async function Image() {
             color: ACCENT,
           }}
         >
-          Soberanía digital · Transformación social · Formación
+          {t("siteSubtitulo")}
         </div>
 
         <div

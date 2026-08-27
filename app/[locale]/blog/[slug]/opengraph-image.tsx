@@ -1,14 +1,11 @@
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
 import { ImageResponse } from "next/og";
-import { categoriaDe } from "../../categorias";
+import { getTranslations } from "next-intl/server";
+import { categoriaDe } from "../../../categorias";
+import { getPost } from "../../../posts";
 
-// Runtime de Node y no edge: hay que leer el .mdx del disco para sacar el
-// titulo, y en edge no hay acceso a fs.
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const alt = "Artículo de Andrea Robles";
+export const alt = "Andrea Robles";
 
 // La hoja de roble, en coordenadas de su rejilla de 16x16. Satori no dibuja
 // SVG complejo, asi que se pinta con divs, que es lo que ya es: pixeles.
@@ -18,14 +15,19 @@ const HOJA: [number, number, number, number][] = [
   [5, 11, 6, 1], [7, 12, 2, 1], [7, 13, 2, 2],
 ];
 
-export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const ruta = path.join(process.cwd(), "content/posts", `${slug}.mdx`);
-  const { data } = matter(fs.readFileSync(ruta, "utf8"));
+export default async function Image({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}) {
+  const { locale, slug } = await params;
+  const post = getPost(locale, slug);
+  const t = await getTranslations({ locale, namespace: "categorias" });
 
-  const cat = categoriaDe(data.categoria as string | undefined);
-  const titulo = (data.title as string) ?? "";
-  const tags = ((data.tags as string[]) ?? []).slice(0, 3);
+  const cat = categoriaDe(post?.categoria);
+  const titulo = post?.title ?? "";
+  const etiquetaCategoria = t(post?.categoria ?? "articulos");
+  const tags = (post?.tags ?? []).slice(0, 3);
 
   // El titular baja de cuerpo cuando el titulo es largo, que si no se sale.
   const cuerpo = titulo.length > 90 ? 60 : titulo.length > 55 ? 74 : 92;
@@ -48,7 +50,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
         }}
       >
         <div style={{ display: "flex", fontSize: 26, fontFamily: "monospace", opacity: 0.75 }}>
-          &gt; {cat.etiqueta.toLowerCase()}
+          &gt; {etiquetaCategoria.toLowerCase()}
         </div>
 
         <div
@@ -74,7 +76,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
             textTransform: "uppercase",
           }}
         >
-          <div style={{ display: "flex" }}>{(data.date as string) ?? ""}</div>
+          <div style={{ display: "flex" }}>{post?.date ?? ""}</div>
           <div style={{ display: "flex" }}>{tags.join(" · ")}</div>
         </div>
 
