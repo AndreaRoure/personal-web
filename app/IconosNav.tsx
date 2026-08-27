@@ -24,30 +24,31 @@ export function IconoCarpetas({ tamano = 26 }: { tamano?: number }) {
 /** Sobre con alas: la paloma mensajera, que a este tamaño se lee mejor
  *  que un pajaro dibujado.
  *
- *  Es un dibujo apaisado, asi que NO va en caja cuadrada: metido en 26x26
- *  el escalado lo manda el ancho y el sobre quedaba a 12px de alto, la mitad
- *  que las carpetas. Con 38x26 el dibujo sale a ~21px de alto, que es el de
- *  la carpeta. El grosor baja a 1.35 porque el escalado es mayor. */
-export function IconoSobreAlado({ alto = 27 }: { alto?: number }) {
+ *  Es apaisado, asi que NO va en caja cuadrada. Y no basta con igualar la
+ *  altura a la de las carpetas: el tamaño se percibe por area, y con las alas
+ *  largas el dibujo medía 51px de ancho, el doble que la carpeta, y se veia
+ *  mas grande aun teniendo la misma altura. Las alas se acortan y el conjunto
+ *  se ajusta para que el area coincida con la de las carpetas. */
+export function IconoSobreAlado({ alto = 17 }: { alto?: number }) {
   // El ancho tiene que dar de sobra para que el escalado lo mande la altura:
-  // si no, el navegador escala por el ancho y el dibujo sale bajo otra vez.
-  const ancho = Math.ceil((alto * 22) / 12);
+  // si no, el navegador escala por el ancho y el dibujo sale bajo.
+  const ancho = Math.ceil((alto * 18) / 10);
   return (
     <svg
       width={ancho}
       height={alto}
-      viewBox="1 3 22 12"
+      viewBox="2 3.4 18 10"
       fill="none"
       stroke="currentColor"
-      strokeWidth={1.35}
+      strokeWidth={1.5}
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
     >
-      <rect x="6" y="5" width="12" height="9" rx="0.7" />
-      <path d="M6 5.6l6 4.3 6-4.3" />
-      <path d="M5 6.6c-1.7-1.4-3-1.5-4.4-.2" />
-      <path d="M19 6.6c1.7-1.4 3-1.5 4.4-.2" />
+      <rect x="5.5" y="4.5" width="11" height="8.2" rx="0.6" />
+      <path d="M5.5 5l5.5 4 5.5-4" />
+      <path d="M4.7 5.9c-1.2-1-2.1-1.1-3.1-.2" />
+      <path d="M17.3 5.9c1.2-1 2.1-1.1 3.1-.2" />
     </svg>
   );
 }
