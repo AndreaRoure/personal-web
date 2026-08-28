@@ -128,7 +128,30 @@
     "escribirme": "Write to me"
   },
   "footer": {
-    "copyright": "© 2026 Andrea Robles. All rights reserved."
+    "copyright": "© 2026 Andrea Robles. All rights reserved.",
+    "privacidad": "Privacy"
+  },
+  "cookies": {
+    "aviso": "Cookie notice",
+    "texto": "I use Google Analytics to see how many people visit this site. It doesn't run until you accept it.",
+    "masInfo": "More info",
+    "aceptar": "Accept",
+    "rechazar": "Reject",
+    "preferencias": "Cookie preferences"
+  },
+  "privacidad": {
+    "titulo": "Privacy & cookies",
+    "actualizado": "Last updated: August 28, 2026",
+    "volver": "Back home",
+    "intro": "This site is a personal project by Andrea Robles. Here's a brief explanation of what data is collected and why.",
+    "cookiesTitulo": "Cookies & analytics",
+    "cookiesTexto": "I use Google Analytics 4 to see how many people visit the site and which pages get read the most, nothing more. No analytics cookie loads until you explicitly accept it in the banner; if you reject it, or simply don't respond, it stays off. You can change your choice anytime from \"Cookie preferences\" in the footer.",
+    "datosTitulo": "What data Google Analytics processes",
+    "datosTexto": "Aggregated usage data: pages visited, time on site, approximate country and device type. Your name, email, or any directly identifying data is never collected. Google processes this data under its own privacy policy.",
+    "correoTitulo": "Contact email",
+    "correoTexto": "If you write to me at <email>hola@andrearobles.net</email>, I only use your address to reply, it's never added to any list or shared with third parties.",
+    "derechosTitulo": "Your rights",
+    "derechosTexto": "You can ask me at any time what data I hold about you, correct it, or ask me to delete it, by writing to <email>hola@andrearobles.net</email>."
   },
   "og": {
     "siteTitular": "I work at the intersection between technology and people.",

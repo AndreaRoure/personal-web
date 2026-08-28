@@ -5,7 +5,10 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Mohave, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import { FaLinkedinIn, FaGithub } from "react-icons/fa6";
 import { routing } from "../../i18n/routing";
+import { Link } from "../../i18n/navigation";
 import "../globals.css";
+import CookieConsent from "../CookieConsent";
+import CookiePrefsBoton from "../CookiePrefsBoton";
 import HojaRoble from "../HojaRoble";
 import TopNav from "../TopNav";
 
@@ -95,7 +98,14 @@ export default async function LocaleLayout({
                 </a>
               </div>
             </div>
+            <div className="max-w-6xl mx-auto px-6 pb-6 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
+              <Link href="/privacidad" className="underline hover:text-accent transition-colors">
+                {t("privacidad")}
+              </Link>
+              <CookiePrefsBoton />
+            </div>
           </footer>
+          <CookieConsent />
         </NextIntlClientProvider>
       </body>
     </html>

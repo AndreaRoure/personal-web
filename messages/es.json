@@ -128,7 +128,30 @@
     "escribirme": "Escribirme"
   },
   "footer": {
-    "copyright": "© 2026 Andrea Robles. Todos los derechos reservados."
+    "copyright": "© 2026 Andrea Robles. Todos los derechos reservados.",
+    "privacidad": "Privacidad"
+  },
+  "cookies": {
+    "aviso": "Aviso de cookies",
+    "texto": "Uso Google Analytics para saber cuánta gente visita esta web. No se activa hasta que lo aceptas.",
+    "masInfo": "Más info",
+    "aceptar": "Aceptar",
+    "rechazar": "Rechazar",
+    "preferencias": "Preferencias de cookies"
+  },
+  "privacidad": {
+    "titulo": "Privacidad y cookies",
+    "actualizado": "Última actualización: 28 de agosto de 2026",
+    "volver": "Volver al inicio",
+    "intro": "Esta web es un proyecto personal de Andrea Robles. Aquí explico, de forma breve, qué datos se recogen y para qué.",
+    "cookiesTitulo": "Cookies y analítica",
+    "cookiesTexto": "Uso Google Analytics 4 para saber cuánta gente visita la web y qué páginas se leen más, nada más. No se carga ninguna cookie de analítica hasta que la aceptas explícitamente en el aviso; si la rechazas, o simplemente no respondes, no se activa. Puedes cambiar tu decisión cuando quieras desde \"Preferencias de cookies\", en el pie de página.",
+    "datosTitulo": "Qué datos trata Google Analytics",
+    "datosTexto": "Datos de uso agregados: páginas visitadas, tiempo en el sitio, país aproximado y tipo de dispositivo. No se recoge tu nombre, tu email ni ningún dato que te identifique directamente. Google procesa estos datos según su propia política de privacidad.",
+    "correoTitulo": "Correo de contacto",
+    "correoTexto": "Si me escribes a <email>hola@andrearobles.net</email>, uso tu dirección solo para responderte, no se añade a ninguna lista ni se comparte con terceros.",
+    "derechosTitulo": "Tus derechos",
+    "derechosTexto": "Puedes pedirme en cualquier momento qué datos tengo sobre ti, corregirlos o pedir que los borre, escribiendo a <email>hola@andrearobles.net</email>."
   },
   "og": {
     "siteTitular": "Trabajo en la intersección entre la tecnología y las personas.",
