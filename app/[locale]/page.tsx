@@ -13,30 +13,20 @@ export default async function Home({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const [tSobreMi, tHero, tArchivo, tContacto, tProyectos] = await Promise.all([
+  const [tSobreMi, tHero, tArchivo, tContacto] = await Promise.all([
     getTranslations({ locale, namespace: "sobreMi" }),
     getTranslations({ locale, namespace: "hero" }),
     getTranslations({ locale, namespace: "archivo" }),
     getTranslations({ locale, namespace: "contacto" }),
-    getTranslations({ locale, namespace: "proyectos" }),
   ]);
 
   const posts = getPosts(locale);
 
-  const proyectos: ItemArchivo[] = [
-    {
-      categoria: "side",
-      titulo: tProyectos("comparadorFP.titulo"),
-      subtexto: tProyectos("comparadorFP.subtexto"),
-      fecha: "2025",
-      href: "#",
-      externo: false,
-      enConstruccion: true,
-    },
-  ];
-
+  // El Comparador de Empleabilidad FP (side project) esta fuera del archivo
+  // por ahora — se retoma mas adelante. La categoria "side" se queda
+  // definida en categorias.ts y en ArchivoTabs; sin items, esa pestaña
+  // muestra el mensaje de "todavia no hay nada aqui" en vez de desaparecer.
   const archivoItems: ItemArchivo[] = [
-    ...proyectos,
     ...posts.map((post) => ({
       categoria: (post.categoria as CategoriaId) ?? "articulos",
       titulo: post.title,
