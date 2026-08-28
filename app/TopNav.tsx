@@ -61,7 +61,12 @@ export default function TopNav() {
   ];
 
   return (
-    <header className="w-full bg-white text-ink sticky top-0 z-50 border-b-2 border-[#1A1A17]">
+    // [transform:translateZ(0)]: en el WebView de iOS (Safari, y el navegador
+    // interno de apps como WhatsApp) un header "sticky" a veces no se pinta
+    // hasta que hay un scroll que fuerza un repintado — se ve la web sin el
+    // menu hasta que el usuario mueve el dedo. Forzar su propia capa de
+    // composicion desde el primer pintado evita ese bug conocido de WebKit.
+    <header className="w-full bg-white text-ink sticky top-0 z-50 border-b-2 border-[#1A1A17] [transform:translateZ(0)]">
       <nav className="flex items-stretch">
         {/* Marca: el nombre se convierte en la hoja de roble */}
         <Link

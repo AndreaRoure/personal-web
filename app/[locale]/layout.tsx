@@ -46,7 +46,6 @@ export async function generateMetadata({
       template: "%s · Andrea Robles",
     },
     description: t("siteTitular"),
-    robots: { index: false, follow: false },
     alternates: {
       languages: { es: "/", en: "/en" },
     },

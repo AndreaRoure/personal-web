@@ -104,15 +104,6 @@ export default async function Home({
               <div className="border-t-2 border-ink/10 pt-8">
                 <Trayectoria />
               </div>
-
-              <div className="border-t-2 border-ink/10 pt-6">
-                <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-3">
-                  {tSobreMi("stackLabel")}
-                </p>
-                <p className="font-mono text-sm">
-                  <span className="text-accent">Next.js</span> · N8N · Python · {locale === "es" ? "IA aplicada" : "Applied AI"} · Supabase
-                </p>
-              </div>
             </div>
 
           </div>

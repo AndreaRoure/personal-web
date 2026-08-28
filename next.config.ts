@@ -18,6 +18,19 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  // El retrato de "sobre mi" no debe salir en Google Imagenes (aunque el
+  // resto de la web si sea indexable). noimageindex en la pagina bloquearia
+  // TODAS sus imagenes, no solo esta, asi que va como cabecera HTTP propia
+  // del fichero, que es lo que documenta Google para excluir una imagen
+  // suelta sin afectar a la pagina que la contiene.
+  async headers() {
+    return [
+      {
+        source: "/andrea-about.jpg",
+        headers: [{ key: "X-Robots-Tag", value: "noimageindex" }],
+      },
+    ];
+  },
 };
 
 export default withNextIntl(nextConfig);
