@@ -157,19 +157,35 @@ export default function HeroSection({ textos }: { textos: TextosHero }) {
     const g    = state.current;
     const mono = "'IBM Plex Mono', monospace";
 
+    // Encoge la fuente hasta que el texto quepa en maxWidth (con un piso, para
+    // no acabar ilegible en pantallas muy estrechas). Los textos de fin de
+    // partida vienen de traducciones y varian bastante de longitud entre
+    // idiomas, asi que un tamaño fijo se salia del canvas en movil.
+    const fitFontSize = (texto: string, base: number, bold: boolean, maxWidth: number) => {
+      let size = base;
+      const pesa = bold ? "bold " : "";
+      ctx.font = `${pesa}${size}px ${mono}`;
+      while (ctx.measureText(texto).width > maxWidth && size > 9) {
+        size -= 1;
+        ctx.font = `${pesa}${size}px ${mono}`;
+      }
+      return size;
+    };
+
     const drawEnd = (img: HTMLImageElement, title: string, subtitle: string) => {
       const W = canvas.width, H = canvas.height;
       ctx.fillStyle = "#FFFFFF";
       ctx.fillRect(0, 0, W, H);
       const iw = 90, ih = 80;
       const cy = H * 0.62;
+      const maxTextWidth = W - 32;
       ctx.drawImage(img, W / 2 - iw / 2, cy - ih - 16, iw, ih);
       ctx.textAlign = "center";
       ctx.fillStyle = INK;
-      ctx.font = `bold 16px ${mono}`;
+      fitFontSize(title, 16, true, maxTextWidth);
       ctx.fillText(title, W / 2, cy + 24);
       ctx.fillStyle = ACCENT;
-      ctx.font = `12px ${mono}`;
+      fitFontSize(subtitle, 12, false, maxTextWidth);
       ctx.fillText(subtitle, W / 2, cy + 46);
     };
 
@@ -232,12 +248,23 @@ export default function HeroSection({ textos }: { textos: TextosHero }) {
         const frame = g.phase === "running" ? Math.floor(g.frame / 7) % 2 : 0;
         ctx.drawImage(assets.current!.cat[frame], CAT_X, g.catY, CAT_W, CAT_H);
 
-        // IDLE
+        // IDLE — la pista va junto al gato si cabe; en pantallas estrechas
+        // (movil) no hay hueco a su lado, asi que baja centrada bajo el
+        // titular en vez de salirse del canvas por la derecha.
         if (g.phase === "idle") {
           ctx.fillStyle = MUTED;
           ctx.font = `12px ${mono}`;
-          ctx.textAlign = "left";
-          ctx.fillText(textos.pistaJuego, CAT_X + CAT_W + 16, groundLine - 24);
+          const pista = textos.pistaJuego;
+          const startX = CAT_X + CAT_W + 16;
+          const cabeAlLado = startX + ctx.measureText(pista).width <= W - 16;
+          if (cabeAlLado) {
+            ctx.textAlign = "left";
+            ctx.fillText(pista, startX, groundLine - 24);
+          } else {
+            ctx.textAlign = "center";
+            fitFontSize(pista, 12, false, W - 32);
+            ctx.fillText(pista, W / 2, Math.max(20, g.catY - 20));
+          }
           return;
         }
 
