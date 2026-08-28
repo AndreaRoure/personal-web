@@ -1,9 +1,7 @@
 /** Silueta del panot de la flor, la baldosa de Puig i Cadafalch que cubre
- *  las aceras de Barcelona: 4 petalos (circulos que se solapan entre si,
- *  con las puntas donde se cruzan) alrededor de un circulo central, sobre
- *  el marco cuadrado de la baldosa. Trazo mas grueso que el resto de
- *  iconos de linea (2.3 en vez de 1.8): a peso fino los petalos se leian
- *  como aros finos cruzados en vez de como una flor solida. */
+ *  las aceras de Barcelona: 5 circulos tangentes entre si (uno central y
+ *  4 alrededor, sin solaparse — se tocan pero no se cruzan), sobre el
+ *  marco cuadrado de la baldosa. */
 export default function IconoPanot({ tamano = 22 }: { tamano?: number }) {
   return (
     <svg
@@ -12,18 +10,18 @@ export default function IconoPanot({ tamano = 22 }: { tamano?: number }) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth={2.3}
+      strokeWidth={1.8}
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
       className="flex-shrink-0"
     >
       <rect x="2.3" y="2.3" width="19.4" height="19.4" rx="1" />
-      <circle cx="12" cy="7.2" r="3.8" />
-      <circle cx="16.8" cy="12" r="3.8" />
-      <circle cx="12" cy="16.8" r="3.8" />
-      <circle cx="7.2" cy="12" r="3.8" />
-      <circle cx="12" cy="12" r="1.35" fill="currentColor" stroke="none" />
+      <circle cx="12" cy="7" r="3.54" />
+      <circle cx="17" cy="12" r="3.54" />
+      <circle cx="12" cy="17" r="3.54" />
+      <circle cx="7" cy="12" r="3.54" />
+      <circle cx="12" cy="12" r="1.47" />
     </svg>
   );
 }
