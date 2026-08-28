@@ -148,7 +148,7 @@ export default async function Home({
               {tContacto("titulo")}
             </h2>
             <p className="text-muted mb-8 max-w-xl">{tContacto("texto")}</p>
-            <CopiarEmail email="robleshca@gmail.com" />
+            <CopiarEmail email="hola@andrearobles.net" />
           </Revelar>
         </div>
       </section>
