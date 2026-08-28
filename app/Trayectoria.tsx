@@ -1,6 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import DuracionDesde from "./DuracionDesde";
-import IconoPanot from "./IconoPanot";
+import IconoVela from "./IconoVela";
 
 // El mes de inicio del puesto actual es el unico dato que no sale de los
 // mensajes: hace falta como numero para que DuracionDesde calcule el tiempo
@@ -56,7 +56,7 @@ export default async function Trayectoria() {
         <Etiqueta>{t("ubicacion")}</Etiqueta>
         <p className="text-lg flex items-center gap-2">
           {t("ciudad")}
-          <IconoPanot />
+          <IconoVela />
         </p>
       </div>
 
