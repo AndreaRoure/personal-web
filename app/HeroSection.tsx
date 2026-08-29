@@ -319,14 +319,15 @@ export default function HeroSection({ textos }: { textos: TextosHero }) {
         ctx.textAlign = "right";
         ctx.fillText(`${textos.marcador} ${Math.round(g.score)}`, W - 16, 20);
 
-        // Obstáculos — arrancan seguidos (100 frame-units) y la dificultad
-        // sube deprisa hasta un suelo de 60: un salto completo (subida +
-        // bajada, con la gravedad y el impulso actuales) dura ~53
-        // frame-units, asi que 60 deja un pelin de margen para aterrizar y
-        // reaccionar antes de que llegue el siguiente incluso al maximo de
-        // dificultad. Con un suelo mas bajo (45, la primera prueba) el
-        // siguiente obstaculo podia llegar antes de tocar suelo.
-        const interval = Math.max(60, 100 - g.score / 9);
+        // Obstáculos — un salto completo (subida + bajada, con la gravedad
+        // y el impulso actuales) dura ~53 frame-units. El suelo de 60 se
+        // quedaba a 0.1s de margen tras aterrizar, insuficiente para
+        // reaccionar de verdad — se seguia perdiendo. Con 90 quedan ~0.6s
+        // de colchón incluso en el punto mas dificil. Para compensar, la
+        // dificultad de aqui en adelante la lleva sobre todo la VELOCIDAD
+        // (que sigue subiendo con el marcador via g.speed, sin techo hasta
+        // el final de la partida), no apretar mas el hueco entre ellos.
+        const interval = Math.max(90, 115 - g.score / 12);
         if (g.frame - g.lastSpawn > interval) {
           const idx = Math.floor(Math.random() * OBS_DEFS.length);
           const [, w, h] = OBS_DEFS[idx];
