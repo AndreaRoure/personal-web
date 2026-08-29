@@ -298,7 +298,12 @@ export default function HeroSection({ textos }: { textos: TextosHero }) {
         if (g.catY >= gy) g.catVY = 0;
 
         g.score += dt;
-        g.speed = (4 + g.score / 280) * (W / REF_WIDTH);
+        // Base mas baja (2.5, antes 4) para que el arranque de deje reaccionar.
+        // La escala por ancho pasa de lineal a raiz cuadrada: en pantallas
+        // anchas seguia siendo proporcionalmente mas rapido que en movil
+        // (que es la idea, cruzar la pantalla tarda parecido), pero sin
+        // disparar la velocidad x3-4 que hacia el juego imposible en desktop.
+        g.speed = (2.5 + g.score / 400) * Math.sqrt(W / REF_WIDTH);
 
         if (g.score >= WIN_SCORE) { g.phase = "won"; return; }
 
@@ -314,8 +319,11 @@ export default function HeroSection({ textos }: { textos: TextosHero }) {
         ctx.textAlign = "right";
         ctx.fillText(`${textos.marcador} ${Math.round(g.score)}`, W - 16, 20);
 
-        // Obstáculos
-        const interval = Math.max(80, 155 - g.score / 7);
+        // Obstáculos — arrancan mas seguidos (100 frame-units, antes 155) y
+        // la rampa de dificultad es mas pronunciada (entre score/9 y /7),
+        // hasta un suelo mas bajo (45, antes 80): al principio se juega con
+        // calma, y hacia el final salen casi encima unos de otros.
+        const interval = Math.max(45, 100 - g.score / 9);
         if (g.frame - g.lastSpawn > interval) {
           const idx = Math.floor(Math.random() * OBS_DEFS.length);
           const [, w, h] = OBS_DEFS[idx];
