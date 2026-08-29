@@ -211,9 +211,26 @@ export default function HeroSection({ textos }: { textos: TextosHero }) {
       };
       g.catY = groundY(canvas.height);
 
-      const tick = () => {
+      // El bucle iba por "frames" (g.frame++ una vez por callback de rAF),
+      // asumiendo 60fps implicitos: gravedad, marcador, ritmo de aparicion
+      // de obstaculos, todo contaba callbacks en vez de tiempo real. Si el
+      // navegador no llega a 60fps de verdad (pantallas grandes con mas que
+      // pintar, un equipo mas lento, una pestaña que el sistema regula) todo
+      // el juego se ve a camara lenta aunque el codigo sea el mismo — es lo
+      // que reportó Andrea (el primer obstaculo tardaba ~10s en vez de los
+      // ~2.6s que marca el interval). Con dt (tiempo real transcurrido desde
+      // el ultimo frame, normalizado a "1" a 60fps) el juego avanza al mismo
+      // ritmo real sea cual sea el framerate que consiga el navegador.
+      // Con techo de 3: si la pestaña estuvo un rato en pausa (dead/won
+      // esperando a que el usuario reaccione) el primer dt tras seguir no da
+      // un salto gigante que teletransporte el estado del juego.
+      let lastTs = performance.now();
+
+      const tick = (ts: number) => {
         g.frameId = requestAnimationFrame(tick);
-        g.frame++;
+        const dt = Math.min(3, (ts - lastTs) / (1000 / 60));
+        lastTs = ts;
+        g.frame += dt;
         const W = canvas.width;
         const H = canvas.height;
         const gy = groundY(H);
@@ -276,11 +293,11 @@ export default function HeroSection({ textos }: { textos: TextosHero }) {
         }
 
         // RUNNING
-        g.catVY += GRAVITY;
-        g.catY = Math.min(g.catY + g.catVY, gy);
+        g.catVY += GRAVITY * dt;
+        g.catY = Math.min(g.catY + g.catVY * dt, gy);
         if (g.catY >= gy) g.catVY = 0;
 
-        g.score++;
+        g.score += dt;
         g.speed = (4 + g.score / 280) * (W / REF_WIDTH);
 
         if (g.score >= WIN_SCORE) { g.phase = "won"; return; }
@@ -290,11 +307,12 @@ export default function HeroSection({ textos }: { textos: TextosHero }) {
           progressRef.current.style.transform = `scaleX(${g.score / WIN_SCORE})`;
         }
 
-        // Marcador
+        // Marcador — redondeado: g.score es fraccionario (avanza por dt, no
+        // de uno en uno), asi que sin redondear se verian decimales.
         ctx.fillStyle = MUTED;
         ctx.font = `11px ${mono}`;
         ctx.textAlign = "right";
-        ctx.fillText(`${textos.marcador} ${g.score}`, W - 16, 20);
+        ctx.fillText(`${textos.marcador} ${Math.round(g.score)}`, W - 16, 20);
 
         // Obstáculos
         const interval = Math.max(80, 155 - g.score / 7);
@@ -307,7 +325,7 @@ export default function HeroSection({ textos }: { textos: TextosHero }) {
 
         g.obstacles = g.obstacles.filter(o => o.x + o.w > -10);
         for (const o of g.obstacles) {
-          o.x -= g.speed;
+          o.x -= g.speed * dt;
           const oy = groundLine - o.h;
           ctx.drawImage(o.img, o.x, oy, o.w, o.h);
           if (
