@@ -76,6 +76,13 @@ const GRAVITY  = 0.6;
 const JUMP_V   = -16;
 const WIN_SCORE = 1000;
 const GROUND_RATIO = 0.76;
+// Ancho de referencia (movil) donde la velocidad base ya se sentia bien
+// ajustada. La velocidad de los obstaculos iba en pixeles fijos por frame,
+// asi que en un canvas mucho mas ancho (desktop) tardaban muchisimo mas en
+// cruzar la pantalla a esa misma velocidad — el juego se veia lentisimo.
+// Escalando la velocidad por el ancho real del canvas, cruzar la pantalla
+// tarda lo mismo (relativamente) sea cual sea el tamaño.
+const REF_WIDTH = 400;
 
 const INK   = "#2B3300";
 const ACCENT = "#7A9201";
@@ -274,7 +281,7 @@ export default function HeroSection({ textos }: { textos: TextosHero }) {
         if (g.catY >= gy) g.catVY = 0;
 
         g.score++;
-        g.speed = 4 + g.score / 280;
+        g.speed = (4 + g.score / 280) * (W / REF_WIDTH);
 
         if (g.score >= WIN_SCORE) { g.phase = "won"; return; }
 
