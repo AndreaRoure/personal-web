@@ -319,11 +319,14 @@ export default function HeroSection({ textos }: { textos: TextosHero }) {
         ctx.textAlign = "right";
         ctx.fillText(`${textos.marcador} ${Math.round(g.score)}`, W - 16, 20);
 
-        // Obstáculos — arrancan mas seguidos (100 frame-units, antes 155) y
-        // la rampa de dificultad es mas pronunciada (entre score/9 y /7),
-        // hasta un suelo mas bajo (45, antes 80): al principio se juega con
-        // calma, y hacia el final salen casi encima unos de otros.
-        const interval = Math.max(45, 100 - g.score / 9);
+        // Obstáculos — arrancan seguidos (100 frame-units) y la dificultad
+        // sube deprisa hasta un suelo de 60: un salto completo (subida +
+        // bajada, con la gravedad y el impulso actuales) dura ~53
+        // frame-units, asi que 60 deja un pelin de margen para aterrizar y
+        // reaccionar antes de que llegue el siguiente incluso al maximo de
+        // dificultad. Con un suelo mas bajo (45, la primera prueba) el
+        // siguiente obstaculo podia llegar antes de tocar suelo.
+        const interval = Math.max(60, 100 - g.score / 9);
         if (g.frame - g.lastSpawn > interval) {
           const idx = Math.floor(Math.random() * OBS_DEFS.length);
           const [, w, h] = OBS_DEFS[idx];
