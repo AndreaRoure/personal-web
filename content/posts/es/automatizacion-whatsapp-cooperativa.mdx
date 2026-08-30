@@ -105,7 +105,7 @@ La comunicación entre N8N y Evolution API se hace dentro de la red Docker, sin 
 
 **Disponibilidad del número.** El número de teléfono vinculado a Evolution API debe tener la sesión activa. Si WhatsApp cierra la sesión (algo que ocurre ocasionalmente), hay que volver a escanear el QR. Se puede automatizar un aviso para este caso.
 
-**Sin HTTPS.** En este despliegue inicial, N8N corre sobre HTTP. Para un entorno de producción más robusto, lo recomendable es añadir un proxy inverso (Nginx o Caddy) con certificado TLS.
+**HTTPS.** Para producción, lo ideal es poner un proxy inverso (Nginx o Caddy) delante de los servicios con un certificado TLS. Caddy es la opción más cómoda: gestiona los certificados de Let's Encrypt de forma automática y sin configuración extra.
 
 ---
 
