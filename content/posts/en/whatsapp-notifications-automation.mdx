@@ -51,19 +51,17 @@ Both services run on an entry-level [Hetzner Cloud](https://www.hetzner.com/clou
 
 ## The architecture
 
-```mermaid
-graph LR
-    A["📧 Mail server<br/>IMAP"] -->|New email| B["N8N<br/>IMAP trigger"]
-    B -->|Extracts sender<br/>and subject| C["N8N<br/>HTTP request"]
-    C -->|POST| D["Evolution API<br/>WhatsApp gateway"]
-    D -->|Sends message| E["💬 Team's<br/>WhatsApp group"]
-
-    style A fill:#e8f4f8
-    style B fill:#fff4e6
-    style C fill:#fff4e6
-    style D fill:#f0e8f8
-    style E fill:#e8f8e8
-```
+<DiagramaFlujo
+  alt="Flow: the mail server fires a trigger in N8N, which extracts the sender and subject, makes an HTTP request to Evolution API, and this sends the message to the team's WhatsApp group."
+  pasos={[
+    { icono: "correo", lineas: ["MAIL SERVER", "(IMAP)"] },
+    { icono: "reloj", lineas: ["N8N", "TRIGGER"] },
+    { icono: "http", lineas: ["N8N HTTP", "REQUEST"] },
+    { icono: "chat", lineas: ["EVOLUTION API", "→ WHATSAPP"] },
+  ]}
+  flechas={["NEW EMAIL", "SENDER + SUBJECT", "POST"]}
+  rama={{ desde: 2, lineas: ["TEAM'S", "WHATSAPP GROUP"], etiqueta: "SENDS MESSAGE" }}
+/>
 
 The message the group receives follows this format:
 
@@ -119,14 +117,14 @@ Total implementation time, starting from zero, was a few hours — most of it sp
 
 ## Full stack
 
-| Tool | Role | License |
-|---|---|---|
-| N8N | Workflow automation | Sustainable Use License |
-| Evolution API | WhatsApp gateway | Apache 2.0 |
-| PostgreSQL | Database | PostgreSQL License |
-| Redis | Cache | BSD |
-| Docker Compose | Orchestration | Apache 2.0 |
-| Hetzner Cloud | Infrastructure | — |
+| Tool | What it's for |
+|---|---|
+| N8N | Workflow automation |
+| Evolution API | WhatsApp gateway |
+| PostgreSQL | Database |
+| Redis | Cache |
+| Docker Compose | Orchestration |
+| Hetzner Cloud | Infrastructure |
 
 ---
 

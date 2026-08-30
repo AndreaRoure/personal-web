@@ -1,14 +1,19 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import remarkGfm from "remark-gfm";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import { Link } from "../../../../i18n/navigation";
 import CompartirPost from "../../../CompartirPost";
+import DiagramaFlujo from "../../../DiagramaFlujo";
 import FiltrosDuotono from "../../../FiltrosDuotono";
 import HojaRoble from "../../../HojaRoble";
 import { categoriaDe } from "../../../categorias";
 import { getPost, slugAlterno } from "../../../posts";
+
+// Componentes usables directamente dentro del MDX de los artículos.
+const componentesMDX = { DiagramaFlujo };
 
 type Params = { locale: string; slug: string };
 
@@ -132,7 +137,20 @@ export default async function Post({
       <section className="w-full bg-[#FAFAF7] text-ink">
         <div className="max-w-5xl mx-auto px-6 py-14">
           <article className="prose prose-lg max-w-2xl prose-headings:font-display prose-headings:font-semibold prose-a:text-accent prose-a:decoration-2 prose-blockquote:border-accent prose-strong:text-ink prose-code:text-accent prose-pre:bg-ink/5">
-            <MDXRemote source={post.content} />
+            <MDXRemote
+              source={post.content}
+              components={componentesMDX}
+              options={{
+                mdxOptions: { remarkPlugins: [remarkGfm] },
+                // Los .mdx de content/posts/ los escribo yo, no son
+                // contenido de terceros — sin esto, next-mdx-remote borra en
+                // silencio cualquier expresion JS del MDX (es su medida de
+                // seguridad por defecto para contenido no confiable), y los
+                // props tipo objeto/array de componentes como DiagramaFlujo
+                // llegaban siempre "undefined".
+                blockJS: false,
+              }}
+            />
           </article>
 
           <div className="flex flex-wrap items-center gap-x-6 gap-y-3 mt-14">

@@ -51,19 +51,17 @@ Ambos servicios corren en un VPS de entrada de [Hetzner Cloud](https://www.hetzn
 
 ## La arquitectura
 
-```mermaid
-graph LR
-    A["📧 Servidor de correo<br/>IMAP"] -->|Nuevo email| B["N8N<br/>Trigger IMAP"]
-    B -->|Extrae remitente<br/>y asunto| C["N8N<br/>HTTP Request"]
-    C -->|POST| D["Evolution API<br/>Pasarela WhatsApp"]
-    D -->|Envía mensaje| E["💬 Grupo WhatsApp<br/>del equipo"]
-    
-    style A fill:#e8f4f8
-    style B fill:#fff4e6
-    style C fill:#fff4e6
-    style D fill:#f0e8f8
-    style E fill:#e8f8e8
-```
+<DiagramaFlujo
+  alt="Flujo: el servidor de correo dispara un trigger en N8N, que extrae remitente y asunto, hace una petición HTTP a Evolution API, y esta envía el mensaje al grupo de WhatsApp del equipo."
+  pasos={[
+    { icono: "correo", lineas: ["SERVIDOR", "CORREO (IMAP)"] },
+    { icono: "reloj", lineas: ["N8N", "TRIGGER"] },
+    { icono: "http", lineas: ["N8N HTTP", "REQUEST"] },
+    { icono: "chat", lineas: ["EVOLUTION API", "→ WHATSAPP"] },
+  ]}
+  flechas={["NUEVO EMAIL", "REMITENTE + ASUNTO", "POST"]}
+  rama={{ desde: 2, lineas: ["GRUPO WHATSAPP", "DEL EQUIPO"], etiqueta: "ENVÍA MENSAJE" }}
+/>
 
 El mensaje que recibe el grupo tiene el formato:
 
@@ -119,14 +117,14 @@ El tiempo total de implementación, partiendo de cero, fue de unas pocas horas. 
 
 ## Stack completo
 
-| Herramienta | Rol | Licencia |
-|---|---|---|
-| N8N | Automatización de flujos | Sustainable Use License |
-| Evolution API | Pasarela WhatsApp | Apache 2.0 |
-| PostgreSQL | Base de datos | PostgreSQL License |
-| Redis | Caché | BSD |
-| Docker Compose | Orquestación | Apache 2.0 |
-| Hetzner Cloud | Infraestructura | — |
+| Herramienta | Para qué sirve |
+|---|---|
+| N8N | Automatización de flujos |
+| Evolution API | Pasarela WhatsApp |
+| PostgreSQL | Base de datos |
+| Redis | Caché |
+| Docker Compose | Orquestación |
+| Hetzner Cloud | Infraestructura |
 
 ---
 
