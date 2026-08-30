@@ -5,6 +5,7 @@ import remarkGfm from "remark-gfm";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import { Link } from "../../../../i18n/navigation";
+import CitaConImagen from "../../../CitaConImagen";
 import CompartirPost from "../../../CompartirPost";
 import DiagramaFlujo from "../../../DiagramaFlujo";
 import FiltrosDuotono from "../../../FiltrosDuotono";
@@ -13,7 +14,7 @@ import { categoriaDe } from "../../../categorias";
 import { getPost, slugAlterno } from "../../../posts";
 
 // Componentes usables directamente dentro del MDX de los artículos.
-const componentesMDX = { DiagramaFlujo };
+const componentesMDX = { DiagramaFlujo, CitaConImagen };
 
 type Params = { locale: string; slug: string };
 
