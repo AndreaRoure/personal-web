@@ -43,7 +43,7 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "og" });
 
   return {
-    metadataBase: new URL("https://personal-web-self-phi.vercel.app"),
+    metadataBase: new URL("https://www.andrearobles.net"),
     title: {
       default: `Andrea Robles — ${t("siteTitular")}`,
       template: "%s · Andrea Robles",
