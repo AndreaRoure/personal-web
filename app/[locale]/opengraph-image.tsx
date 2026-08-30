@@ -1,7 +1,8 @@
 import { ImageResponse } from "next/og";
 import { getTranslations } from "next-intl/server";
 
-export const runtime = "edge";
+// "edge" esta deprecado desde Next 16.3 a favor del runtime nodejs por
+// defecto; ImageResponse funciona igual sin declararlo.
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

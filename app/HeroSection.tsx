@@ -370,7 +370,6 @@ export default function HeroSection({ textos }: { textos: TextosHero }) {
     // "textos" viene de las traducciones del servidor y no cambia durante la
     // vida del componente (el idioma solo cambia navegando a otra URL), asi
     // que incluirlo en las dependencias no reinicia el juego en marcha.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [interact, textos]);
 
   return (
