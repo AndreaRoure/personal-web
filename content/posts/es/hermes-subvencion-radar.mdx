@@ -1,0 +1,62 @@
+---
+id: "hermes-subvencion-radar"
+title: "Agente para rastrear subvenciones, con Hermes"
+date: "2026-09-03"
+description: "Cómo construí un agente que revisa la BDNS y el BOE cada mañana y manda un briefing a Teams, separando el razonamiento (LLM) de la ejecución (n8n)."
+tags: ["IA", "agentes", "automatización", "n8n", "Python"]
+categoria: "casos"
+---
+
+En las organizaciones sociales el seguimiento de convocatorias de subvenciones se suele hacer a mano. Alguien entra en la BDNS o el BOE, filtra a ojo, y lo comparte con el equipo. Funciona, pero depende de que alguien se acuerde — y acaba pasando cada dos semanas en vez de cada día, que es cuando de verdad importa.
+
+Este caso de uso me llevó a construir este "radar de subvenciones" para que ese seguimiento ocurra solo, cada mañana, sin que nadie tenga que abrir nada.
+
+---
+
+## Qué hace Hermes
+
+Hermes es un agente: un programa que razona sobre una tarea y decide cómo ejecutarla paso a paso. Cada mañana a las 8h recibe una instrucción simple —revisa las subvenciones del día— y a partir de ahí toma todas las decisiones:
+
+1. Consulta la BDNS (Base de Datos Nacional de Subvenciones)
+2. Consulta el BOE
+3. Analiza los resultados: filtra por territorio (Madrid, Cataluña, Estatal, UE), descarta lo irrelevante, puntúa lo que sí encaja con la misión de Exit
+4. Redacta un briefing
+5. Lo envía al canal de Teams del equipo
+
+El resultado llega como una tarjeta con el resumen del día, las convocatorias ordenadas por relevancia (⭐ a ⭐⭐⭐), y un enlace directo a cada una. Dos minutos de lectura, sin ruido.
+
+---
+
+## Cómo está montado
+
+Tres piezas, cada una con un rol distinto:
+
+**Hermes (Python + LLM vía OpenRouter)** es el que piensa. Usa un modelo de lenguaje (Qwen3.7-flash) para leer los datos, evaluar qué es relevante para Exit y redactar el briefing. No ejecuta llamadas a APIs directamente — solo decide qué hacer.
+
+**n8n** es el que ejecuta. Corre en Docker y expone tres webhooks que Hermes puede llamar como herramientas: `query_bdns`, `query_boe` y `send_teams`. Cuando Hermes decide consultar la BDNS, llama a ese webhook; n8n hace la petición a la API, normaliza la respuesta, y se la devuelve. n8n no decide nada — solo trabaja.
+
+**Power Automate + Teams** es la entrega. El webhook `send_teams` dispara un flujo de Power Automate que publica una Adaptive Card en el canal del equipo. El briefing se lee igual de bien en escritorio que en móvil.
+
+<DiagramaFlujo
+  alt="Flujo: cada mañana a las 8:00 se dispara Hermes, que vía OpenRouter decide qué herramientas de n8n llamar (BDNS y BOE), y termina enviando el briefing a Microsoft Teams."
+  pasos={[
+    { icono: "reloj", lineas: ["CADA DÍA", "8:00"] },
+    { icono: "http", lineas: ["HERMES", "PYTHON + LLM"] },
+    { icono: "http", lineas: ["N8N", "HERRAMIENTAS"] },
+    { icono: "chat", lineas: ["MICROSOFT TEAMS", "ADAPTIVE CARD"] },
+  ]}
+  flechas={["INSTRUCCIÓN", "DECIDE QUÉ LLAMAR", "BRIEFING"]}
+  rama={{ desde: 2, lineas: ["BDNS + BOE", "APIS PÚBLICAS"], etiqueta: "QUERY_BDNS / QUERY_BOE" }}
+/>
+
+La separación entre razonamiento (Hermes) y ejecución (n8n) es la decisión de diseño que lo hace mantenible. Si mañana la API de la BDNS cambia, toco el workflow de n8n — Hermes no se entera. Si quiero que el agente también mire convocatorias europeas, añado un webhook nuevo y le digo a Hermes que existe.
+
+---
+
+## Lo que de verdad cuesta
+
+Conectar un LLM a unas herramientas es la parte fácil. Lo que da trabajo son las fuentes: la BDNS a veces devuelve HTML en vez de JSON, sin avisar por el código de estado. El BOE tiene su propia estructura anidada y es inestable a primera hora. Las rutas de webhook de n8n no perdonan un carácter de más. La mitad del tiempo de desarrollo fue depurar con `curl` antes de dejar que el agente llamara a nada.
+
+---
+
+*Hermes no es un proyecto de IA complejo. Es un agente sencillo con tres herramientas bien definidas, sin ningún framework de agentes, que resuelve un problema concreto: que el equipo de Exit empiece el día sabiendo qué convocatorias ha publicado el BOE esta mañana. Eso antes no pasaba. Ahora sí.*
