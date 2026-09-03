@@ -8,10 +8,9 @@ import { getPost } from "../../../posts";
 
 // Satori (el motor detras de ImageResponse) no soporta filtros SVG
 // arbitrarios (url(#duo-...)) ni object-fit/object-position en <img> — con
-// eso puesto el recorte salia descontrolado (un zoom enorme a un trozo
-// cualquiera de la imagen). La solucion: recortar la imagen nosotros mismos
-// con sharp al tamaño exacto del hueco antes de dársela a Satori, asi no
-// necesita fit ni position, solo la pinta tal cual.
+// eso puesto el recorte salia descontrolado. La solucion: recortar la
+// imagen nosotros mismos con sharp al tamaño exacto del hueco antes de
+// dársela a Satori, asi no necesita fit ni position, solo la pinta tal cual.
 function parsePosicion(pos: string): { x: number; y: number } {
   const partes = pos.trim().split(/\s+/);
   if (partes.length === 1) {
@@ -67,6 +66,12 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const alt = "Andrea Robles";
 
+// Ancho del panel de foto cuando el articulo trae imagen. Al recortar solo
+// a este ancho (no a los 1200px enteros) una foto cuadrada no necesita un
+// zoom tan bestia para cubrir el hueco — de paso evita el panel de texto
+// quedando ilegible encima de la imagen.
+const ANCHO_IMAGEN = 460;
+
 // La hoja de roble, en coordenadas de su rejilla de 16x16. Satori no dibuja
 // SVG complejo, asi que se pinta con divs, que es lo que ya es: pixeles.
 const HOJA: [number, number, number, number][] = [
@@ -89,12 +94,17 @@ export default async function Image({
   const etiquetaCategoria = t(post?.categoria ?? "articulos");
   const tags = (post?.tags ?? []).slice(0, 3);
 
-  // El titular baja de cuerpo cuando el titulo es largo, que si no se sale.
-  const cuerpo = titulo.length > 90 ? 60 : titulo.length > 55 ? 74 : 92;
-  const px = 26; // lado del pixel de la hoja
   const imagenFondo = post?.imagen
-    ? await imagenRecortada(post.imagen, post.imagenPosicion, size.width, size.height)
+    ? await imagenRecortada(post.imagen, post.imagenPosicion, ANCHO_IMAGEN, size.height)
     : null;
+
+  const anchoTexto = imagenFondo ? size.width - ANCHO_IMAGEN : size.width;
+  // El titular baja de cuerpo cuando el titulo es largo o el panel es
+  // estrecho (con foto al lado), que si no se sale.
+  const cuerpo = imagenFondo
+    ? titulo.length > 70 ? 46 : titulo.length > 40 ? 58 : 70
+    : titulo.length > 90 ? 60 : titulo.length > 55 ? 74 : 92;
+  const px = 26; // lado del pixel de la hoja
 
   return new ImageResponse(
     (
@@ -103,96 +113,111 @@ export default async function Image({
           width: "100%",
           height: "100%",
           display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          backgroundColor: cat.sombra,
-          color: cat.luz,
-          padding: "64px 72px",
+          flexDirection: "row",
           fontFamily: "sans-serif",
-          position: "relative",
         }}
       >
+        {/* Panel de texto */}
+        <div
+          style={{
+            width: anchoTexto,
+            height: size.height,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            backgroundColor: cat.sombra,
+            color: cat.luz,
+            padding: "64px 56px",
+            position: "relative",
+          }}
+        >
+          <div style={{ display: "flex", fontSize: 26, fontFamily: "monospace", opacity: 0.75 }}>
+            &gt; {etiquetaCategoria.toLowerCase()}
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              fontSize: cuerpo,
+              fontWeight: 700,
+              lineHeight: 1.02,
+              letterSpacing: "-0.02em",
+            }}
+          >
+            {titulo}
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              flexDirection: imagenFondo ? "column" : "row",
+              justifyContent: imagenFondo ? "flex-start" : "space-between",
+              gap: imagenFondo ? 8 : 0,
+              fontSize: 22,
+              fontFamily: "monospace",
+              opacity: 0.75,
+              textTransform: "uppercase",
+            }}
+          >
+            <div style={{ display: "flex" }}>{post?.date ?? ""}</div>
+            <div style={{ display: "flex" }}>{tags.join(" · ")}</div>
+          </div>
+
+          {/* Hoja asomando por la esquina: solo cuando no hay foto que ya
+              le de personalidad propia a la tarjeta */}
+          {!imagenFondo && (
+            <div
+              style={{
+                position: "absolute",
+                right: -40,
+                bottom: -70,
+                width: 16 * px,
+                height: 16 * px,
+                display: "flex",
+                opacity: 0.16,
+              }}
+            >
+              {HOJA.map(([x, y, w, h], i) => (
+                <div
+                  key={i}
+                  style={{
+                    position: "absolute",
+                    left: x * px,
+                    top: y * px,
+                    width: w * px,
+                    height: h * px,
+                    backgroundColor: cat.luz,
+                  }}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Panel de foto: recortada ya al ancho exacto, sin estirarla a
+            toda la tarjeta — evita el zoom extremo de fotos cuadradas */}
         {imagenFondo && (
-          <>
+          <div style={{ display: "flex", width: ANCHO_IMAGEN, height: size.height, position: "relative" }}>
             <img
               src={imagenFondo}
               alt=""
-              width={size.width}
+              width={ANCHO_IMAGEN}
               height={size.height}
-              style={{ position: "absolute", top: 0, left: 0, width: size.width, height: size.height }}
+              style={{ width: ANCHO_IMAGEN, height: size.height }}
             />
             <div
               style={{
                 position: "absolute",
                 top: 0,
                 left: 0,
-                width: size.width,
+                width: 8,
                 height: size.height,
                 display: "flex",
                 backgroundColor: cat.sombra,
-                opacity: 0.72,
               }}
             />
-          </>
+          </div>
         )}
-
-        <div style={{ display: "flex", fontSize: 26, fontFamily: "monospace", opacity: 0.75 }}>
-          &gt; {etiquetaCategoria.toLowerCase()}
-        </div>
-
-        <div
-          style={{
-            display: "flex",
-            fontSize: cuerpo,
-            fontWeight: 700,
-            lineHeight: 1.02,
-            letterSpacing: "-0.02em",
-            maxWidth: 980,
-          }}
-        >
-          {titulo}
-        </div>
-
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            fontSize: 24,
-            fontFamily: "monospace",
-            opacity: 0.75,
-            textTransform: "uppercase",
-          }}
-        >
-          <div style={{ display: "flex" }}>{post?.date ?? ""}</div>
-          <div style={{ display: "flex" }}>{tags.join(" · ")}</div>
-        </div>
-
-        {/* Hoja asomando por la esquina inferior derecha */}
-        <div
-          style={{
-            position: "absolute",
-            right: -40,
-            bottom: -70,
-            width: 16 * px,
-            height: 16 * px,
-            display: "flex",
-            opacity: 0.16,
-          }}
-        >
-          {HOJA.map(([x, y, w, h], i) => (
-            <div
-              key={i}
-              style={{
-                position: "absolute",
-                left: x * px,
-                top: y * px,
-                width: w * px,
-                height: h * px,
-                backgroundColor: cat.luz,
-              }}
-            />
-          ))}
-        </div>
       </div>
     ),
     { ...size }
