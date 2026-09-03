@@ -19,7 +19,7 @@ Hermes es un agente: un programa que razona sobre una tarea y decide cómo ejecu
 
 1. Consulta la BDNS (Base de Datos Nacional de Subvenciones)
 2. Consulta el BOE
-3. Analiza los resultados: filtra por territorio (Madrid, Cataluña, Estatal, UE), descarta lo irrelevante, puntúa lo que sí encaja con la misión de Exit
+3. Analiza los resultados: filtra por territorio (Madrid, Cataluña, Estatal, UE), descarta lo irrelevante, puntúa lo que sí encaja con la misión de la organización
 4. Redacta un briefing
 5. Lo envía al canal de Teams del equipo
 
@@ -31,7 +31,7 @@ El resultado llega como una tarjeta con el resumen del día, las convocatorias o
 
 Tres piezas, cada una con un rol distinto:
 
-**Hermes (Python + LLM vía OpenRouter)** es el que piensa. Usa un modelo de lenguaje (Qwen3.7-flash) para leer los datos, evaluar qué es relevante para Exit y redactar el briefing. No ejecuta llamadas a APIs directamente — solo decide qué hacer.
+**Hermes (Python + LLM vía OpenRouter)** es el que piensa. Usa un modelo de lenguaje (Qwen3.7-flash) para leer los datos, evaluar qué es relevante para la organización y redactar el briefing. No ejecuta llamadas a APIs directamente — solo decide qué hacer.
 
 **n8n** es el que ejecuta. Corre en Docker y expone tres webhooks que Hermes puede llamar como herramientas: `query_bdns`, `query_boe` y `send_teams`. Cuando Hermes decide consultar la BDNS, llama a ese webhook; n8n hace la petición a la API, normaliza la respuesta, y se la devuelve. n8n no decide nada — solo trabaja.
 
@@ -59,4 +59,4 @@ Conectar un LLM a unas herramientas es la parte fácil. Lo que da trabajo son la
 
 ---
 
-*Hermes no es un proyecto de IA complejo. Es un agente sencillo con tres herramientas bien definidas, sin ningún framework de agentes, que resuelve un problema concreto: que el equipo de Exit empiece el día sabiendo qué convocatorias ha publicado el BOE esta mañana. Eso antes no pasaba. Ahora sí.*
+*Hermes no es un proyecto de IA complejo. Es un agente sencillo con tres herramientas bien definidas, sin ningún framework de agentes, que resuelve un problema concreto: que el equipo empiece el día sabiendo qué convocatorias ha publicado el BOE esta mañana. Eso antes no pasaba. Ahora sí.*
