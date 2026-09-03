@@ -23,6 +23,7 @@ export default function PortadaTipografica({
   fecha,
   tags = [],
   imagen,
+  imagenPosicion = "center",
   compacta = false,
   comoTitulo = false,
 }: {
@@ -32,6 +33,7 @@ export default function PortadaTipografica({
   fecha?: string;
   tags?: string[];
   imagen?: string | null;
+  imagenPosicion?: string;
   compacta?: boolean;
   comoTitulo?: boolean;
 }) {
@@ -60,7 +62,7 @@ export default function PortadaTipografica({
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="object-cover"
-            style={{ filter: `url(#duo-${cat.id})` }}
+            style={{ filter: `url(#duo-${cat.id})`, objectPosition: imagenPosicion }}
           />
           {/* Sin este velo el titulo en lima no se lee sobre las zonas
               claras del duotono. */}

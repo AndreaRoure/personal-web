@@ -20,6 +20,7 @@ export interface ItemArchivo {
   href: string;
   externo?: boolean;
   imagen?: string | null;
+  imagenPosicion?: string;
   // Antes era un string libre ("En construcción"); con dos idiomas eso
   // habria que traducirlo desde fuera. Como solo se usa para este caso,
   // pasa a booleano y el texto sale de las traducciones de aqui dentro.
@@ -45,6 +46,7 @@ function Tarjeta({ item }: { item: ItemArchivo }) {
           fecha={item.fecha}
           tags={item.tags}
           imagen={item.imagen}
+          imagenPosicion={item.imagenPosicion}
           compacta
         />
       </div>

@@ -35,6 +35,7 @@ export default async function Home({
       href: `/blog/${post.slug}`,
       externo: false,
       imagen: post.imagen,
+      imagenPosicion: post.imagenPosicion,
       tags: post.tags,
     })),
   ];

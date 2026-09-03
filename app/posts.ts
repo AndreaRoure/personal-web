@@ -21,6 +21,11 @@ export interface Post {
   description: string;
   tags: string[];
   imagen: string | null;
+  // CSS object-position para el recorte de la cabecera (p.ej. "center 15%").
+  // Por defecto "center": no todas las imagenes tienen el sujeto centrado,
+  // y sin esto el recorte automatico se lo come a veces (una cara, un punto
+  // de interes concreto).
+  imagenPosicion: string;
   categoria: string;
   minutos: number;
 }
@@ -34,6 +39,7 @@ function normaliza(slug: string, data: Record<string, unknown>, contenido: strin
     description: data.description as string,
     tags: (data.tags as string[]) ?? [],
     imagen: (data.imagen as string) ?? null,
+    imagenPosicion: (data.imagenPosicion as string) ?? "center",
     categoria: (data.categoria as string) ?? "articulos",
     minutos: calcularMinutos(contenido),
   };

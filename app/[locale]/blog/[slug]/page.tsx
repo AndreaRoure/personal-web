@@ -86,7 +86,7 @@ export default async function Post({
               priority
               sizes="100vw"
               className="object-cover"
-              style={{ filter: `url(#duo-${cat.id})` }}
+              style={{ filter: `url(#duo-${cat.id})`, objectPosition: post.imagenPosicion }}
             />
             <div
               aria-hidden="true"
