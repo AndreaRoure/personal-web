@@ -59,9 +59,3 @@ Tres piezas, cada una con un rol distinto:
 />
 
 La separación entre razonamiento (Hermes) y ejecución (n8n) es la decisión de diseño que lo hace mantenible. Si mañana la API de la BDNS cambia, toco el workflow de n8n — Hermes no se entera. Si quiero que el agente también mire convocatorias europeas, añado un webhook nuevo y le digo a Hermes que existe.
-
----
-
-## Lo que de verdad cuesta
-
-Conectar un LLM a unas herramientas es la parte fácil. Lo que da trabajo son las fuentes: la BDNS a veces devuelve HTML en vez de JSON, sin avisar por el código de estado. El BOE tiene su propia estructura anidada y es inestable a primera hora. Las rutas de webhook de n8n no perdonan un carácter de más. La mitad del tiempo de desarrollo fue depurar con `curl` antes de dejar que el agente llamara a nada.
