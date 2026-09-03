@@ -1,0 +1,71 @@
+---
+id: "hermes-subvencion-radar"
+title: "An agent to track public grants, with Hermes"
+date: "2026-09-03"
+description: "How I built an agent that checks Spain's national grants database and official gazette every morning and sends a briefing to Teams, separating reasoning (LLM) from execution (n8n)."
+tags: ["AI", "agents", "automation", "n8n", "Python"]
+imagen: "/hermes-agent.png"
+categoria: "casos"
+---
+
+In social organisations, tracking grant calls is usually done by hand. Someone checks Spain's national grants database or the official state gazette, filters by eye, and shares it with the team. It works, but it depends on someone remembering to do it — and ends up happening every two weeks instead of every day, which is when it actually matters.
+
+This use case led me to build this "grant radar" so that tracking happens on its own, every morning, without anyone having to open anything.
+
+---
+
+## What Hermes does
+
+Hermes is an agent: a program that reasons about a task and decides how to carry it out step by step. Every morning at 8am it receives a simple instruction — check today's grants — and from there it makes every decision itself:
+
+1. Queries the BDNS (Spain's National Grants Database)
+2. Queries the BOE (Spain's official state gazette)
+3. Analyses the results: filters by territory (Madrid, Catalonia, national, EU), discards what's irrelevant, scores what actually fits the organisation's mission
+4. Drafts a briefing
+5. Sends it to the team's Teams channel
+
+The result arrives as a card with the day's summary, grants sorted by relevance (⭐ to ⭐⭐⭐), and a direct link to each one. Two minutes to read, no noise.
+
+![Hermes card in Teams with the day's summary and relevant grants sorted by stars](/hermes-teams-briefing.png)
+
+*This is how the briefing lands in the team's Teams channel every morning.*
+
+---
+
+## How it's built
+
+Three pieces, each with a distinct role:
+
+**Hermes (Python + LLM via OpenRouter)** is the one that thinks. It uses a language model (Qwen3.7-flash) to read the data, judge what's relevant to the organisation, and draft the briefing. It never calls any API directly — it only decides what to do.
+
+**n8n** is the one that executes. It runs in Docker and exposes three webhooks Hermes can call as tools: `query_bdns`, `query_boe` and `send_teams`. When Hermes decides to query the BDNS, it calls that webhook; n8n makes the request to the API, normalises the response, and hands it back. n8n never decides anything — it just does the work.
+
+![The three n8n workflows: the BOE webhook, the BDNS webhook and the Teams webhook, each with its external API call and normalisation node before responding to Hermes](/hermes-n8n-workflows.png)
+
+*The three n8n tools Hermes can call, as seen from the editor.*
+
+**Power Automate + Teams** is the delivery layer. The `send_teams` webhook triggers a Power Automate flow that posts an Adaptive Card to the team's channel. The briefing reads just as well on desktop as on mobile.
+
+<DiagramaFlujo
+  alt="Flow: every morning at 8:00 Hermes is triggered, and via OpenRouter it decides which n8n tools to call (BDNS and BOE), ending by sending the briefing to Microsoft Teams."
+  pasos={[
+    { icono: "reloj", lineas: ["EVERY DAY", "8:00"] },
+    { icono: "http", lineas: ["HERMES", "PYTHON + LLM"] },
+    { icono: "http", lineas: ["N8N", "TOOLS"] },
+    { icono: "chat", lineas: ["MICROSOFT TEAMS", "ADAPTIVE CARD"] },
+  ]}
+  flechas={["INSTRUCTION", "DECIDES WHAT TO CALL", "BRIEFING"]}
+  rama={{ desde: 2, lineas: ["BDNS + BOE", "PUBLIC APIS"], etiqueta: "QUERY_BDNS / QUERY_BOE" }}
+/>
+
+The split between reasoning (Hermes) and execution (n8n) is the design decision that keeps this maintainable. If the BDNS API changes tomorrow, I touch the n8n workflow — Hermes doesn't notice. If I want the agent to also watch EU grant calls, I add a new webhook and tell Hermes it exists.
+
+---
+
+## What actually takes the time
+
+Connecting an LLM to a handful of tools is the easy part. What's hard is the sources: the BDNS sometimes returns HTML instead of JSON, with no warning in the status code. The BOE has its own deeply nested structure and is unstable early in the morning. n8n's webhook paths don't forgive a single stray character. Half the development time went into debugging with `curl` before ever letting the agent call anything.
+
+---
+
+*Hermes isn't a complex AI project. It's a simple agent with three well-defined tools, no agent framework at all, solving one concrete problem: the team starts the day already knowing what grant calls the BOE published that morning. That didn't use to happen. Now it does.*

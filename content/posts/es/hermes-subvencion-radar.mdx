@@ -40,6 +40,10 @@ Tres piezas, cada una con un rol distinto:
 
 **n8n** es el que ejecuta. Corre en Docker y expone tres webhooks que Hermes puede llamar como herramientas: `query_bdns`, `query_boe` y `send_teams`. Cuando Hermes decide consultar la BDNS, llama a ese webhook; n8n hace la petición a la API, normaliza la respuesta, y se la devuelve. n8n no decide nada — solo trabaja.
 
+![Los tres workflows de n8n: webhook de BOE, webhook de BDNS y webhook de Teams, cada uno con su llamada a la API externa y su nodo de normalización antes de responder a Hermes](/hermes-n8n-workflows.png)
+
+*Las tres herramientas de n8n que Hermes puede llamar, vistas desde el editor.*
+
 **Power Automate + Teams** es la entrega. El webhook `send_teams` dispara un flujo de Power Automate que publica una Adaptive Card en el canal del equipo. El briefing se lee igual de bien en escritorio que en móvil.
 
 <DiagramaFlujo
