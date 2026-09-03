@@ -1,7 +1,67 @@
+import fs from "fs";
+import path from "path";
+import sharp from "sharp";
 import { ImageResponse } from "next/og";
 import { getTranslations } from "next-intl/server";
 import { categoriaDe } from "../../../categorias";
 import { getPost } from "../../../posts";
+
+// Satori (el motor detras de ImageResponse) no soporta filtros SVG
+// arbitrarios (url(#duo-...)) ni object-fit/object-position en <img> — con
+// eso puesto el recorte salia descontrolado (un zoom enorme a un trozo
+// cualquiera de la imagen). La solucion: recortar la imagen nosotros mismos
+// con sharp al tamaño exacto del hueco antes de dársela a Satori, asi no
+// necesita fit ni position, solo la pinta tal cual.
+function parsePosicion(pos: string): { x: number; y: number } {
+  const partes = pos.trim().split(/\s+/);
+  if (partes.length === 1) {
+    const p = partes[0];
+    if (p === "top") return { x: 0.5, y: 0 };
+    if (p === "bottom") return { x: 0.5, y: 1 };
+    if (p === "left") return { x: 0, y: 0.5 };
+    if (p === "right") return { x: 1, y: 0.5 };
+    if (p.endsWith("%")) return { x: parseFloat(p) / 100, y: 0.5 };
+    return { x: 0.5, y: 0.5 };
+  }
+  const mapaX: Record<string, number> = { left: 0, center: 0.5, right: 1 };
+  const mapaY: Record<string, number> = { top: 0, center: 0.5, bottom: 1 };
+  const val = (token: string, mapa: Record<string, number>) =>
+    token in mapa ? mapa[token] : token.endsWith("%") ? parseFloat(token) / 100 : 0.5;
+  return { x: val(partes[0], mapaX), y: val(partes[1], mapaY) };
+}
+
+async function imagenRecortada(
+  rutaPublica: string,
+  posicion: string,
+  anchoDestino: number,
+  altoDestino: number
+): Promise<string | null> {
+  try {
+    const buffer = fs.readFileSync(path.join(process.cwd(), "public", rutaPublica));
+    const meta = await sharp(buffer).metadata();
+    if (!meta.width || !meta.height) return null;
+
+    // Misma logica que object-fit: cover — escala al minimo que cubra el
+    // hueco entero, y luego recorta el sobrante segun la posicion pedida.
+    const escala = Math.max(anchoDestino / meta.width, altoDestino / meta.height);
+    const anchoEscalado = Math.ceil(meta.width * escala);
+    const altoEscalado = Math.ceil(meta.height * escala);
+
+    const { x, y } = parsePosicion(posicion);
+    const left = Math.max(0, Math.min(Math.round((anchoEscalado - anchoDestino) * x), anchoEscalado - anchoDestino));
+    const top = Math.max(0, Math.min(Math.round((altoEscalado - altoDestino) * y), altoEscalado - altoDestino));
+
+    const recortado = await sharp(buffer)
+      .resize(anchoEscalado, altoEscalado)
+      .extract({ left, top, width: anchoDestino, height: altoDestino })
+      .png()
+      .toBuffer();
+
+    return `data:image/png;base64,${recortado.toString("base64")}`;
+  } catch {
+    return null;
+  }
+}
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
@@ -32,6 +92,9 @@ export default async function Image({
   // El titular baja de cuerpo cuando el titulo es largo, que si no se sale.
   const cuerpo = titulo.length > 90 ? 60 : titulo.length > 55 ? 74 : 92;
   const px = 26; // lado del pixel de la hoja
+  const imagenFondo = post?.imagen
+    ? await imagenRecortada(post.imagen, post.imagenPosicion, size.width, size.height)
+    : null;
 
   return new ImageResponse(
     (
@@ -49,6 +112,30 @@ export default async function Image({
           position: "relative",
         }}
       >
+        {imagenFondo && (
+          <>
+            <img
+              src={imagenFondo}
+              alt=""
+              width={size.width}
+              height={size.height}
+              style={{ position: "absolute", top: 0, left: 0, width: size.width, height: size.height }}
+            />
+            <div
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: size.width,
+                height: size.height,
+                display: "flex",
+                backgroundColor: cat.sombra,
+                opacity: 0.72,
+              }}
+            />
+          </>
+        )}
+
         <div style={{ display: "flex", fontSize: 26, fontFamily: "monospace", opacity: 0.75 }}>
           &gt; {etiquetaCategoria.toLowerCase()}
         </div>

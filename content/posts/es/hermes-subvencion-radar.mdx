@@ -65,7 +65,3 @@ La separación entre razonamiento (Hermes) y ejecución (n8n) es la decisión de
 ## Lo que de verdad cuesta
 
 Conectar un LLM a unas herramientas es la parte fácil. Lo que da trabajo son las fuentes: la BDNS a veces devuelve HTML en vez de JSON, sin avisar por el código de estado. El BOE tiene su propia estructura anidada y es inestable a primera hora. Las rutas de webhook de n8n no perdonan un carácter de más. La mitad del tiempo de desarrollo fue depurar con `curl` antes de dejar que el agente llamara a nada.
-
----
-
-*Hermes no es un proyecto de IA complejo. Es un agente sencillo con tres herramientas bien definidas, sin ningún framework de agentes, que resuelve un problema concreto: que el equipo empiece el día sabiendo qué convocatorias ha publicado el BOE esta mañana. Eso antes no pasaba. Ahora sí.*

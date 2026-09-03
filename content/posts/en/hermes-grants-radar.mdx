@@ -65,7 +65,3 @@ The split between reasoning (Hermes) and execution (n8n) is the design decision 
 ## What actually takes the time
 
 Connecting an LLM to a handful of tools is the easy part. What's hard is the sources: the BDNS sometimes returns HTML instead of JSON, with no warning in the status code. The BOE has its own deeply nested structure and is unstable early in the morning. n8n's webhook paths don't forgive a single stray character. Half the development time went into debugging with `curl` before ever letting the agent call anything.
-
----
-
-*Hermes isn't a complex AI project. It's a simple agent with three well-defined tools, no agent framework at all, solving one concrete problem: the team starts the day already knowing what grant calls the BOE published that morning. That didn't use to happen. Now it does.*
