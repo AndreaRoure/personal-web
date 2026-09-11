@@ -10,12 +10,13 @@ import CompartirPost from "../../../CompartirPost";
 import DiagramaFlujo from "../../../DiagramaFlujo";
 import FiltrosDuotono from "../../../FiltrosDuotono";
 import HojaRoble from "../../../HojaRoble";
+import ListaColor from "../../../ListaColor";
 import Tarjetas from "../../../Tarjetas";
 import { categoriaDe } from "../../../categorias";
 import { getPost, slugAlterno } from "../../../posts";
 
 // Componentes usables directamente dentro del MDX de los artículos.
-const componentesMDX = { DiagramaFlujo, CitaConImagen, Tarjetas };
+const componentesMDX = { DiagramaFlujo, CitaConImagen, Tarjetas, ListaColor };
 
 type Params = { locale: string; slug: string };
 

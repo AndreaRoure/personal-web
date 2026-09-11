@@ -10,21 +10,20 @@ categoria: "articulos"
 
 This post tries to sum up the essentials of the AI Act, and on top of that you get the downloadable icons the EU just released for labelling AI-generated content.
 
-## The AI Act doesn't ban using AI. It classifies risk.
+## 1. Risk classification
 
 Regulation (EU) 2024/1689 sets out four tiers. Which one applies doesn't depend on the tool you use, but on what you do with it and who it acts on.
 
-<Tarjetas
-  cols={4}
+<ListaColor
   items={[
-    { titulo: "Prohibited", texto: "In force since Feb 2025. Social scoring, harmful manipulation, emotion recognition at work or in education, certain biometric uses. No exceptions." },
-    { titulo: "High risk", texto: "Hiring, educational assessment, credit, migration, justice. Requires controls, documentation, traceability and real human oversight — not a rubber stamp." },
-    { titulo: "Transparency", texto: "Chatbots, deepfakes, artificially generated content. People need to know there's a machine behind it. This is where the icons come in." },
-    { titulo: "Minimal risk", texto: "The bulk of everyday uses. No specific obligations under the Regulation." },
+    { titulo: "Prohibited", color: "#D6432F", texto: "In force since Feb 2025. Social scoring, harmful manipulation, emotion recognition at work or in education, certain biometric uses. No exceptions." },
+    { titulo: "High risk", color: "#E08A1E", texto: "Hiring, educational assessment, credit, migration, justice. Requires controls, documentation, traceability and real human oversight — not a rubber stamp." },
+    { titulo: "Transparency", color: "#2C6FB0", texto: "Chatbots, deepfakes, artificially generated content. People need to know there's a machine behind it. This is where the icons come in." },
+    { titulo: "Minimal risk", color: "#3E8E4F", texto: "The bulk of everyday uses. No specific obligations under the Regulation." },
   ]}
 />
 
-## What sets the tier isn't the tool. It's the use.
+## 2. What sets the risk tier
 
 This is the point most often misread. Summarising internal minutes is very different from automatically filtering job applications. In the second case, you're making decisions that affect someone's access to employment.
 
@@ -32,20 +31,29 @@ And it applies to any organisation using AI — even AI contracted out to a thir
 
 > Before classifying a system, ask yourself: what decision does it produce? About whom? Could it affect their rights or opportunities? Is anyone actually reviewing the output?
 
-## The icons: the part you can apply today
+## 3. The labelling icons
 
 The transparency obligation takes full effect in August 2026, but the icons are already available. The European Commission has published them as a free resource to make compliance easier. Three situations, three labels:
 
 <Tarjetas
   cols={3}
   items={[
-    { titulo: "Basic", icono: "/ai-act-icono-basico.png", texto: "When AI played a part in creating deepfake content or published text, or when a custom text label is added instead. E.g. a video with \"voices generated with AI\" plus the icon." },
-    { titulo: "100% AI — AI Generated", icono: "/ai-act-icono-generado.png", texto: "The entire piece is AI-generated with no human input beyond the prompt. E.g. deepfakes of fictional politicians, AI-composed music, news summaries with no editorial review." },
-    { titulo: "Modified — AI Modified", icono: "/ai-act-icono-modificado.png", texto: "Real content partly modified with AI, turning it into a deepfake or into text of public interest. E.g. swapping a politician's face in a real photo, AI-furnishing photos of a flat." },
+    { titulo: "Basic", texto: "When AI played a part in creating deepfake content or published text, or when a custom text label is added instead. E.g. a video with \"voices generated with AI\" plus the icon." },
+    { titulo: "100% AI — AI Generated", texto: "The entire piece is AI-generated with no human input beyond the prompt. E.g. deepfakes of fictional politicians, AI-composed music, news summaries with no editorial review." },
+    { titulo: "Modified — AI Modified", texto: "Real content partly modified with AI, turning it into a deepfake or into text of public interest. E.g. swapping a politician's face in a real photo, AI-furnishing photos of a flat." },
   ]}
 />
 
-All three come in four variants: black and white, each at 100% and 50% opacity, to suit any background. Available in SVG and PNG.
+All three come in four variants: black and white, each at 100% and 50% opacity, to suit any background. Here are the official files, ready to download:
+
+<div className="not-prose my-8 flex flex-wrap gap-3">
+  <a href="/ai-act-iconos-png.zip" download className="inline-flex items-center gap-2 px-5 py-3 border-2 border-[#1A1A17] bg-ink text-white font-mono text-xs uppercase tracking-[0.14em] hover:bg-accent hover:border-accent transition-colors">
+    Download PNG icons ↓
+  </a>
+  <a href="/ai-act-iconos-svg.zip" download className="inline-flex items-center gap-2 px-5 py-3 border-2 border-[#1A1A17] bg-white text-ink font-mono text-xs uppercase tracking-[0.14em] hover:bg-accent hover:text-white hover:border-accent transition-colors">
+    Download SVG icons ↓
+  </a>
+</div>
 
 The icon has to meet four conditions:
 
@@ -58,7 +66,7 @@ The icon has to meet four conditions:
 
 That said: using the icon alone doesn't guarantee compliance. The goal isn't to dodge fines. It's that nobody mistakes what's real for what's artificial.
 
-## The dates that matter
+## 4. AI Act implementation timeline
 
 | Date | What applies |
 |---|---|
@@ -67,6 +75,4 @@ That said: using the icon alone doesn't guarantee compliance. The goal isn't to 
 | Aug 2026 | General application of the Regulation |
 | Dec 2027 | High-risk rules for education, employment, biometrics and justice |
 
----
-
-*Sources: Regulation (EU) 2024/1689 · European Commission — Code of Practice on AI-generated Content · September 2026.*
+*Official sources: [Regulation (EU) 2024/1689](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32024R1689) · [European Commission — AI Act regulatory framework](https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai). September 2026.*
