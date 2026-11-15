@@ -26,7 +26,7 @@ function Etiqueta({
   puntoActivo?: string;
 }) {
   return (
-    <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-3">
+    <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent-texto mb-3">
       {children}
       {puntoActivo && <PuntoActivo etiqueta={puntoActivo} />}
     </p>
@@ -63,13 +63,13 @@ export default async function Trayectoria() {
       {/* Actualmente — en caja, para que destaque sobre el resto */}
       <div>
         <Etiqueta puntoActivo={t("enActivo")}>{t("actualmente")}</Etiqueta>
-        <div className="bg-white border-2 border-[#1A1A17] p-5 sm:p-6">
+        <div className="bg-white border-2 border-linea p-5 sm:p-6">
           <h3 className="font-display text-xl sm:text-2xl font-bold leading-tight">
             {actual.puesto}
           </h3>
           <p className="font-mono text-xs sm:text-sm text-muted mt-2">
             {actual.org} · {actual.periodo}
-            <span className="text-accent">
+            <span className="text-accent-texto">
               {" · "}
               <DuracionDesde anio={DESDE_ACTUAL.anio} mes={DESDE_ACTUAL.mes} />
             </span>

@@ -10,6 +10,20 @@ const CLAVE = "cookieConsent";
 
 type Estado = "pendiente" | "aceptado" | "rechazado";
 
+/** Borra las cookies de GA4 (_ga y _ga_<id>) en el dominio actual y en el
+ *  dominio padre, que es donde GA las suele dejar (.andrearobles.net). */
+function borrarCookiesGA() {
+  const host = window.location.hostname;
+  const dominios = ["", host, `.${host.replace(/^www\./, "")}`];
+  for (const c of document.cookie.split(";")) {
+    const nombre = c.split("=")[0].trim();
+    if (!nombre.startsWith("_ga")) continue;
+    for (const d of dominios) {
+      document.cookie = `${nombre}=; Max-Age=0; path=/${d ? `; domain=${d}` : ""}`;
+    }
+  }
+}
+
 /** Banner de cookies + carga de Google Analytics 4.
  *
  *  GA no se carga en ningun caso hasta que el visitante pulsa "Aceptar":
@@ -47,7 +61,19 @@ export default function CookieConsent() {
   }, []);
 
   function elegir(nuevo: "aceptado" | "rechazado") {
+    const anterior = window.localStorage.getItem(CLAVE);
     window.localStorage.setItem(CLAVE, nuevo);
+    if (nuevo === "rechazado" && anterior === "aceptado") {
+      // Revocar de verdad: si GA ya estaba cargado en esta pestaña, se le
+      // retira el consentimiento, se desactiva y se borran sus cookies; la
+      // recarga deja la pagina sin el script.
+      const w = window as unknown as { gtag?: (...a: unknown[]) => void } & Record<string, unknown>;
+      w.gtag?.("consent", "update", { analytics_storage: "denied" });
+      w[`ga-disable-${GA_ID}`] = true;
+      borrarCookiesGA();
+      window.location.reload();
+      return;
+    }
     setEstado(nuevo);
   }
 
@@ -60,6 +86,12 @@ export default function CookieConsent() {
             {`
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
+              gtag('consent', 'default', {
+                ad_storage: 'denied',
+                ad_user_data: 'denied',
+                ad_personalization: 'denied',
+                analytics_storage: 'granted'
+              });
               gtag('js', new Date());
               gtag('config', '${GA_ID}');
             `}
@@ -71,12 +103,12 @@ export default function CookieConsent() {
         <div
           role="dialog"
           aria-label={t("aviso")}
-          className="fixed inset-x-0 bottom-0 z-[60] border-t-2 border-[#1A1A17] bg-white"
+          className="fixed inset-x-0 bottom-0 z-[60] border-t-2 border-linea bg-white"
         >
           <div className="max-w-4xl mx-auto px-5 py-5 sm:px-6 flex flex-col sm:flex-row sm:items-center gap-4">
             <p className="text-sm text-ink/80 flex-1">
               {t("texto")}{" "}
-              <Link href="/privacidad" className="underline hover:text-accent transition-colors">
+              <Link href="/privacidad" className="underline hover:text-accent-texto transition-colors">
                 {t("masInfo")}
               </Link>
             </p>
@@ -84,14 +116,14 @@ export default function CookieConsent() {
               <button
                 type="button"
                 onClick={() => elegir("rechazado")}
-                className="px-4 py-2 border-2 border-[#1A1A17] text-sm font-medium rounded-md hover:bg-[#1A1A17]/5 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                className="px-4 py-2 border-2 border-linea text-sm font-medium rounded-md hover:bg-linea/5 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
               >
                 {t("rechazar")}
               </button>
               <button
                 type="button"
                 onClick={() => elegir("aceptado")}
-                className="px-4 py-2 border-2 border-accent bg-accent text-white text-sm font-medium rounded-md hover:opacity-90 transition-opacity focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                className="px-4 py-2 border-2 border-accent-texto bg-accent-texto text-white text-sm font-medium rounded-md hover:opacity-90 transition-opacity focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
               >
                 {t("aceptar")}
               </button>

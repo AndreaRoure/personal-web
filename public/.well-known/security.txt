@@ -1,0 +1,4 @@
+Contact: mailto:hola@andrearobles.net
+Expires: 2027-11-15T00:00:00.000Z
+Preferred-Languages: es, en
+Canonical: https://www.andrearobles.net/.well-known/security.txt

@@ -38,14 +38,14 @@ export default function CopiarEmail({ email }: { email: string }) {
       <a
         ref={refEmail}
         href={`mailto:${email}`}
-        className="font-display text-2xl md:text-3xl font-semibold underline decoration-accent decoration-2 underline-offset-[6px] hover:text-accent transition-colors"
+        className="font-display text-2xl md:text-3xl font-semibold underline decoration-accent decoration-2 underline-offset-[6px] hover:text-accent-texto transition-colors"
       >
         {email}
       </a>
       <button
         type="button"
         onClick={copiar}
-        className="font-mono text-xs uppercase tracking-[0.14em] border border-ink/20 rounded-full px-4 py-2 text-muted hover:border-accent hover:text-accent transition-colors"
+        className="font-mono text-xs uppercase tracking-[0.14em] border border-ink/20 rounded-full px-4 py-2 text-muted hover:border-accent hover:text-accent-texto transition-colors"
       >
         {copiado ? t("copiado") : t("copiar")}
       </button>

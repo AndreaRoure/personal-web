@@ -6,6 +6,14 @@
   --color-ink: #2B3300;
   --color-muted: #2B3300B3;
   --color-accent: #7A9201;
+  /* El verde de marca no llega a 4,5:1 sobre blanco (3,5:1) ni sobre
+     #EAEAE6 (2,9:1): para TEXTO va esta version mas oscura (5,7:1 y
+     4,7:1). accent se queda para superficies, bordes y decoracion. */
+  --color-accent-texto: #5C6E00;
+  /* Neutros que estaban escritos a mano por los componentes */
+  --color-linea: #1A1A17;
+  --color-papel: #FAFAF7;
+  --color-piedra: #EAEAE6;
   --color-sky: #71C1D0;
   --color-lima: #F7FFCC;
 

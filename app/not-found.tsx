@@ -14,17 +14,17 @@ export default function RootNotFound() {
     <html lang="es">
       <body style={{ margin: 0, background: "#FAFAF7", color: "#2B3300", fontFamily: "system-ui, sans-serif" }}>
         <main style={{ maxWidth: 640, margin: "0 auto", padding: "5rem 1.5rem" }}>
-          <p style={{ fontFamily: "monospace", fontSize: 13, color: "#7A9201", marginBottom: 16 }}>
+          <p style={{ fontFamily: "monospace", fontSize: 13, color: "#5C6E00", marginBottom: 16 }}>
             Error 404
           </p>
           <h1 style={{ fontSize: 32, fontWeight: 700, lineHeight: 1.2, margin: "0 0 1.5rem" }}>
             Página no encontrada / Page not found
           </h1>
           <p style={{ marginBottom: 2 }}>
-            <Link href="/" style={{ color: "#7A9201" }}>← Volver al inicio</Link>
+            <Link href="/" style={{ color: "#5C6E00" }}>← Volver al inicio</Link>
           </p>
           <p>
-            <Link href="/en" style={{ color: "#7A9201" }}>← Back home (English)</Link>
+            <Link href="/en" style={{ color: "#5C6E00" }}>← Back home (English)</Link>
           </p>
         </main>
       </body>

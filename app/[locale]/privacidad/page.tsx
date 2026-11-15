@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "../../../i18n/navigation";
 import { routing } from "../../../i18n/routing";
+import { alternates } from "../../seo";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -14,7 +15,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "privacidad" });
-  return { title: t("titulo") };
+  return {
+    title: t("titulo"),
+    alternates: alternates(locale, { es: "/privacidad", en: "/privacidad" }),
+  };
 }
 
 export default async function Privacidad({
@@ -31,7 +35,7 @@ export default async function Privacidad({
       <div className="max-w-2xl mx-auto px-6 py-16 md:py-24">
         <Link
           href="/"
-          className="inline-block font-mono text-xs uppercase tracking-[0.2em] text-accent mb-8 hover:opacity-70 transition-opacity"
+          className="inline-block font-mono text-xs uppercase tracking-[0.2em] text-accent-texto mb-8 hover:opacity-70 transition-opacity"
         >
           ← {t("volver")}
         </Link>
@@ -59,7 +63,7 @@ export default async function Privacidad({
             <p className="text-ink/80">
               {t.rich("correoTexto", {
                 email: (chunks) => (
-                  <a href="mailto:hola@andrearobles.net" className="text-accent underline">
+                  <a href="mailto:hola@andrearobles.net" className="text-accent-texto underline">
                     {chunks}
                   </a>
                 ),
@@ -72,7 +76,7 @@ export default async function Privacidad({
             <p className="text-ink/80">
               {t.rich("derechosTexto", {
                 email: (chunks) => (
-                  <a href="mailto:hola@andrearobles.net" className="text-accent underline">
+                  <a href="mailto:hola@andrearobles.net" className="text-accent-texto underline">
                     {chunks}
                   </a>
                 ),

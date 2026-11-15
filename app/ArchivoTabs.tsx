@@ -34,11 +34,11 @@ function Tarjeta({ item }: { item: ItemArchivo }) {
   const cat = categoriaDe(item.categoria);
 
   const contenido = (
-    <article className="group flex flex-col h-full bg-white border-2 border-[#1A1A17] overflow-hidden transition-transform duration-200 hover:-translate-y-1">
+    <article className="group flex flex-col h-full bg-white border-2 border-linea overflow-hidden transition-transform duration-200 hover:-translate-y-1">
       {/* Portada: titulo tipografico, con la imagen detras si el articulo
           trae una. Con o sin imagen es la misma pieza, asi el titulo no se
           repite mas abajo. */}
-      <div className="relative w-full aspect-[16/10] border-b-2 border-[#1A1A17] overflow-hidden">
+      <div className="relative w-full aspect-[16/10] border-b-2 border-linea overflow-hidden">
         <PortadaTipografica
           titulo={item.titulo}
           categoria={item.categoria}
@@ -125,7 +125,7 @@ export default function ArchivoTabs({ items }: { items: ItemArchivo[] }) {
               aria-selected={esActiva}
               onClick={() => setActiva(c.id)}
               style={esActiva ? { backgroundColor: c.sombra, color: c.luz } : undefined}
-              className={`relative flex-shrink-0 whitespace-nowrap rounded-t-lg border-2 border-b-0 border-[#1A1A17]
+              className={`relative flex-shrink-0 whitespace-nowrap rounded-t-lg border-2 border-b-0 border-linea
                 font-mono text-[10px] sm:text-[13px] font-bold uppercase tracking-normal sm:tracking-[0.08em]
                 px-2 sm:px-4 transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink
                 ${esActiva
@@ -141,7 +141,7 @@ export default function ArchivoTabs({ items }: { items: ItemArchivo[] }) {
       </div>
 
       {/* Panel de la carpeta */}
-      <div className="border-2 border-[#1A1A17] bg-[#F2F5E4] rounded-b-lg rounded-tr-lg p-4 sm:p-6">
+      <div className="border-2 border-linea bg-[#F2F5E4] rounded-b-lg rounded-tr-lg p-4 sm:p-6">
         {visibles.length === 0 ? (
           <p className="font-mono text-sm text-muted py-8 text-center">
             {activa === "todo"

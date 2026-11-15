@@ -129,7 +129,8 @@
   },
   "footer": {
     "copyright": "© 2026 Andrea Robles. Todos los derechos reservados.",
-    "privacidad": "Privacidad"
+    "privacidad": "Privacidad",
+    "saltarContenido": "Saltar al contenido"
   },
   "cookies": {
     "aviso": "Aviso de cookies",

@@ -6,7 +6,7 @@ import { FaLinkedinIn, FaWhatsapp, FaBluesky, FaLink, FaCheck } from "react-icon
 
 const BOTON =
   "inline-flex items-center gap-2 px-3 py-2 border border-ink/25 text-ink/80 rounded-md " +
-  "hover:border-accent hover:text-accent transition-colors text-sm font-medium " +
+  "hover:border-accent hover:text-accent-texto transition-colors text-sm font-medium " +
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
 
 export default function CompartirPost({ titulo }: { titulo: string }) {

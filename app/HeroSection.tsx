@@ -120,6 +120,14 @@ export default function HeroSection({ textos }: { textos: TextosHero }) {
     score: 0, speed: 4, frame: 0, frameId: 0, lastSpawn: 0,
   });
 
+  // Tamaño logico del canvas en px CSS. El buffer real es este por
+  // devicePixelRatio (si no, en pantallas retina el dibujo sale borroso);
+  // todo el juego calcula en px CSS.
+  const dims = useRef({ w: 0, h: 0 });
+  // El hero esta en pantalla: el bucle solo corre y el teclado solo
+  // responde mientras lo esta.
+  const visible = useRef(true);
+
   const stars = useRef<{ x: number; y: number; r: number; phase: number; alpha: number }[]>([]);
 
   const groundY = (H: number) => H * GROUND_RATIO - CAT_H;
@@ -128,7 +136,7 @@ export default function HeroSection({ textos }: { textos: TextosHero }) {
     const g = state.current;
     const canvas = canvasRef.current;
     if (!canvas || !assets.current) return;
-    const gy = groundY(canvas.height);
+    const gy = groundY(dims.current.h);
 
     if (g.phase === "idle")    { g.phase = "running"; g.catVY = JUMP_V; return; }
     if (g.phase === "running") { if (g.catY >= gy - 1) g.catVY = JUMP_V; return; }
@@ -147,12 +155,17 @@ export default function HeroSection({ textos }: { textos: TextosHero }) {
     if (!ctx) return;
 
     const resize = () => {
-      canvas.width  = section.clientWidth;
-      canvas.height = section.clientHeight;
-      state.current.catY = groundY(canvas.height);
+      const w = section.clientWidth;
+      const h = section.clientHeight;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      dims.current = { w, h };
+      canvas.width  = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      state.current.catY = groundY(h);
       stars.current = Array.from({ length: 22 }, () => ({
-        x:     (0.04 + Math.random() * 0.92) * canvas.width,
-        y:     (0.04 + Math.random() * 0.52) * canvas.height,
+        x:     (0.04 + Math.random() * 0.92) * w,
+        y:     (0.04 + Math.random() * 0.52) * h,
         r:     0.8 + Math.random() * 2.2,
         phase: Math.random() * Math.PI * 2,
         alpha: 0.12 + Math.random() * 0.22,
@@ -180,7 +193,7 @@ export default function HeroSection({ textos }: { textos: TextosHero }) {
     };
 
     const drawEnd = (img: HTMLImageElement, title: string, subtitle: string) => {
-      const W = canvas.width, H = canvas.height;
+      const W = dims.current.w, H = dims.current.h;
       ctx.fillStyle = "#FFFFFF";
       ctx.fillRect(0, 0, W, H);
       const iw = 90, ih = 80;
@@ -196,6 +209,13 @@ export default function HeroSection({ textos }: { textos: TextosHero }) {
       ctx.fillText(subtitle, W / 2, cy + 46);
     };
 
+    let arrancar = () => {};
+    const io = new IntersectionObserver(([e]) => {
+      visible.current = e.isIntersecting;
+      if (e.isIntersecting) arrancar();
+    }, { threshold: 0.25 });
+    io.observe(section);
+
     Promise.all([
       svgToImg(catSVG(true)),
       svgToImg(catSVG(false)),
@@ -209,7 +229,7 @@ export default function HeroSection({ textos }: { textos: TextosHero }) {
         catDead: loaded[3],
         obs:     loaded.slice(4),
       };
-      g.catY = groundY(canvas.height);
+      g.catY = groundY(dims.current.h);
 
       // El bucle iba por "frames" (g.frame++ una vez por callback de rAF),
       // asumiendo 60fps implicitos: gravedad, marcador, ritmo de aparicion
@@ -227,12 +247,16 @@ export default function HeroSection({ textos }: { textos: TextosHero }) {
       let lastTs = performance.now();
 
       const tick = (ts: number) => {
+        // Fuera de pantalla no se programa el siguiente frame: el bucle se
+        // para (antes seguia a 60fps aunque nadie lo viera). arrancar() lo
+        // reanuda al volver.
+        if (!visible.current) { g.frameId = 0; return; }
         g.frameId = requestAnimationFrame(tick);
         const dt = Math.min(3, (ts - lastTs) / (1000 / 60));
         lastTs = ts;
         g.frame += dt;
-        const W = canvas.width;
-        const H = canvas.height;
+        const W = dims.current.w;
+        const H = dims.current.h;
         const gy = groundY(H);
         const groundLine = H * GROUND_RATIO;
 
@@ -349,11 +373,24 @@ export default function HeroSection({ textos }: { textos: TextosHero }) {
         }
       };
 
-      g.frameId = requestAnimationFrame(tick);
+      arrancar = () => {
+        if (g.frameId) return;
+        lastTs = performance.now();
+        g.frameId = requestAnimationFrame(tick);
+      };
+      arrancar();
     });
 
+    // Espacio / flecha arriba solo juegan si el hero esta en pantalla y el
+    // foco no esta en un enlace, boton o campo. Antes el listener capturaba
+    // esas teclas en toda la pagina y con teclado no se podia hacer scroll.
     const onKey   = (e: KeyboardEvent) => {
-      if (e.code === "Space" || e.code === "ArrowUp") { e.preventDefault(); interact(); }
+      if (e.code !== "Space" && e.code !== "ArrowUp") return;
+      if (!visible.current) return;
+      const t = e.target as HTMLElement | null;
+      if (t && t !== canvas && t.closest("a, button, input, textarea, select, [contenteditable]")) return;
+      e.preventDefault();
+      interact();
     };
 
     window.addEventListener("keydown", onKey);
@@ -362,7 +399,9 @@ export default function HeroSection({ textos }: { textos: TextosHero }) {
     canvas.addEventListener("click", interact);
 
     return () => {
-      cancelAnimationFrame(state.current.frameId);
+      cancelAnimationFrame(g.frameId);
+      g.frameId = 0;
+      io.disconnect();
       window.removeEventListener("keydown", onKey);
       window.removeEventListener("resize", resize);
       canvas.removeEventListener("click", interact);
@@ -375,14 +414,16 @@ export default function HeroSection({ textos }: { textos: TextosHero }) {
   return (
     <section
       ref={sectionRef}
-      className="hero-grain relative w-full border-b border-[#1A1A17] overflow-hidden"
+      className="hero-grain relative w-full border-b border-linea overflow-hidden"
       style={{ height: "clamp(420px, 60vh, 660px)" }}
     >
       {/* Canvas — ocupa todo */}
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 cursor-pointer"
+        className="absolute inset-0 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-accent-texto"
         style={{ width: "100%", height: "100%" }}
+        tabIndex={0}
+        aria-label={textos.pistaJuego}
       />
 
       {/* Overlay HTML — encima del canvas */}
@@ -393,8 +434,10 @@ export default function HeroSection({ textos }: { textos: TextosHero }) {
           <motion.h1
             className="font-display font-bold leading-[0.95] text-ink"
             style={{ fontSize: "clamp(3rem, 9vw, 9rem)" }}
-            initial={{ opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
+            // Solo desplazamiento: con opacity 0 en el HTML del servidor el
+            // titular (el LCP) no contaba como pintado hasta hidratar el JS.
+            initial={{ y: 28 }}
+            animate={{ y: 0 }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
             {textos.titularPre}{" "}
@@ -419,7 +462,7 @@ export default function HeroSection({ textos }: { textos: TextosHero }) {
         {/* Scroll hint — abajo izquierda */}
         <motion.a
           href="#sobre-mi"
-          className="absolute bottom-8 left-6 md:bottom-10 md:left-10 font-mono text-xs uppercase tracking-widest text-ink/25 hover:text-ink/60 transition-colors pointer-events-auto"
+          className="absolute bottom-8 left-6 md:bottom-10 md:left-10 font-mono text-xs uppercase tracking-widest text-muted hover:text-ink transition-colors pointer-events-auto"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1 }}
