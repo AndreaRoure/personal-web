@@ -23,9 +23,19 @@ export default function FotoAnalisis({
 }) {
   return (
     <div className="relative overflow-hidden" style={{ aspectRatio: "3/4" }}>
+      {/* eslint-disable-next-line @next/next/no-img-element -- ver comentario de abajo */}
       <img
         src="/andrea-about.jpg"
         alt={alt}
+        // Fichero ya optimizado (1080 px, ~JPEG progresivo) en vez de
+        // next/image: por /_next/image se perderia la cabecera
+        // X-Robots-Tag: noimageindex que tiene /andrea-about.jpg.
+        // lazy: sin esto React la precargaba en el <head> de la home,
+        // compitiendo con fuentes y titular.
+        width={1080}
+        height={1440}
+        loading="lazy"
+        decoding="async"
         className="w-full h-full object-cover object-top grayscale contrast-110"
       />
       {CAJAS.map((c) => (

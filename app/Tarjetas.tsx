@@ -27,13 +27,13 @@ export default function Tarjetas({
       {items.map((it) => (
         <div
           key={it.titulo}
-          className="border-2 border-[#1A1A17] bg-white p-5 flex flex-col gap-3"
+          className="border-2 border-linea bg-white p-5 flex flex-col gap-3"
         >
           {it.icono && (
             // eslint-disable-next-line @next/next/no-img-element -- imagen de contenido dentro de MDX, no una de next/image del layout
             <img src={it.icono} alt="" className="h-8 w-auto" />
           )}
-          <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent">
+          <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent-texto">
             {it.titulo}
           </p>
           <p className="text-sm text-muted leading-relaxed">{it.texto}</p>

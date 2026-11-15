@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import Image from "next/image";
 import { Link } from "../../../../i18n/navigation";
 import CitaConImagen from "../../../CitaConImagen";
@@ -13,12 +13,27 @@ import HojaRoble from "../../../HojaRoble";
 import ListaColor from "../../../ListaColor";
 import Tarjetas from "../../../Tarjetas";
 import { categoriaDe } from "../../../categorias";
-import { getPost, slugAlterno } from "../../../posts";
+import { getPost, getPosts, slugAlterno } from "../../../posts";
+import { routing } from "../../../../i18n/routing";
+import { alternates, OG_LOCALE, SITE, rutaLocale } from "../../../seo";
+import FechaPost from "../../../FechaPost";
 
 // Componentes usables directamente dentro del MDX de los artículos.
 const componentesMDX = { DiagramaFlujo, CitaConImagen, Tarjetas, ListaColor };
 
 type Params = { locale: string; slug: string };
+
+// Todos los articulos se generan en el build: antes cada visita renderizaba
+// la pagina en el servidor (cache-control no-store), y cualquier slug de la
+// URL llegaba hasta la lectura de disco. Con dynamicParams = false un slug
+// que no esta en la lista es 404 directo.
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return routing.locales.flatMap((locale) =>
+    getPosts(locale).map((post) => ({ locale, slug: post.slug }))
+  );
+}
 
 // El post ya no lo lee page.tsx en solitario: generateMetadata necesita los
 // mismos datos, y sin esto se duplicaria la lectura del .mdx del disco.
@@ -34,17 +49,23 @@ export async function generateMetadata({
   const otroLocale = locale === "es" ? "en" : "es";
   const slugOtroIdioma = slugAlterno(locale, slug, otroLocale);
 
+  const paths: Record<string, string> = { [locale]: `/blog/${slug}` };
+  if (slugOtroIdioma) paths[otroLocale] = `/blog/${slugOtroIdioma}`;
+
   return {
     title: post.title,
     description: post.description,
-    alternates: slugOtroIdioma
-      ? { languages: { [otroLocale]: `/${otroLocale}/blog/${slugOtroIdioma}` } }
-      : undefined,
+    alternates: alternates(locale, paths),
+    // openGraph de la pagina sustituye entero al del layout, asi que
+    // siteName y locale hay que repetirlos aqui.
     openGraph: {
       title: post.title,
       description: post.description,
       type: "article",
       publishedTime: post.date,
+      siteName: "Andrea Robles",
+      locale: OG_LOCALE[locale],
+      url: rutaLocale(locale, `/blog/${slug}`),
     },
   };
 }
@@ -55,6 +76,7 @@ export default async function Post({
   params: Promise<Params>;
 }) {
   const { locale, slug } = await params;
+  setRequestLocale(locale);
   const post = getPost(locale, slug);
   if (!post) notFound();
 
@@ -67,14 +89,34 @@ export default async function Post({
   const otroLocale = locale === "es" ? "en" : "es";
   const slugOtroIdioma = slugAlterno(locale, slug, otroLocale);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.description,
+    datePublished: post.date,
+    inLanguage: locale,
+    url: `${SITE}${rutaLocale(locale, `/blog/${slug}`)}`,
+    mainEntityOfPage: `${SITE}${rutaLocale(locale, `/blog/${slug}`)}`,
+    image: `${SITE}${rutaLocale(locale, `/blog/${slug}`)}/opengraph-image`,
+    keywords: post.tags.join(", ") || undefined,
+    author: { "@type": "Person", name: "Andrea Robles", url: SITE },
+  };
+
   return (
     <div>
+      <script
+        type="application/ld+json"
+        // JSON.stringify no escapa "<": se sustituye para que un titulo con
+        // "</script>" no pueda cerrar la etiqueta.
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+      />
       {/* Cabecera: mismo tratamiento tipografico que la portada de la tarjeta.
           Si el articulo tiene imagen, va de fondo con el duotono de su
           categoria y un velo del mismo color, que si no el titulo en lima no
           se lee sobre las zonas claras del duotono. */}
       <section
-        className="relative w-full border-b-2 border-[#1A1A17] overflow-hidden"
+        className="relative w-full border-b-2 border-linea overflow-hidden"
         style={{ backgroundColor: cat.sombra, color: cat.luz }}
       >
         <FiltrosDuotono />
@@ -107,7 +149,7 @@ export default async function Post({
             {tArticulo("volverArchivo")}
           </Link>
           <p className="font-mono text-xs uppercase tracking-[0.16em] mb-4" style={{ opacity: 0.75 }}>
-            {tCat(post.categoria)} · {post.date} · {tArticulo("minutosLectura", { n: post.minutos })}
+            {tCat(post.categoria)} · <FechaPost fecha={post.date} locale={locale} /> · {tArticulo("minutosLectura", { n: post.minutos })}
           </p>
           <h1 className="font-display text-4xl md:text-6xl font-bold max-w-4xl leading-[1.02] text-balance">
             {post.title}
@@ -137,9 +179,9 @@ export default async function Post({
         </div>
       </section>
 
-      <section className="w-full bg-[#FAFAF7] text-ink">
+      <section className="w-full bg-papel text-ink">
         <div className="max-w-5xl mx-auto px-6 py-14">
-          <article className="prose prose-lg max-w-2xl prose-headings:font-display prose-headings:font-semibold prose-a:text-accent prose-a:decoration-2 prose-blockquote:border-accent prose-strong:text-ink prose-code:text-accent prose-pre:bg-ink/5">
+          <article className="prose prose-lg max-w-2xl prose-headings:font-display prose-headings:font-semibold prose-a:text-accent-texto prose-a:decoration-2 prose-blockquote:border-accent prose-strong:text-ink prose-code:text-accent-texto prose-pre:bg-ink/5">
             <MDXRemote
               source={post.content}
               components={componentesMDX}
@@ -159,17 +201,17 @@ export default async function Post({
           <div className="flex flex-wrap items-center gap-x-6 gap-y-3 mt-14">
             <Link
               href="/#archivo"
-              className="inline-flex items-center gap-2 text-sm text-muted hover:text-accent transition-colors"
+              className="inline-flex items-center gap-2 text-sm text-muted hover:text-accent-texto transition-colors"
             >
-              <span className="text-accent">←</span> {tArticulo("volverAlArchivo")}
+              <span className="text-accent-texto">←</span> {tArticulo("volverAlArchivo")}
             </Link>
             {slugOtroIdioma && (
               <Link
                 href={`/blog/${slugOtroIdioma}`}
                 locale={otroLocale}
-                className="inline-flex items-center gap-2 text-sm text-muted hover:text-accent transition-colors"
+                className="inline-flex items-center gap-2 text-sm text-muted hover:text-accent-texto transition-colors"
               >
-                <span className="text-accent">🌐</span> {tArticulo("leerEnOtroIdioma")}
+                <span className="text-accent-texto">🌐</span> {tArticulo("leerEnOtroIdioma")}
               </Link>
             )}
           </div>
@@ -181,7 +223,7 @@ export default async function Post({
                 href="https://ko-fi.com/andrearoblescastro"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 border border-accent text-accent rounded-md hover:bg-accent hover:text-white transition-colors text-sm font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                className="inline-flex items-center gap-2 px-4 py-2 border border-accent text-accent-texto rounded-md hover:bg-accent-texto hover:text-white transition-colors text-sm font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
               >
                 <span aria-hidden="true">☕</span>
                 {tArticulo("apoyarKofi")}

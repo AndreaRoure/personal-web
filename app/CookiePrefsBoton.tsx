@@ -11,7 +11,7 @@ export default function CookiePrefsBoton() {
     <button
       type="button"
       onClick={() => window.dispatchEvent(new Event("abrir-preferencias-cookies"))}
-      className="underline hover:text-accent transition-colors"
+      className="underline hover:text-accent-texto transition-colors"
     >
       {t("preferencias")}
     </button>

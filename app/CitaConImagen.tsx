@@ -15,12 +15,12 @@ export default function CitaConImagen({
   atribucion: string;
 }) {
   return (
-    <figure className="not-prose my-10 flex flex-col sm:flex-row gap-6 sm:items-center border-2 border-[#1A1A17] bg-white p-6">
+    <figure className="not-prose my-10 flex flex-col sm:flex-row gap-6 sm:items-center border-2 border-linea bg-white p-6">
       {/* eslint-disable-next-line @next/next/no-img-element -- imagen de contenido dentro de MDX, no una de next/image del layout */}
       <img
         src={src}
         alt={alt}
-        className="w-28 sm:w-36 shrink-0 self-center border border-[#1A1A17]"
+        className="w-28 sm:w-36 shrink-0 self-center border border-linea"
       />
       <blockquote className="border-l-0 sm:border-l-4 border-accent sm:pl-5 m-0">
         <p className="font-display text-xl sm:text-2xl font-semibold leading-snug text-ink m-0">

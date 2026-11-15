@@ -5,6 +5,8 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Mohave, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import { FaLinkedinIn, FaGithub } from "react-icons/fa6";
 import { routing } from "../../i18n/routing";
+import { alternates, OG_LOCALE, SITE } from "../seo";
+import MotionProvider from "../MotionProvider";
 import { Link } from "../../i18n/navigation";
 import "../globals.css";
 import CookieConsent from "../CookieConsent";
@@ -43,20 +45,20 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "og" });
 
   return {
-    metadataBase: new URL("https://www.andrearobles.net"),
+    metadataBase: new URL(SITE),
     title: {
       default: `Andrea Robles — ${t("siteTitular")}`,
       template: "%s · Andrea Robles",
     },
     description: t("siteTitular"),
-    alternates: {
-      languages: { es: "/", en: "/en" },
-    },
+    // Solo la home: cada pagina declara los suyos (antes /privacidad
+    // heredaba los de la home y su hreflang apuntaba a la portada).
+    alternates: alternates(locale, { es: "", en: "" }),
     openGraph: {
       title: "Andrea Robles",
       description: t("siteTitular"),
       type: "website",
-      locale: locale === "es" ? "es_ES" : "en_US",
+      locale: OG_LOCALE[locale],
       siteName: "Andrea Robles",
     },
   };
@@ -81,9 +83,16 @@ export default async function LocaleLayout({
     <html lang={locale} className={`${mohave.variable} ${plexSans.variable} ${plexMono.variable}`}>
       <body className="bg-bg text-ink font-body min-h-screen flex flex-col">
         <NextIntlClientProvider locale={locale}>
+          <MotionProvider>
+          <a
+            href="#contenido"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[70] focus:bg-white focus:text-ink focus:px-4 focus:py-2 focus:border-2 focus:border-ink focus:rounded-md"
+          >
+            {t("saltarContenido")}
+          </a>
           <TopNav />
-          <main className="flex-1">{children}</main>
-          <footer className="bg-white text-ink border-t border-[#1A1A17]">
+          <main id="contenido" tabIndex={-1} className="flex-1 focus:outline-none">{children}</main>
+          <footer className="bg-white text-ink border-t border-linea">
             <div className="max-w-6xl mx-auto px-6 py-8 flex flex-wrap justify-between items-center gap-4 text-sm">
               <p className="flex items-center gap-2">
                 <HojaRoble tamano={18} color="#7A9201" />
@@ -99,13 +108,14 @@ export default async function LocaleLayout({
               </div>
             </div>
             <div className="max-w-6xl mx-auto px-6 pb-6 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
-              <Link href="/privacidad" className="underline hover:text-accent transition-colors">
+              <Link href="/privacidad" className="underline hover:text-accent-texto transition-colors">
                 {t("privacidad")}
               </Link>
               <CookiePrefsBoton />
             </div>
           </footer>
           <CookieConsent />
+          </MotionProvider>
         </NextIntlClientProvider>
       </body>
     </html>

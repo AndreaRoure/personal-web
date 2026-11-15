@@ -3,6 +3,20 @@ import createNextIntlPlugin from "next-intl/plugin";
 
 const withNextIntl = createNextIntlPlugin();
 
+const CSP = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com",
+  "font-src 'self'",
+  "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com",
+  "frame-ancestors 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "object-src 'none'",
+  "upgrade-insecure-requests",
+].join("; ");
+
 const nextConfig: NextConfig = {
   turbopack: {
     root: __dirname,
@@ -11,6 +25,15 @@ const nextConfig: NextConfig = {
   // Redirigimos para no dejar roto ningun enlace ya compartido.
   async redirects() {
     return [
+      // El dominio de Vercel con el que nacio el proyecto seguia sirviendo la
+      // web entera (contenido duplicado para Google). Se redirige al dominio
+      // propio. Solo ese host: los despliegues de preview siguen funcionando.
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "personal-web-self-phi.vercel.app" }],
+        destination: "https://www.andrearobles.net/:path*",
+        permanent: true,
+      },
       {
         source: "/blog/primer-posts",
         destination: "/blog/tecnologia-no-es-neutral",
@@ -47,7 +70,19 @@ const nextConfig: NextConfig = {
           // La web no usa camara, microfono ni geolocalizacion: se desactivan
           // explicitamente para que ningun script (propio o de terceros,
           // como Google Analytics) pueda pedirlos.
-          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()" },
+          // HSTS explicita: Vercel solo manda max-age. includeSubDomains +
+          // preload permite registrar el dominio en hstspreload.org (antes,
+          // confirmar que ningun subdominio necesita servirse por http).
+          { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
+          // CSP en modo "solo informe": el navegador avisa en consola de lo
+          // que bloquearia, sin bloquear nada. Tras 1-2 semanas sin avisos
+          // inesperados, cambiar la clave a "Content-Security-Policy".
+          // 'unsafe-inline' en scripts es necesario mientras las paginas sean
+          // estaticas (los scripts inline de Next no llevan nonce); aun asi
+          // limita de donde se pueden cargar scripts y prohibe iframes,
+          // <object>, <base> y formularios hacia fuera.
+          { key: "Content-Security-Policy-Report-Only", value: CSP },
         ],
       },
     ];

@@ -12,15 +12,12 @@
   "dependencies": {
     "framer-motion": "^12.42.2",
     "gray-matter": "^4.0.3",
-    "lucide-react": "^1.24.0",
     "next": "^16.3.3",
     "next-intl": "^4.14.0",
     "next-mdx-remote": "^6.0.0",
-    "p5": "^2.3.1",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-icons": "^5.7.0",
-    "react-p5": "^1.4.1",
     "remark-gfm": "^4.0.1"
   },
   "devDependencies": {

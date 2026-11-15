@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import Revelar from "../Revelar";
 import CopiarEmail from "../CopiarEmail";
 import HeroSection from "../HeroSection";
@@ -6,6 +6,8 @@ import FotoAnalisis from "../FotoAnalisis";
 import Trayectoria from "../Trayectoria";
 import ArchivoTabs, { type CategoriaId, type ItemArchivo } from "../ArchivoTabs";
 import { getPosts } from "../posts";
+import { formatearFecha } from "../FechaPost";
+import { SITE } from "../seo";
 
 export default async function Home({
   params,
@@ -13,6 +15,7 @@ export default async function Home({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  setRequestLocale(locale);
   const [tSobreMi, tHero, tArchivo, tContacto] = await Promise.all([
     getTranslations({ locale, namespace: "sobreMi" }),
     getTranslations({ locale, namespace: "hero" }),
@@ -31,7 +34,7 @@ export default async function Home({
       categoria: (post.categoria as CategoriaId) ?? "articulos",
       titulo: post.title,
       subtexto: post.description,
-      fecha: post.date,
+      fecha: formatearFecha(post.date, locale),
       href: `/blog/${post.slug}`,
       externo: false,
       imagen: post.imagen,
@@ -40,8 +43,26 @@ export default async function Home({
     })),
   ];
 
+  // Datos estructurados de la persona (solo datos que ya estan en la web).
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Andrea Robles",
+    url: SITE,
+    image: `${SITE}/andrea-cara.png`,
+    email: "mailto:hola@andrearobles.net",
+    sameAs: [
+      "https://www.linkedin.com/in/andrearoblescastro/",
+      "https://github.com/AndreaRoure",
+    ],
+  };
+
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+      />
       {/* BANDA 1: HERO */}
       <HeroSection
         textos={{
@@ -59,7 +80,7 @@ export default async function Home({
       />
 
       {/* BANDA 2: SOBRE MÍ */}
-      <section id="sobre-mi" className="w-full bg-[#FAFAF7] text-ink border-b border-[#1A1A17] scroll-mt-10">
+      <section id="sobre-mi" className="w-full bg-papel text-ink border-b border-linea scroll-mt-10">
         <Revelar>
           <div className="grid grid-cols-1 md:grid-cols-[42%_1fr] items-start">
 
@@ -83,7 +104,7 @@ export default async function Home({
             {/* Texto */}
             <div className="px-8 md:px-14 py-12 md:py-20 space-y-8">
               <div>
-                <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-2">{tSobreMi("kicker")}</p>
+                <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent-texto mb-2">{tSobreMi("kicker")}</p>
                 <h2 className="font-display text-5xl md:text-6xl font-bold leading-none">{tSobreMi("titulo")}</h2>
               </div>
               <div className="space-y-5 text-lg leading-relaxed">
@@ -102,10 +123,10 @@ export default async function Home({
       </section>
 
       {/* BANDA 4: ARCHIVO */}
-      <section id="archivo" className="w-full text-ink border-b border-[#1A1A17] scroll-mt-10" style={{ background: "#EAEAE6" }}>
+      <section id="archivo" className="w-full bg-piedra text-ink border-b border-linea scroll-mt-10">
         <div className="px-4 sm:px-6 md:px-8 pt-12 md:pt-20 pb-5">
           <Revelar>
-            <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-2">
+            <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent-texto mb-2">
               {tArchivo("kicker")}
             </p>
             <h2 className="font-display text-5xl sm:text-6xl md:text-8xl font-bold leading-none">
@@ -120,10 +141,10 @@ export default async function Home({
       </section>
 
       {/* BANDA 6: CONTACTO */}
-      <section id="contacto" className="w-full bg-white text-ink scroll-mt-10 border-t border-[#1A1A17]">
+      <section id="contacto" className="w-full bg-white text-ink scroll-mt-10 border-t border-linea">
         <div className="px-6 md:px-8 py-12 md:py-20">
           <Revelar>
-            <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-2">
+            <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent-texto mb-2">
               {tContacto("kicker")}
             </p>
             <h2 className="font-display text-6xl md:text-8xl font-bold leading-none mb-8">
