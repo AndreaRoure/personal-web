@@ -11,8 +11,8 @@ import { IconoCarpetas, IconoSobreAlado } from './IconosNav';
 // ultimo hijo aunque este oculto. Ademas gana en especificidad a
 // "border-r-2"; un "border-r-0" suelto empataria.
 const CELDA =
-  'group flex items-center border-r-2 last-of-type:border-r-0 border-[#1A1A17] px-3 sm:px-5 py-3 sm:py-4 ' +
-  'transition-colors duration-150 hover:bg-lima ' +
+  'group flex items-center px-3 sm:px-5 py-3 sm:py-4 ' +
+  'transition-colors duration-150 hover:text-accent ' +
   'focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ink';
 
 /** El texto sale hacia arriba y el icono entra por abajo, ocupando la misma
@@ -66,13 +66,13 @@ export default function TopNav() {
     // hasta que hay un scroll que fuerza un repintado — se ve la web sin el
     // menu hasta que el usuario mueve el dedo. Forzar su propia capa de
     // composicion desde el primer pintado evita ese bug conocido de WebKit.
-    <header className="w-full bg-white text-ink sticky top-0 z-50 border-b-2 border-[#1A1A17] [transform:translateZ(0)]">
-      <nav className="flex items-stretch">
+    <header className="w-full bg-white text-ink sticky top-0 z-50 border-b border-ink/15 [transform:translateZ(0)]">
+      <nav className="mx-auto max-w-5xl flex items-stretch px-6 md:px-10">
         {/* Marca: el nombre se convierte en la hoja de roble */}
         <Link
           href="/"
           onClick={() => setAbierto(false)}
-          className={`${CELDA} flex-[1.4] font-display text-[17px] sm:text-[19px] md:text-[21px] font-bold`}
+          className={`${CELDA} !pl-0 mr-auto font-display text-[17px] sm:text-[19px] md:text-[21px] font-bold`}
         >
           {/* En movil no hay hover, asi que la marca se queda en texto */}
           <span className="md:hidden whitespace-nowrap">{t('brand')}</span>
@@ -86,7 +86,7 @@ export default function TopNav() {
           <Link
             key={e.href}
             href={e.href}
-            className={`${CELDA} hidden md:flex flex-1 text-[14px] md:text-[16px] font-bold`}
+            className={`${CELDA} hidden md:flex text-[14px] md:text-[15px] font-medium`}
           >
             <Pila texto={e.texto} icono={e.icono} />
           </Link>
@@ -102,7 +102,7 @@ export default function TopNav() {
           locale={otroLocale}
           onClick={() => setAbierto(false)}
           aria-label={t('idiomaActual')}
-          className={`${CELDA} hidden md:flex text-[13px] md:text-[14px] font-bold font-mono uppercase tracking-[0.06em]`}
+          className={`${CELDA} hidden md:flex !pr-0 text-[13px] font-medium uppercase tracking-[0.08em] text-ink/60`}
         >
           {t('cambiarIdioma')}
         </Link>
@@ -117,7 +117,7 @@ export default function TopNav() {
           aria-expanded={abierto}
           aria-controls="menu-movil"
           aria-label={abierto ? t('cerrarMenu') : t('abrirMenu')}
-          className={`${CELDA} md:hidden w-16 justify-center border-r-0 gap-[5px] flex-col`}
+          className={`${CELDA} md:hidden w-12 !pr-0 items-end justify-center gap-[5px] flex-col`}
         >
           <span
             className={`block w-6 h-0.5 bg-ink transition-transform duration-200 ${
@@ -143,14 +143,14 @@ export default function TopNav() {
       {abierto && (
         <div
           id="menu-movil"
-          className="md:hidden absolute top-[calc(100%+2px)] left-0 right-0 bg-white border-b-2 border-[#1A1A17]"
+          className="md:hidden absolute top-[calc(100%+2px)] left-0 right-0 bg-white border-b border-ink/15"
         >
           {ENLACES.map((e) => (
             <Link
               key={e.href}
               href={e.href}
               onClick={() => setAbierto(false)}
-              className="block px-4 py-4 border-t-2 border-[#1A1A17] font-bold text-[16px]
+              className="block px-6 py-4 border-t border-ink/10 font-medium text-[16px]
                 transition-colors duration-150 hover:bg-lima
                 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ink"
             >
@@ -161,7 +161,7 @@ export default function TopNav() {
             href="/"
             locale={otroLocale}
             onClick={() => setAbierto(false)}
-            className="block px-4 py-4 border-t-2 border-[#1A1A17] font-bold text-[16px] font-mono uppercase tracking-[0.06em]
+            className="block px-6 py-4 border-t border-ink/10 font-medium text-[16px] uppercase tracking-[0.08em]
               transition-colors duration-150 hover:bg-lima
               focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ink"
           >

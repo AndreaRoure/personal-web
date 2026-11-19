@@ -19,13 +19,14 @@
     "ganasteTitulo": "Tu curiosidad salvó al gato",
     "ganasteSubtitulo": "[ espacio · tap → jugar de nuevo ]",
     "perdisteTitulo": "Te falta curiosidad para salvar al gato",
-    "perdisteSubtitulo": "[ espacio · tap → intentarlo de nuevo ]"
+    "perdisteSubtitulo": "[ espacio · tap → intentarlo de nuevo ]",
+    "subtitulo": "Trabajo en la intersección entre la tecnología y las personas."
   },
   "sobreMi": {
     "kicker": "Quién soy",
-    "titulo": "Sobre mí",
-    "p1": "Soy Andrea Robles. Llevo 8 años especializándome en tecnología y datos aplicados a proyectos de desarrollo social. Soy graduada en Magisterio por la Universidad de León, seguí formándome en estudios de postgrado en Marketing e e-commerce por INESDI (Barcelona) y más tarde realicé un Máster en Inteligencia Artificial y Big Data en Digitech (Barcelona), pero sobre todo la mayor parte de mi aprendizaje es a través de proyectos reales que me ayudan a aprender cosas nuevas cada día.",
-    "p2": "Me interesa la intersección entre las personas y la tecnología, entre lo analógico y lo digital, y cómo poder utilizar las herramientas que tenemos a nuestro alcance para construir una mejor sociedad.",
+    "titulo": "La curiosidad salvó al gato.",
+    "p1": "Trabajo en la intersección entre la tecnología y el impacto social. Diseño y pongo en marcha herramientas, datos, automatizaciones e IA para que las organizaciones sociales funcionen mejor y lleguen a más personas.",
+    "p2": "Vengo de la educación, pasé por el marketing digital y me especialicé en Big Data e IA. Aprendo sobre todo construyendo: cada proyecto real me enseña algo nuevo.",
     "p3": "Desarrollo proyectos con impacto social real: implemento herramientas, datos, automatización y digitalización de procesos en entornos que buscan la mejora colectiva.",
     "fotoAlt": {
       "curiosidad": "Curiosidad: 100%",

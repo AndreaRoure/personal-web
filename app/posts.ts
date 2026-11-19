@@ -26,6 +26,8 @@ export interface Post {
   // y sin esto el recorte automatico se lo come a veces (una cara, un punto
   // de interes concreto).
   imagenPosicion: string;
+  // true: la imagen se ve con sus colores, sin el duotono de la categoria.
+  imagenColor: boolean;
   categoria: string;
   minutos: number;
 }
@@ -40,6 +42,7 @@ function normaliza(slug: string, data: Record<string, unknown>, contenido: strin
     tags: (data.tags as string[]) ?? [],
     imagen: (data.imagen as string) ?? null,
     imagenPosicion: (data.imagenPosicion as string) ?? "center",
+    imagenColor: data.imagenColor === true,
     categoria: (data.categoria as string) ?? "articulos",
     minutos: calcularMinutos(contenido),
   };

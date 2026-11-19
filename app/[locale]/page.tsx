@@ -1,7 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import Revelar from "../Revelar";
 import CopiarEmail from "../CopiarEmail";
-import HeroSection from "../HeroSection";
 import FotoAnalisis from "../FotoAnalisis";
 import Trayectoria from "../Trayectoria";
 import ArchivoTabs, { type CategoriaId, type ItemArchivo } from "../ArchivoTabs";
@@ -13,9 +12,8 @@ export default async function Home({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const [tSobreMi, tHero, tArchivo, tContacto] = await Promise.all([
+  const [tSobreMi, tArchivo, tContacto] = await Promise.all([
     getTranslations({ locale, namespace: "sobreMi" }),
-    getTranslations({ locale, namespace: "hero" }),
     getTranslations({ locale, namespace: "archivo" }),
     getTranslations({ locale, namespace: "contacto" }),
   ]);
@@ -36,35 +34,20 @@ export default async function Home({
       externo: false,
       imagen: post.imagen,
       imagenPosicion: post.imagenPosicion,
+      imagenColor: post.imagenColor,
       tags: post.tags,
     })),
   ];
 
   return (
     <div>
-      {/* BANDA 1: HERO */}
-      <HeroSection
-        textos={{
-          titularPre: tHero("titularPre"),
-          titularFuerte: tHero("titularFuerte"),
-          titularPost: tHero("titularPost"),
-          scroll: tHero("scroll"),
-          pistaJuego: tHero("pistaJuego"),
-          marcador: tHero("marcador"),
-          ganasteTitulo: tHero("ganasteTitulo"),
-          ganasteSubtitulo: tHero("ganasteSubtitulo"),
-          perdisteTitulo: tHero("perdisteTitulo"),
-          perdisteSubtitulo: tHero("perdisteSubtitulo"),
-        }}
-      />
-
       {/* BANDA 2: SOBRE MÍ */}
-      <section id="sobre-mi" className="w-full bg-[#FAFAF7] text-ink border-b border-[#1A1A17] scroll-mt-10">
+      <section id="sobre-mi" className="w-full bg-[#FAFAF7] text-ink border-b border-ink/15 scroll-mt-10">
         <Revelar>
-          <div className="grid grid-cols-1 md:grid-cols-[42%_1fr] items-start">
+          <div className="mx-auto max-w-5xl px-6 md:px-10 py-14 md:py-24 grid grid-cols-1 md:grid-cols-[minmax(0,15rem)_minmax(0,1fr)] gap-10 md:gap-16 items-start">
 
             {/* Foto — pegada al borde izquierdo, sin padding */}
-            <div className="md:sticky md:top-0">
+            <div className="w-48 md:w-full md:sticky md:top-24">
               <FotoAnalisis
                 alt="Andrea Robles"
                 textos={{
@@ -81,18 +64,16 @@ export default async function Home({
             </div>
 
             {/* Texto */}
-            <div className="px-8 md:px-14 py-12 md:py-20 space-y-8">
+            <div className="space-y-8 max-w-2xl">
               <div>
-                <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-2">{tSobreMi("kicker")}</p>
-                <h2 className="font-display text-5xl md:text-6xl font-bold leading-none">{tSobreMi("titulo")}</h2>
+                <h2 className="font-display text-4xl md:text-5xl font-bold leading-none">{tSobreMi("titulo")}</h2>
               </div>
-              <div className="space-y-5 text-lg leading-relaxed">
+              <div className="space-y-4 text-base md:text-[17px] leading-relaxed text-ink/85">
                 <p>{tSobreMi("p1")}</p>
                 <p>{tSobreMi("p2")}</p>
-                <p>{tSobreMi("p3")}</p>
               </div>
 
-              <div className="border-t-2 border-ink/10 pt-8">
+              <div className="border-t border-ink/15 pt-8">
                 <Trayectoria />
               </div>
             </div>
@@ -102,13 +83,10 @@ export default async function Home({
       </section>
 
       {/* BANDA 4: ARCHIVO */}
-      <section id="archivo" className="w-full text-ink border-b border-[#1A1A17] scroll-mt-10" style={{ background: "#EAEAE6" }}>
-        <div className="px-4 sm:px-6 md:px-8 pt-12 md:pt-20 pb-5">
+      <section id="archivo" className="w-full bg-white text-ink border-b border-ink/15 scroll-mt-10">
+        <div className="mx-auto max-w-5xl px-6 md:px-10 pt-14 md:pt-24 pb-6">
           <Revelar>
-            <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-2">
-              {tArchivo("kicker")}
-            </p>
-            <h2 className="font-display text-5xl sm:text-6xl md:text-8xl font-bold leading-none">
+            <h2 className="font-display text-4xl md:text-5xl font-bold leading-none">
               {tArchivo("titulo")}
             </h2>
           </Revelar>
@@ -116,17 +94,14 @@ export default async function Home({
         <Revelar retraso={0.1}>
           <ArchivoTabs items={archivoItems} />
         </Revelar>
-        <div className="h-12 md:h-20" />
+        <div className="h-14 md:h-24" />
       </section>
 
       {/* BANDA 6: CONTACTO */}
-      <section id="contacto" className="w-full bg-white text-ink scroll-mt-10 border-t border-[#1A1A17]">
-        <div className="px-6 md:px-8 py-12 md:py-20">
+      <section id="contacto" className="w-full bg-[#FAFAF7] text-ink scroll-mt-10">
+        <div className="mx-auto max-w-5xl px-6 md:px-10 py-14 md:py-24">
           <Revelar>
-            <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-2">
-              {tContacto("kicker")}
-            </p>
-            <h2 className="font-display text-6xl md:text-8xl font-bold leading-none mb-8">
+            <h2 className="font-display text-4xl md:text-5xl font-bold leading-none mb-6">
               {tContacto("titulo")}
             </h2>
             <p className="text-muted mb-8 max-w-xl">{tContacto("texto")}</p>

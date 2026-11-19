@@ -19,13 +19,14 @@
     "ganasteTitulo": "Your curiosity saved the cat",
     "ganasteSubtitulo": "[ space · tap → play again ]",
     "perdisteTitulo": "You need more curiosity to save the cat",
-    "perdisteSubtitulo": "[ space · tap → try again ]"
+    "perdisteSubtitulo": "[ space · tap → try again ]",
+    "subtitulo": "I work at the intersection between technology and people."
   },
   "sobreMi": {
     "kicker": "Who I am",
-    "titulo": "About me",
-    "p1": "I'm Andrea Robles. I've spent 8 years specialising in technology and data applied to social development projects. I hold a teaching degree from the University of León, went on to postgraduate studies in Marketing and e-commerce at INESDI (Barcelona), and later completed a Master's in Artificial Intelligence and Big Data at Digitech (Barcelona) — but most of what I know I've learned from real projects that push me to learn something new every day.",
-    "p2": "I'm interested in the intersection between people and technology, between the analogue and the digital, and in how we can use the tools within our reach to build a better society.",
+    "titulo": "Curiosity saved the cat.",
+    "p1": "I work where technology meets social impact. I design and deploy tools, data, automation and AI so that social organisations run better and reach more people.",
+    "p2": "I come from education, moved through digital marketing and specialised in Big Data and AI. I learn mostly by building: every real project teaches me something new.",
     "p3": "I build projects with real social impact: I put tools, data, automation and process digitisation to work in environments that seek collective improvement.",
     "fotoAlt": {
       "curiosidad": "Curiosity: 100%",

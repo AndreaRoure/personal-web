@@ -22,17 +22,17 @@ export default function FotoAnalisis({
   alt: string;
 }) {
   return (
-    <div className="relative overflow-hidden" style={{ aspectRatio: "3/4" }}>
+    <div className="group relative overflow-hidden" style={{ aspectRatio: "3/4" }} tabIndex={0}>
       <img
         src="/andrea-about.jpg"
         alt={alt}
         className="w-full h-full object-cover object-top grayscale contrast-110"
       />
-      {CAJAS.map((c) => (
+      {CAJAS.map((c, i) => (
         <div
           key={c.clave}
-          className="absolute"
-          style={{ top: c.top, left: c.left, width: c.width, height: c.height, border: `1.5px solid ${C}` }}
+          className="absolute opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100 group-focus:opacity-100 motion-reduce:transition-none"
+          style={{ top: c.top, left: c.left, width: c.width, height: c.height, border: `1px solid ${C}`, transitionDelay: `${i * 45}ms` }}
         >
           <span
             className="absolute top-0 left-0 font-mono leading-none px-1 py-0.5 text-white whitespace-nowrap"

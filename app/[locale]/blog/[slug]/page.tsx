@@ -5,6 +5,7 @@ import remarkGfm from "remark-gfm";
 import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import { Link } from "../../../../i18n/navigation";
+import CalculadoraAutomatizacion from "../../../CalculadoraAutomatizacion";
 import CitaConImagen from "../../../CitaConImagen";
 import CompartirPost from "../../../CompartirPost";
 import DiagramaFlujo from "../../../DiagramaFlujo";
@@ -16,7 +17,16 @@ import { categoriaDe } from "../../../categorias";
 import { getPost, slugAlterno } from "../../../posts";
 
 // Componentes usables directamente dentro del MDX de los artículos.
-const componentesMDX = { DiagramaFlujo, CitaConImagen, Tarjetas, ListaColor };
+const componentesMDX = { DiagramaFlujo, CitaConImagen, Tarjetas, ListaColor, CalculadoraAutomatizacion };
+
+/** "2026-11-15" -> "15 nov 2026", igual que en el archivo. */
+function fechaLarga(fecha: string, locale: string) {
+  const d = new Date(`${fecha}T12:00:00`);
+  if (Number.isNaN(d.getTime())) return fecha;
+  return new Intl.DateTimeFormat(locale, { day: "numeric", month: "short", year: "numeric" })
+    .format(d)
+    .replace(".", "");
+}
 
 type Params = { locale: string; slug: string };
 
@@ -74,7 +84,7 @@ export default async function Post({
           categoria y un velo del mismo color, que si no el titulo en lima no
           se lee sobre las zonas claras del duotono. */}
       <section
-        className="relative w-full border-b-2 border-[#1A1A17] overflow-hidden"
+        className="relative w-full border-b border-ink/15 overflow-hidden"
         style={{ backgroundColor: cat.sombra, color: cat.luz }}
       >
         <FiltrosDuotono />
@@ -88,17 +98,21 @@ export default async function Post({
               priority
               sizes="100vw"
               className="object-cover"
-              style={{ filter: `url(#duo-${cat.id})`, objectPosition: post.imagenPosicion }}
+              style={{ filter: post.imagenColor ? undefined : `url(#duo-${cat.id})`, objectPosition: post.imagenPosicion }}
             />
             <div
               aria-hidden="true"
               className="absolute inset-0"
-              style={{ backgroundColor: cat.sombra, opacity: 0.72 }}
+              style={
+                post.imagenColor
+                  ? { background: "linear-gradient(90deg, rgba(28,36,16,0.82) 0%, rgba(28,36,16,0.5) 45%, rgba(28,36,16,0) 80%)" }
+                  : { backgroundColor: cat.sombra, opacity: 0.72 }
+              }
             />
           </>
         )}
 
-        <div className="relative max-w-5xl mx-auto px-6 pt-12 pb-14 md:pt-16 md:pb-20">
+        <div className="relative max-w-5xl mx-auto px-6 md:px-10 pt-12 pb-14 md:pt-16 md:pb-20">
           <Link
             href="/#archivo"
             className="inline-block font-mono text-xs uppercase tracking-[0.2em] mb-8 hover:opacity-100 transition-opacity"
@@ -107,7 +121,7 @@ export default async function Post({
             {tArticulo("volverArchivo")}
           </Link>
           <p className="font-mono text-xs uppercase tracking-[0.16em] mb-4" style={{ opacity: 0.75 }}>
-            {tCat(post.categoria)} · {post.date} · {tArticulo("minutosLectura", { n: post.minutos })}
+            {tCat(post.categoria)} · {fechaLarga(post.date, locale)} · {tArticulo("minutosLectura", { n: post.minutos })}
           </p>
           <h1 className="font-display text-4xl md:text-6xl font-bold max-w-4xl leading-[1.02] text-balance">
             {post.title}
@@ -138,8 +152,8 @@ export default async function Post({
       </section>
 
       <section className="w-full bg-[#FAFAF7] text-ink">
-        <div className="max-w-5xl mx-auto px-6 py-14">
-          <article className="prose prose-lg max-w-2xl prose-headings:font-display prose-headings:font-semibold prose-a:text-accent prose-a:decoration-2 prose-blockquote:border-accent prose-strong:text-ink prose-code:text-accent prose-pre:bg-ink/5">
+        <div className="max-w-5xl mx-auto px-6 md:px-10 py-14">
+          <article className="prose prose-lg max-w-2xl prose-table:block prose-table:overflow-x-auto prose-headings:font-display prose-headings:font-semibold prose-a:text-accent prose-a:decoration-2 prose-blockquote:border-accent prose-strong:text-ink prose-code:text-accent prose-pre:bg-ink/5">
             <MDXRemote
               source={post.content}
               components={componentesMDX}

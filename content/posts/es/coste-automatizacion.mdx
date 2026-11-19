@@ -1,0 +1,115 @@
+---
+id: "coste-automatizacion"
+title: "El coste real de automatizar"
+date: "2026-11-15"
+description: "Una automatización no está terminada cuando funciona, sino cuando alguien puede mantenerla, detectar cuándo falla y apagarla. Con calculadora."
+tags: ["automatización", "IA", "mantenimiento", "transformación digital"]
+imagen: "/coste-automatizacion-hine-4.jpg"
+imagenPosicion: "center"
+categoria: "articulos"
+---
+
+Una automatización no está terminada cuando funciona. Está terminada cuando alguien puede mantenerla, detectar cuándo falla y decidir cuándo apagarla.
+
+La pregunta no es si se puede automatizar, sino cuánto cuesta mantenerlo vivo.
+
+## El coste total
+
+```text
+coste total = lanzamiento + mantenimiento + errores + salida
+```
+
+| Partida       | Incluye                                                                      |
+| ------------- | ---------------------------------------------------------------------------- |
+| Lanzamiento   | diseño, construcción, integraciones, pruebas, documentación, formación       |
+| Mantenimiento | licencias, APIs, revisión humana, credenciales, cambios en otras herramientas |
+| Errores       | detectar, corregir, avisar; más grave si afecta a personas o no se deshace   |
+| Salida        | exportar datos, migrar, volver a hacerlo a mano                              |
+
+La cuenta habitual solo mira el ahorro: *8 veces al mes × 1 hora = 8 horas ahorradas*. Es correcta e incompleta.
+
+## Ejemplo: agente de subvenciones
+
+Un agente que cada mañana revisa fuentes públicas, filtra convocatorias y envía un resumen por Teams, como el de [este caso](/es/blog/hermes-subvencion-radar).
+
+| Concepto                | Estimación  |
+| ----------------------- | ----------- |
+| Construcción            | 6 h         |
+| Pruebas y documentación | 2 h         |
+| Mantenimiento           | 1 h/mes     |
+| Revisión                | 1 h/mes     |
+| API del modelo          | 5 €/mes     |
+| Ahorro¹                 | 8 h/mes     |
+
+¹ Tiempo que la persona usuaria, sin perfil técnico, deja de dedicar a revisar convocatorias a mano.
+
+A los seis meses:
+
+```text
+ahorro         48 h
+mantenimiento −12 h   (mantenimiento + revisión)
+lanzamiento    −8 h
+API           −1 h    (30 € a 25 €/h)
+──────────────────────
+balance       +27 h
+```
+
+Se recupera en el **mes 2**. Con IA, construirlo es lo barato: lo que decide si compensa es el mantenimiento. Si sube a 7 h/mes porque las fuentes cambian o el filtrado falla, no se recupera nunca.
+
+## Calculadora
+
+Calcula en horas, incluye revisión por resultado, crecimiento del mantenimiento, escenario pesimista y coste de salida. Devuelve el mes de recuperación, el máximo de horas que puedes invertir en construirla y una recomendación.
+
+<CalculadoraAutomatizacion />
+
+## Cuatro resultados
+
+| Resultado                  | Cuándo                                                         | Ejemplos                                        |
+| -------------------------- | -------------------------------------------------------------- | ----------------------------------------------- |
+| **Sostenible**             | proceso estable, error barato y detectable, responsable        | copiar datos, avisos, detectar duplicados       |
+| **Viable con responsable** | compensa, pero necesita supervisión                            | resúmenes, detectar convocatorias, borradores   |
+| **Rediseñar primero**      | reglas cambiantes, excepciones, datos desordenados             | informes que nadie usa, datos introducidos 3 veces |
+| **No automatizar todavía** | afecta a personas y el error no se deshace o requiere criterio | seleccionar candidaturas, valorar vulnerabilidad |
+
+## Deuda de mantenimiento
+
+Trabajo futuro que se acepta al lanzar sin resolver propiedad, supervisión y continuidad. Señales:
+
+- solo una persona sabe cómo funciona
+- depende de una cuenta personal
+- no hay alertas ni registro de errores
+- nadie revisa los resultados
+- no está claro quién puede pararla
+
+El problema no es que se rompa. Es que nadie se entere.
+
+## Checklist antes de lanzar
+
+1. Qué problema resuelve y qué no debe hacer
+2. Quién la mantiene y quién la sustituye
+3. Cómo se sabe que falla
+4. Cuántas horas al mes cuesta
+5. Cómo se apaga sin perder los datos
+
+## Plantilla para tu organización
+
+Para que cualquier persona del equipo pueda pedir una automatización con estas preguntas ya respondidas: la tarea hoy, la cuenta, el riesgo, quién la mantiene y cómo se apaga. Es un Word editable para adaptarlo y compartirlo.
+
+<div className="not-prose my-8">
+  <a href="/plantilla-solicitud-automatizacion.docx" download className="inline-flex items-center gap-2 px-5 py-3 border border-ink/25 text-ink text-sm font-medium hover:border-accent hover:text-accent transition-colors">
+    Descargar plantilla (.docx) ↓
+  </a>
+</div>
+
+Automatizar es fácil. Mantenerlo es el trabajo.
+
+---
+
+### Fuentes
+
+- [Comisión Europea: marco regulatorio de la IA](https://digital-strategy.ec.europa.eu/es/policies/regulatory-framework-ai)
+- [AEPD: Adecuación al RGPD de tratamientos que incorporan IA](https://www.aepd.es/guias/adecuacion-rgpd-ia.pdf)
+- [NIST: AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework)
+- [ISO/IEC 42001](https://www.iso.org/standard/42001)
+
+*Perspectiva personal y divulgativa. No constituye asesoramiento jurídico, de protección de datos ni de seguridad.*

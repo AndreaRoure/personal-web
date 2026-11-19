@@ -1,0 +1,115 @@
+---
+id: "coste-automatizacion"
+title: "The real cost of automating"
+date: "2026-11-15"
+description: "An automation isn't finished when it works, but when someone can maintain it, spot when it fails and switch it off. With a calculator."
+tags: ["automation", "AI", "maintenance", "digital transformation"]
+imagen: "/coste-automatizacion-hine-4.jpg"
+imagenPosicion: "center"
+categoria: "articulos"
+---
+
+An automation isn't finished when it works. It's finished when someone can maintain it, spot when it fails and decide when to switch it off.
+
+The question isn't whether something can be automated, but how much it costs to keep it running.
+
+## The total cost
+
+```text
+total cost = launch + maintenance + errors + exit
+```
+
+| Item        | Includes                                                                 |
+| ----------- | ------------------------------------------------------------------------ |
+| Launch      | design, build, integrations, testing, documentation, training            |
+| Maintenance | licences, APIs, human review, credentials, changes in other tools        |
+| Errors      | detecting, fixing, notifying; worse if it affects people or can't be undone |
+| Exit        | exporting data, migrating, going back to doing it by hand                |
+
+The usual calculation only looks at the savings: *8 times a month × 1 hour = 8 hours saved*. It's correct, and incomplete.
+
+## Example: a grant-tracking agent
+
+An agent that checks public sources every morning, filters calls for funding and sends a summary on Teams, like the one in [this case study](/en/blog/hermes-grants-radar).
+
+| Item                      | Estimate     |
+| ------------------------- | ------------ |
+| Build                     | 6 h          |
+| Testing and documentation | 2 h          |
+| Maintenance               | 1 h/month    |
+| Review                    | 1 h/month    |
+| Model API                 | €5/month     |
+| Savings¹                  | 8 h/month    |
+
+¹ Time the end user, with no technical background, no longer spends checking calls for funding by hand.
+
+After six months:
+
+```text
+savings        48 h
+maintenance   −12 h   (maintenance + review)
+launch         −8 h
+API            −1 h   (€30 at €25/h)
+──────────────────────
+balance       +27 h
+```
+
+It pays back in **month 2**. With AI, building it is the cheap part: what decides whether it's worth it is maintenance. If that rises to 7 h/month because sources change or the filtering fails, it never pays back.
+
+## Calculator
+
+It works in hours and includes review per result, maintenance drift, a pessimistic scenario and the cost of switching it off. It gives you the payback month, the maximum hours you can invest in building it and a recommendation.
+
+<CalculadoraAutomatizacion />
+
+## Four outcomes
+
+| Outcome                   | When                                                             | Examples                                         |
+| ------------------------- | ---------------------------------------------------------------- | ------------------------------------------------ |
+| **Sustainable**           | stable process, cheap and detectable errors, an owner            | copying data, alerts, finding duplicates         |
+| **Viable with an owner**  | worth it, but needs supervision                                  | summaries, spotting calls for funding, drafts    |
+| **Redesign first**        | changing rules, exceptions, messy data                           | reports nobody reads, data entered three times   |
+| **Don't automate yet**    | affects people and errors can't be undone or need judgement      | selecting applicants, assessing vulnerability    |
+
+## Maintenance debt
+
+Future work you accept when you launch without settling ownership, supervision and continuity. Signs:
+
+- only one person knows how it works
+- it depends on a personal account
+- there are no alerts and no error log
+- nobody reviews the results
+- it's unclear who can stop it
+
+The problem isn't that it breaks. It's that nobody notices.
+
+## Checklist before launching
+
+1. What problem it solves and what it must not do
+2. Who maintains it and who covers for them
+3. How you know it has failed
+4. How many hours a month it costs
+5. How to switch it off without losing the data
+
+## Template for your organisation
+
+So anyone on the team can request an automation with these questions already answered: the task today, the numbers, the risk, who maintains it and how it's switched off. It's an editable Word file to adapt and share.
+
+<div className="not-prose my-8">
+  <a href="/automation-request-template.docx" download className="inline-flex items-center gap-2 px-5 py-3 border border-ink/25 text-ink text-sm font-medium hover:border-accent hover:text-accent transition-colors">
+    Download template (.docx) ↓
+  </a>
+</div>
+
+Automating is easy. Maintaining it is the work.
+
+---
+
+### Sources
+
+- [European Commission: AI regulatory framework](https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai)
+- [AEPD (Spanish Data Protection Agency): GDPR compliance of processing that embeds AI (in Spanish)](https://www.aepd.es/guias/adecuacion-rgpd-ia.pdf)
+- [NIST: AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework)
+- [ISO/IEC 42001](https://www.iso.org/standard/42001)
+
+*A personal, informative perspective. Not legal, data protection or security advice.*

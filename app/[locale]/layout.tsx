@@ -83,8 +83,8 @@ export default async function LocaleLayout({
         <NextIntlClientProvider locale={locale}>
           <TopNav />
           <main className="flex-1">{children}</main>
-          <footer className="bg-white text-ink border-t border-[#1A1A17]">
-            <div className="max-w-6xl mx-auto px-6 py-8 flex flex-wrap justify-between items-center gap-4 text-sm">
+          <footer className="bg-white text-ink border-t border-ink/15">
+            <div className="max-w-5xl mx-auto px-6 md:px-10 py-8 flex flex-wrap justify-between items-center gap-4 text-sm">
               <p className="flex items-center gap-2">
                 <HojaRoble tamano={18} color="#7A9201" />
                 <span>{t("copyright")}</span>
@@ -98,7 +98,7 @@ export default async function LocaleLayout({
                 </a>
               </div>
             </div>
-            <div className="max-w-6xl mx-auto px-6 pb-6 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
+            <div className="max-w-5xl mx-auto px-6 md:px-10 pb-6 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
               <Link href="/privacidad" className="underline hover:text-accent transition-colors">
                 {t("privacidad")}
               </Link>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
 import { FaLinkedinIn, FaWhatsapp, FaBluesky, FaLink, FaCheck } from "react-icons/fa6";
 
@@ -16,8 +16,13 @@ export default function CompartirPost({ titulo }: { titulo: string }) {
   // perezoso en vez de un efecto: en el servidor "window" no existe y da "",
   // y en el montaje real del cliente el inicializador vuelve a ejecutarse
   // con el valor correcto ya disponible, sin el render extra de un efecto.
-  const [url] = useState(() =>
-    typeof window === "undefined" ? "" : window.location.href
+  // useSyncExternalStore: en la hidratacion usa el valor del servidor ("")
+  // y justo despues el real, sin el aviso de "hydration mismatch" que daba
+  // el inicializador perezoso.
+  const url = useSyncExternalStore(
+    () => () => {},
+    () => window.location.href,
+    () => ""
   );
   const [copiado, setCopiado] = useState(false);
 

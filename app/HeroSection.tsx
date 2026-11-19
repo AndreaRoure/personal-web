@@ -99,9 +99,10 @@ export interface TextosHero {
   ganasteSubtitulo: string;
   perdisteTitulo: string;
   perdisteSubtitulo: string;
+  subtitulo: string;
 }
 
-export default function HeroSection({ textos }: { textos: TextosHero }) {
+export default function HeroSection({ textos, compacto = false }: { textos: TextosHero; compacto?: boolean }) {
   const canvasRef    = useRef<HTMLCanvasElement>(null);
   const sectionRef   = useRef<HTMLElement>(null);
   const progressRef  = useRef<HTMLSpanElement>(null);
@@ -249,17 +250,6 @@ export default function HeroSection({ textos }: { textos: TextosHero }) {
         ctx.fillStyle = "#FFFFFF";
         ctx.fillRect(0, 0, W, H);
 
-        // Estrellas flotantes
-        const t = g.frame * 0.007;
-        for (const s of stars.current) {
-          const dy = Math.sin(t + s.phase) * 5;
-          const alphaHex = Math.floor(s.alpha * 255).toString(16).padStart(2, "0");
-          ctx.fillStyle = INK + alphaHex;
-          ctx.beginPath();
-          ctx.arc(s.x, s.y + dy, s.r, 0, Math.PI * 2);
-          ctx.fill();
-        }
-
         // Suelo
         ctx.fillStyle = INK;
         ctx.fillRect(0, groundLine, W, 1.5);
@@ -375,8 +365,8 @@ export default function HeroSection({ textos }: { textos: TextosHero }) {
   return (
     <section
       ref={sectionRef}
-      className="hero-grain relative w-full border-b border-[#1A1A17] overflow-hidden"
-      style={{ height: "clamp(420px, 60vh, 660px)" }}
+      className={`relative w-full overflow-hidden ${compacto ? "" : "border-b border-ink/15"}`}
+      style={{ height: compacto ? "clamp(240px, 34vh, 340px)" : "clamp(420px, 60vh, 660px)" }}
     >
       {/* Canvas — ocupa todo */}
       <canvas
@@ -388,8 +378,8 @@ export default function HeroSection({ textos }: { textos: TextosHero }) {
       {/* Overlay HTML — encima del canvas */}
       <div className="absolute inset-0 pointer-events-none">
 
-        {/* Título — zona superior, grande */}
-        <div className="absolute top-[10vh] left-6 md:left-10 right-6 md:right-10">
+        {/* Título — zona superior, grande (no en la version compacta de la 404) */}
+        <div className={`absolute top-[10vh] left-6 md:left-10 right-6 md:right-10 ${compacto ? "hidden" : ""}`}>
           <motion.h1
             className="font-display font-bold leading-[0.95] text-ink"
             style={{ fontSize: "clamp(3rem, 9vw, 9rem)" }}
@@ -416,16 +406,18 @@ export default function HeroSection({ textos }: { textos: TextosHero }) {
           </motion.h1>
         </div>
 
-        {/* Scroll hint — abajo izquierda */}
-        <motion.a
-          href="#sobre-mi"
-          className="absolute bottom-8 left-6 md:bottom-10 md:left-10 font-mono text-xs uppercase tracking-widest text-ink/25 hover:text-ink/60 transition-colors pointer-events-auto"
+        {/* Subtitulo — bajo la linea del suelo; vacio en la 404 */}
+        {textos.subtitulo && (
+        <motion.p
+          className="absolute left-6 md:left-10 right-6 max-w-xl text-sm md:text-base text-ink/70"
+          style={{ top: `calc(${GROUND_RATIO * 100}% + 1.5rem)` }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
         >
-          ↓ {textos.scroll}
-        </motion.a>
+          {textos.subtitulo}
+        </motion.p>
+        )}
 
       </div>
     </section>
